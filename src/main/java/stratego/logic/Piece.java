@@ -13,5 +13,9 @@ public class Piece {
 	public int getValue(){
 		return 1;
 	}
+	
+	public boolean getPlayer(){
+		return true; 
+	}
 
 }
