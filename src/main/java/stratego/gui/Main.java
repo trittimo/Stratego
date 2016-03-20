@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Statego!");
 		
-		GameScreen gs = new GameScreen();
+		WelcomeScreen gs = new WelcomeScreen(f);
 		
 		f.add(gs);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
