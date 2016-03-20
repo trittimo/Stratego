@@ -17,5 +17,13 @@ public class TestPiece {
 		Piece newPiece = new Piece (1, true);
 		assertEquals(newPiece.getPlayer(), true);
 	}
+	
+	@Test
+	public void testGetPieceName(){
+		Piece newPiece = new Piece (1, true);
+		assertEquals(newPiece.getPieceName(), "Marshal");
+		
+		
+	}
 
 }
