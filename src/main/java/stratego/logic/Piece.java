@@ -3,19 +3,19 @@ package stratego.logic;
 public class Piece {
 	
 	private int value;
-	private boolean player1;
+	private int player;
 	
-	public Piece(int value, boolean player1){
+	public Piece(int value, int player){
 		this.value = value;
-		this.player1 = player1;
+		this.player = player;
 	}
 	
 	public int getValue(){
 		return 1;
 	}
 	
-	public boolean getPlayer(){
-		return true; 
+	public int getPlayer(){
+		return 1;
 	}
 	
 	public String getPieceName(){
