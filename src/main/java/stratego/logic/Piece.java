@@ -17,5 +17,9 @@ public class Piece {
 	public boolean getPlayer(){
 		return true; 
 	}
+	
+	public String getPieceName(){
+		return "Marshal";
+	}
 
 }
