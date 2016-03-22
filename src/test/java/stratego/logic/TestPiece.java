@@ -22,8 +22,14 @@ public class TestPiece {
 	public void testGetPieceName(){
 		Piece newPiece = new Piece (1, 1);
 		assertEquals(newPiece.getPieceName(), "Marshal");
-		
-		
+
+	}
+	
+	@Test
+	public void testGetPieceName2(){
+		Piece newPiece = new Piece (1, 3);
+		assertEquals(newPiece.getPieceName(), "Colonel");
+
 	}
 
 }
