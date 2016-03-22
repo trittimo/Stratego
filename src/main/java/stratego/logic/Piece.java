@@ -11,11 +11,11 @@ public class Piece {
 	}
 	
 	public int getValue(){
-		return 1;
+		return this.value;
 	}
 	
 	public int getPlayer(){
-		return 1;
+		return this.player;
 	}
 	
 	public String getPieceName(){
