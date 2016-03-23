@@ -9,12 +9,12 @@ public class Board {
 	}
 	
 	public Piece[][] getPieces(){
-		return pieces;
+		return this.pieces;
 	}
 
 	public void placePiece(int r, int c, Piece p) {
 		// TODO Auto-generated method stub
-		pieces[0][0] = new Piece (10, 0);
+		this.pieces[r][c] = p;
 	}
 	
 }

@@ -1,6 +1,7 @@
 package stratego.logic;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -27,15 +28,12 @@ public class TestBoard {
 	@Test
 	public void testPlacePiece2() {
 		Piece[][] pieces = new Piece[3][3];
-		Piece[][] piecestest = new Piece[3][3];
 		Board b = new Board(pieces);
 		Piece p = new Piece(10, 0);
 		b.placePiece(0, 0, p);
-		piecestest[0][0] = new Piece(10, 0);
-		assertArrayEquals(b.getPieces(), piecestest);
+		assertEquals(b.getPieces()[0][0].getValue(),p.getValue());
 		Piece p2 = new Piece(5, 1);
 		b.placePiece(0, 1, p2);
-		piecestest[0][1] = new Piece(5, 1);
-		assertArrayEquals(b.getPieces(), piecestest);
+		assertEquals(b.getPieces()[0][1].getValue(), p2.getValue());
 	}
 }
