@@ -27,7 +27,7 @@ public class TestPiece {
 	
 	@Test
 	public void testGetPieceName2(){
-		Piece newPiece = new Piece (1, 3);
+		Piece newPiece = new Piece (3, 1);
 		assertEquals(newPiece.getPieceName(), "Colonel");
 
 	}

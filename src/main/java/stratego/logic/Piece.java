@@ -1,7 +1,11 @@
 package stratego.logic;
 
+
 public class Piece {
 	
+	private String[] PieceNames = {"Marshal", "General",
+			"Colonel", "Major", "Captain", "Lieutenant", 
+			"Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag"};
 	private int value;
 	private int player;
 	
@@ -19,7 +23,8 @@ public class Piece {
 	}
 	
 	public String getPieceName(){
-		return "Marshal";
+		return PieceNames[this.getValue()-1];
 	}
+	
 
 }
