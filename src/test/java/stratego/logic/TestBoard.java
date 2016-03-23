@@ -36,4 +36,18 @@ public class TestBoard {
 		b.placePiece(0, 1, p2);
 		assertEquals(b.getPieces()[0][1].getValue(), p2.getValue());
 	}
+	
+	@Test
+	public void testMove(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		Piece p = new Piece(10, 0);
+		b.placePiece(0, 0, p);
+		assertEquals(b.getPieces()[0][0].getValue(),p.getValue());
+		
+		b.move(0, 0, 2, 2);
+		assertEquals(b.getPieces()[2][2].getValue(), p.getValue());
+		
+		
+	}
 }
