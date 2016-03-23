@@ -1,14 +1,14 @@
 package stratego.gui;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 public class MainPanel {
-	  JPanel mainPanel = new JPanel();
-	  mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+	
+	JFrame frame;
+	
+	public MainPanel(JFrame f) {
+		this.frame = f;
+	}
+	
 
-	  JPanel paintPanel = new JPanel();
-	  JPanel textPanel = new JPanel();
-
-	  mainPanel.add(paintPanel);
-	  mainPanel.add(textPanel);
 }

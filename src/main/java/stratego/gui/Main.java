@@ -13,9 +13,9 @@ public class Main {
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Statego!");
 		
-		WelcomeScreen gs = new WelcomeScreen(f);
+		MainPanel mp = new MainPanel(f);
 		
-		f.add(gs);
+//		f.add(mp);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		f.setVisible(true);
