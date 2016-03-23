@@ -19,8 +19,8 @@ public class Board {
 
 	public void movePiece(int r1, int c1, int r2, int c2) {
 		// TODO Auto-generated method stub
-		this.pieces[2][2] = new Piece(10, 0);
-		this.pieces[1][1] = new Piece(10, 0);
+		this.pieces[r2][c2] = this.pieces[r1][c1];
+		this.pieces[r1][c1] = null;
 	}
 	
 }
