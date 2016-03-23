@@ -16,5 +16,10 @@ public class Board {
 		// TODO Auto-generated method stub
 		this.pieces[r][c] = p;
 	}
+
+	public void movePiece(int r1, int c1, int r2, int c2) {
+		// TODO Auto-generated method stub
+		this.pieces[2][2] = new Piece(10, 0);
+	}
 	
 }
