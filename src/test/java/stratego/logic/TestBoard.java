@@ -38,7 +38,7 @@ public class TestBoard {
 	}
 	
 	@Test
-	public void testMove(){
+	public void testMove1(){
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
 		Piece p = new Piece(10, 0);
@@ -48,6 +48,18 @@ public class TestBoard {
 		b.movePiece(0, 0, 2, 2);
 		assertEquals(b.getPieces()[2][2].getValue(), p.getValue());
 		
+	}
+	
+	@Test
+	public void testMove2(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		Piece p = new Piece(10, 0);
+		b.placePiece(0, 0, p);
+		assertEquals(b.getPieces()[0][0].getValue(),p.getValue());
+		
+		b.movePiece(0, 0, 1, 1);
+		assertEquals(b.getPieces()[1][1].getValue(), p.getValue());
 		
 	}
 }
