@@ -25,7 +25,7 @@ public class Board {
 		this.pieces[r][c] = null;
 	}
 
-	public boolean isOccupied() {
+	public boolean isOccupied(int r, int c) {
 		// TODO Auto-generated method stub
 		return false;
 	}

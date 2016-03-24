@@ -86,10 +86,21 @@ public class TestBoard {
 	}
 	
 	@Test
-	public void testIsOccupied(){
+	public void testIsOccupied1(){
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
 		
-		assertEquals(b.isOccupied(), false);
+		assertEquals(b.isOccupied(0, 0), false);
+	}
+	
+	@Test
+	public void testIsOccupied2(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		
+		Piece p = new Piece(10, 0);
+		b.placePiece(0, 0, p);
+		
+		assertEquals(b.isOccupied(0, 0), true);
 	}
 }
