@@ -1,6 +1,6 @@
 package stratego.logic;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -31,5 +31,13 @@ public class TestPiece {
 		assertEquals(newPiece.getPieceName(), "Colonel");
 
 	}
-
+	
+	@Test
+	public void testInvalidPieceValue() {
+		try {
+			Piece newPiece = new Piece (-1, 1);
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidPieceValue);
+		}
+	}
 }
