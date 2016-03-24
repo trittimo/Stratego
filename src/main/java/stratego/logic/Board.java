@@ -16,6 +16,13 @@ public class Board {
 		return this.pieces;
 	}
 
+	/**
+	 * Place a piece on the board at position (x, y)
+	 * 
+	 * @param x
+	 * @param y
+	 * @param p
+	 */
 	public void placePiece(int x, int y, Piece p) {
 		if (x < 0 || y < 0 || x > pieces.length || y > pieces[0].length) {
 			throw new InvalidPlacement(p, this, x, y,
@@ -27,6 +34,14 @@ public class Board {
 		this.pieces[x][y] = p;
 	}
 
+	/**
+	 * Move a piece at location (x1, y1) to (x2, y2)
+	 * 
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 */
 	public void movePiece(int x1, int y1, int x2, int y2) {
 		if (this.pieces[x1][y1] == null) {
 			throw new InvalidMovement("non-existant", x1, y1, x2, y2);
@@ -40,6 +55,16 @@ public class Board {
 		this.pieces[x1][y1] = null;
 	}
 
+	/**
+	 * Check if a piece is allowed to move from (x1, y1) to (x2, y2): only does
+	 * distance and directional testing
+	 * 
+	 * @param x1
+	 * @param x2
+	 * @param y1
+	 * @param y2
+	 * @return true if a piece can move from (x1, y1) to (x2, y2)
+	 */
 	public boolean isValidMoveDirection(int x1, int x2, int y1, int y2) {
 		Piece piece = this.pieces[x1][y1];
 		if (x1 != x2 && y1 != y2) {
@@ -50,6 +75,12 @@ public class Board {
 		return true;
 	}
 
+	/**
+	 * Removes the piece at (x, y)
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void removePiece(int x, int y) {
 		if (this.pieces[x][y] == null) {
 			throw new InvalidAction(
@@ -58,6 +89,13 @@ public class Board {
 		this.pieces[x][y] = null;
 	}
 
+	/**
+	 * Checks if there is a piece at (x, y)
+	 * 
+	 * @param x
+	 * @param y
+	 * @return true if there is a piece at (x, y)
+	 */
 	public boolean isOccupied(int x, int y) {
 		if (this.pieces[x][y] == null) {
 			return false;
@@ -66,6 +104,9 @@ public class Board {
 		}
 	}
 
+	/**
+	 * @return the total number of pieces on the board
+	 */
 	public int pieceCount() {
 		int count = 0;
 		for (int i = 0; i < this.pieces.length; i++) {
