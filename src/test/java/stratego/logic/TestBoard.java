@@ -77,7 +77,7 @@ public class TestBoard {
 		Board b = new Board(pieces);
 		b.placePiece(1, 1, new Piece(1, 1));
 		try {
-			b.movePiece(1, 1, 1, 5);
+			b.movePiece(1, 1, 1, 4);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidMovement);
 		}
@@ -121,8 +121,8 @@ public class TestBoard {
 		b.placePiece(0, 0, p);
 		assertEquals(b.getPieces()[0][0].getValue(), p.getValue());
 
-		b.movePiece(0, 0, 2, 2);
-		assertEquals(b.getPieces()[2][2].getValue(), p.getValue());
+		b.movePiece(0, 0, 1, 0);
+		assertEquals(b.getPieces()[1][0].getValue(), p.getValue());
 
 	}
 
@@ -130,12 +130,12 @@ public class TestBoard {
 	public void testMove2() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(10, 1);
+		Piece p = new Piece(9, 1);
 		b.placePiece(0, 0, p);
 		assertEquals(b.getPieces()[0][0].getValue(), p.getValue());
 
-		b.movePiece(0, 0, 1, 1);
-		assertEquals(b.getPieces()[1][1].getValue(), p.getValue());
+		b.movePiece(0, 0, 2, 0);
+		assertEquals(b.getPieces()[2][0].getValue(), p.getValue());
 
 	}
 

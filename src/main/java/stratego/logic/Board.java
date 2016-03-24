@@ -32,9 +32,22 @@ public class Board {
 			throw new InvalidMovement("non-existant", x1, y1, x2, y2);
 		} else if (this.pieces[x2][y2] != null) {
 			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
+		} else if (!isValidMoveDirection(x1, x2, y1, y2)) {
+			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
 		}
+
 		this.pieces[x2][y2] = this.pieces[x1][y1];
 		this.pieces[x1][y1] = null;
+	}
+
+	public boolean isValidMoveDirection(int x1, int x2, int y1, int y2) {
+		Piece piece = this.pieces[x1][y1];
+		if (x1 != x2 && y1 != y2) {
+			return false;
+		} else if (piece.getValue() != 9 && Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) > 1) {
+			return false;
+		}
+		return true;
 	}
 
 	public void removePiece(int x, int y) {
