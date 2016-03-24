@@ -8,8 +8,8 @@ import stratego.logic.exceptions.InvalidPlayer;
  */
 public class Piece {
 
-	private String[] pieceNames = { "Marshal", "General", "Colonel", "Major", "Captain", "Lieutenant", "Sergeant",
-			"Miner", "Scout", "Spy", "Bomb", "Flag" };
+	private static String[] pieceNames = { "Marshal", "General", "Colonel", "Major", "Captain", "Lieutenant",
+			"Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag" };
 
 	private int pieceValue;
 	private int player;

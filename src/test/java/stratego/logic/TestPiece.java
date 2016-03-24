@@ -8,6 +8,7 @@ import org.junit.Test;
 import stratego.logic.exceptions.InvalidPieceValue;
 import stratego.logic.exceptions.InvalidPlayer;
 
+@SuppressWarnings("unused")
 public class TestPiece {
 
 	@Test
