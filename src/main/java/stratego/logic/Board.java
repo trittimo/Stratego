@@ -32,5 +32,9 @@ public class Board {
 			return true;
 		}
 	}
+
+	public int pieceCount() {
+		return 0;
+	}
 	
 }
