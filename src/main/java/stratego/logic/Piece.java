@@ -1,6 +1,7 @@
 package stratego.logic;
 
 import stratego.logic.exceptions.InvalidPieceValue;
+import stratego.logic.exceptions.InvalidPlayer;
 
 /**
  * This class contains the information about pieces that are placed on the board
@@ -13,9 +14,12 @@ public class Piece {
 	private int pieceValue;
 	private int player;
 
-	public Piece(int value, int player) throws InvalidPieceValue {
+	public Piece(int value, int player) {
 		if (value < 1 || value > pieceNames.length) {
 			throw new InvalidPieceValue(value);
+		}
+		if (player < 1 || player > 2) {
+			throw new InvalidPlayer(player);
 		}
 		this.pieceValue = value;
 		this.player = player;
