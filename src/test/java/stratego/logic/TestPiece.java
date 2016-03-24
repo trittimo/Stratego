@@ -43,4 +43,13 @@ public class TestPiece {
 			assertTrue(e instanceof InvalidPieceValue);
 		}
 	}
+
+	@Test
+	public void testInvalidPlayer() {
+		try {
+			Piece newPiece = new Piece(1, -1);
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidPlayer);
+		}
+	}
 }
