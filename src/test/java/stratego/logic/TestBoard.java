@@ -47,6 +47,17 @@ public class TestBoard {
 	}
 
 	@Test
+	public void testMoveNonExistantPiece() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		try {
+			b.movePiece(1, 1, 2, 2);
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidAction);
+		}
+	}
+
+	@Test
 	public void testGetPieces() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
