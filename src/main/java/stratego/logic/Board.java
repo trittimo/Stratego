@@ -12,21 +12,21 @@ public class Board {
 		return this.pieces;
 	}
 
-	public void placePiece(int r, int c, Piece p) {
-		this.pieces[r][c] = p;
+	public void placePiece(int x, int y, Piece p) {
+		this.pieces[x][y] = p;
 	}
 
-	public void movePiece(int r1, int c1, int r2, int c2) {
-		this.pieces[r2][c2] = this.pieces[r1][c1];
-		this.pieces[r1][c1] = null;
+	public void movePiece(int x1, int y1, int x2, int y2) {
+		this.pieces[x2][y2] = this.pieces[x1][y1];
+		this.pieces[x1][y1] = null;
 	}
 
-	public void removePiece(int r, int c) {
-		this.pieces[r][c] = null;
+	public void removePiece(int x, int y) {
+		this.pieces[x][y] = null;
 	}
 
-	public boolean isOccupied(int r, int c) {
-		if(this.pieces[r][c] == null){
+	public boolean isOccupied(int x, int y) {
+		if(this.pieces[x][y] == null){
 			return false;
 		}else{
 			return true;
