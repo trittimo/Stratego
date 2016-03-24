@@ -26,7 +26,7 @@ public class Board {
 	}
 
 	public boolean isOccupied(int r, int c) {
-		if(this.pieces[0][0] == null){
+		if(this.pieces[r][c] == null){
 			return false;
 		}else{
 			return true;
