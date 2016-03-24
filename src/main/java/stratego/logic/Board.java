@@ -1,6 +1,7 @@
 package stratego.logic;
 
 import stratego.logic.exceptions.InvalidAction;
+import stratego.logic.exceptions.InvalidMovement;
 import stratego.logic.exceptions.InvalidPlacement;
 
 public class Board {
@@ -17,16 +18,20 @@ public class Board {
 
 	public void placePiece(int x, int y, Piece p) {
 		if (x < 0 || y < 0 || x > pieces.length || y > pieces[0].length) {
-			throw new InvalidPlacement(p, this, x, y, "Attempt to place piece outside of the board");
+			throw new InvalidPlacement(p, this, x, y,
+					"Attempt to place piece outside of the board");
 		} else if (isOccupied(x, y)) {
-			throw new InvalidPlacement(p, this, x, y, "Attempt to place piece in an already occupied location");
+			throw new InvalidPlacement(p, this, x, y,
+					"Attempt to place piece in an already occupied location");
 		}
 		this.pieces[x][y] = p;
 	}
 
 	public void movePiece(int x1, int y1, int x2, int y2) {
 		if (this.pieces[x1][y1] == null) {
-			throw new InvalidAction("Cannot move piece at (" + x1 + ", " + y1 + "): piece does not exist");
+			throw new InvalidMovement("non-existant", x1, y1, x2, y2);
+		} else if (this.pieces[x2][y2] != null) {
+			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
 		}
 		this.pieces[x2][y2] = this.pieces[x1][y1];
 		this.pieces[x1][y1] = null;
@@ -34,7 +39,8 @@ public class Board {
 
 	public void removePiece(int x, int y) {
 		if (this.pieces[x][y] == null) {
-			throw new InvalidAction("Cannot remove piece at (" + x + ", " + y + "): piece does not exist");
+			throw new InvalidAction(
+					"Cannot remove piece at (" + x + ", " + y + "): piece does not exist");
 		}
 		this.pieces[x][y] = null;
 	}
