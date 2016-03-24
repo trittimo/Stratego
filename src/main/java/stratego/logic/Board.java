@@ -22,5 +22,10 @@ public class Board {
 		this.pieces[r2][c2] = this.pieces[r1][c1];
 		this.pieces[r1][c1] = null;
 	}
+
+	public void removePiece(int r, int c) {
+		// TODO Auto-generated method stub
+		this.pieces[0][0] = null;
+	}
 	
 }

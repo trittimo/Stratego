@@ -71,7 +71,7 @@ public class TestBoard {
 		b.placePiece(0, 0, p);
 		b.removePiece(0, 0);
 		
-		assertEquals(b.getPieces()[0][0].getValue(), null);
+		assertEquals(b.getPieces()[0][0], null);
 		
 	}
 }
