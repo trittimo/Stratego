@@ -84,4 +84,12 @@ public class TestBoard {
 		
 		assertEquals(b.getPieces()[1][0], null);
 	}
+	
+	@Test
+	public void testIsOccupied(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		
+		assertFalse(b.isOccupied());
+	}
 }
