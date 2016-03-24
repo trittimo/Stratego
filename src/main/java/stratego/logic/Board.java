@@ -25,6 +25,9 @@ public class Board {
 	}
 
 	public void movePiece(int x1, int y1, int x2, int y2) {
+		if (this.pieces[x1][y1] == null) {
+			throw new InvalidAction("Cannot move piece at (" + x1 + ", " + y1 + "): piece does not exist");
+		}
 		this.pieces[x2][y2] = this.pieces[x1][y1];
 		this.pieces[x1][y1] = null;
 	}
