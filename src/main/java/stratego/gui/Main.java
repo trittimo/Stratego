@@ -8,21 +8,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+public class Main extends JPanel implements ActionListener {
 
-public class Main extends JPanel implements ActionListener{
-	 
 	final static int WINDOW_WIDTH = 800;
 	final static int WINDOW_HEIGHT = 800;
 	Timer timer;
-	
-	/**
-	 * 
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Statego!");
-		
-		
+
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		f.setVisible(true);
@@ -30,25 +24,24 @@ public class Main extends JPanel implements ActionListener{
 		Main main = new Main();
 		f.add(main);
 		main.timer.start();
-		
-	}
-	
-	public Main() {
-		this.timer = new Timer(20,this);
+
 	}
 
+	public Main() {
+		this.timer = new Timer(20, this);
+	}
+
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		BoardScreen board = new BoardScreen(g);
 		PieceDisplayingScreen pieces = new PieceDisplayingScreen(g);
 		MessageScreen msg = new MessageScreen(g);
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.repaint();
 	}
-	
-	
 
 }
