@@ -103,4 +103,12 @@ public class TestBoard {
 		
 		assertEquals(b.isOccupied(0, 0), true);
 	}
+	
+	@Test
+	public void testPieceCount(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		
+		assertEquals(b.pieceCount(), 0);
+	}
 }
