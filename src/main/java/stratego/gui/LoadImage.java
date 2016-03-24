@@ -26,7 +26,7 @@ public class LoadImage {
 		    g.drawImage(bImg, x, y, width, height, null);
 		}catch(IOException e){
 			e.printStackTrace();
-			
+			System.out.println("error");
 		}
 	}
 	

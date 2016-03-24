@@ -8,13 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import sun.awt.RepaintArea;
-
 
 public class Main extends JPanel implements ActionListener{
 	 
 	final static int WINDOW_WIDTH = 800;
 	final static int WINDOW_HEIGHT = 800;
+	Timer timer;
 	
 	/**
 	 * 
@@ -23,33 +22,31 @@ public class Main extends JPanel implements ActionListener{
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Statego!");
 		
-		MessagePanel mp = new MessagePanel();
-		f.add(mp.get());
-		BoardPanel bp = new BoardPanel();
-		f.add(bp.get());
-		PieceDisplayingBoard pp = new PieceDisplayingBoard();
-		f.add(pp.get());
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		f.setVisible(true);
+
+		Main main = new Main();
+		f.add(main);
+		main.timer.start();
 		
 	}
 	
 	public Main() {
-		Timer timer = new Timer(20,this);
-		timer.start();
+		this.timer = new Timer(20,this);
 	}
 
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		BoardScreen board = new BoardScreen(g);
+		PieceDisplayingScreen pieces = new PieceDisplayingScreen(g);
+		MessageScreen msg = new MessageScreen(g);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		repaint();
-		
-	}
-	public void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-		LoadImage image = new LoadImage();
-		image.draw(g, "map", 300, 0, 500, 500);
+		this.repaint();
 	}
 	
 	
