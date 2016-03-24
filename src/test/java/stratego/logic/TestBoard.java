@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import stratego.logic.exceptions.InvalidPlacement;
+
 public class TestBoard {
 
 	@Test
@@ -14,6 +16,18 @@ public class TestBoard {
 		Board b = new Board(pieces);
 		try {
 			b.placePiece(4, 4, new Piece(3, 1));
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidPlacement);
+		}
+	}
+
+	@Test
+	public void testPlacementOnPiece() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		b.placePiece(2, 2, new Piece(3, 1));
+		try {
+			b.placePiece(2, 2, new Piece(4, 1));
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidPlacement);
 		}
