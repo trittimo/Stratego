@@ -24,5 +24,10 @@ public class Board {
 	public void removePiece(int r, int c) {
 		this.pieces[r][c] = null;
 	}
+
+	public boolean isOccupied() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
