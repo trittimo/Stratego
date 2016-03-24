@@ -1,5 +1,6 @@
 package stratego.logic;
 
+import stratego.logic.exceptions.InvalidAction;
 import stratego.logic.exceptions.InvalidPlacement;
 
 public class Board {
@@ -29,6 +30,9 @@ public class Board {
 	}
 
 	public void removePiece(int x, int y) {
+		if (this.pieces[x][y] == null) {
+			throw new InvalidAction("Cannot remove piece at (" + x + ", " + y + "): piece does not exist");
+		}
 		this.pieces[x][y] = null;
 	}
 
