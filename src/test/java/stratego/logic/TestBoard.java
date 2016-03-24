@@ -64,7 +64,7 @@ public class TestBoard {
 	}
 	
 	@Test
-	public void testRemove(){
+	public void testRemove1(){
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
 		Piece p = new Piece(10, 0);
@@ -72,6 +72,16 @@ public class TestBoard {
 		b.removePiece(0, 0);
 		
 		assertEquals(b.getPieces()[0][0], null);
+	}
+	
+	@Test
+	public void testRemove2(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		Piece p = new Piece(10, 0);
+		b.placePiece(1, 0, p);
+		b.removePiece(1, 0);
 		
+		assertEquals(b.getPieces()[1][0], null);
 	}
 }
