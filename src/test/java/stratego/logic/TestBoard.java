@@ -110,5 +110,10 @@ public class TestBoard {
 		Board b = new Board(pieces);
 		
 		assertEquals(b.pieceCount(), 0);
+		
+		Piece p = new Piece(10, 0);
+		b.placePiece(0, 0, p);
+		
+		assertEquals(b.pieceCount(), 1);
 	}
 }
