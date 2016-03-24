@@ -72,6 +72,18 @@ public class TestBoard {
 	}
 
 	@Test
+	public void testMoveTooFar() {
+		Piece[][] pieces = new Piece[5][5];
+		Board b = new Board(pieces);
+		b.placePiece(1, 1, new Piece(1, 1));
+		try {
+			b.movePiece(1, 1, 1, 5);
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidMovement);
+		}
+	}
+
+	@Test
 	public void testGetPieces() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
