@@ -26,8 +26,11 @@ public class Board {
 	}
 
 	public boolean isOccupied(int r, int c) {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.pieces[0][0] == null){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 }
