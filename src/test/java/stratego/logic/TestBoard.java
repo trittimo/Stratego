@@ -53,7 +53,20 @@ public class TestBoard {
 		try {
 			b.movePiece(1, 1, 2, 2);
 		} catch (Exception e) {
-			assertTrue(e instanceof InvalidAction);
+			assertTrue(e instanceof InvalidMovement);
+		}
+	}
+
+	@Test
+	public void testMoveOverPiece() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		b.placePiece(1, 1, new Piece(3, 1));
+		b.placePiece(2, 2, new Piece(3, 2));
+		try {
+			b.movePiece(1, 1, 2, 2);
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidMovement);
 		}
 	}
 
