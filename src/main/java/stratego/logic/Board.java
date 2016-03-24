@@ -34,7 +34,15 @@ public class Board {
 	}
 
 	public int pieceCount() {
-		return 0;
+		int count = 0;
+		for(int i = 0; i < this.pieces.length; i++){
+			for(int j = 0; j < this.pieces[0].length; j++){
+				if(this.pieces[i][j] != null){
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 	
 }
