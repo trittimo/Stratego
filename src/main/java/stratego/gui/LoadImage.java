@@ -22,7 +22,7 @@ public class LoadImage {
 	public void draw(Graphics g, String name, int x, int y, int width, int height) {
 		BufferedImage bImg = null;
 		try{
-			bImg = ImageIO.read(new File("pictures" +File.separator+ name + ".png"));
+			bImg = ImageIO.read(new File("images" +File.separator+ name + ".png"));
 		    g.drawImage(bImg, x, y, width, height, null);
 		}catch(IOException e){
 			e.printStackTrace();
