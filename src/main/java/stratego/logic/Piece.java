@@ -8,8 +8,8 @@ import stratego.logic.exceptions.InvalidPlayer;
  */
 public class Piece {
 
-	private static String[] pieceNames = { "Marshal", "General", "Colonel", "Major", "Captain", "Lieutenant",
-			"Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag" };
+	private static String[] pieceNames = { "Marshal", "General", "Colonel", "Major", "Captain",
+			"Lieutenant", "Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag" };
 
 	private int pieceValue;
 	private int player;
@@ -44,6 +44,13 @@ public class Piece {
 	 */
 	public String getPieceName() {
 		return pieceNames[this.getValue() - 1];
+	}
+
+	/**
+	 * @return the rank of the piece, in the range [1, 10]
+	 */
+	public int getRank() {
+		return 11 - this.getValue();
 	}
 
 }

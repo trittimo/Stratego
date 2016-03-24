@@ -38,6 +38,12 @@ public class TestPiece {
 	}
 
 	@Test
+	public void testGetPieceRank() {
+		Piece newPiece = new Piece(1, 1);
+		assertEquals(newPiece.getRank(), 10);
+	}
+
+	@Test
 	public void testInvalidPieceValue() {
 		try {
 			Piece newPiece = new Piece(-1, 1);
