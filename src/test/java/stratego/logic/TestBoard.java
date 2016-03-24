@@ -62,4 +62,16 @@ public class TestBoard {
 		assertEquals(b.getPieces()[1][1].getValue(), p.getValue());
 		
 	}
+	
+	@Test
+	public void testRemove(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		Piece p = new Piece(10, 0);
+		b.placePiece(0, 0, p);
+		b.removePiece(0, 0);
+		
+		assertEquals(b.getPieces()[0][0].getValue(), null);
+		
+	}
 }
