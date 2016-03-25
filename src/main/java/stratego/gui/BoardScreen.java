@@ -14,14 +14,14 @@ import java.awt.Point;
  */
 public class BoardScreen{
 	
-	private final int BOARD_WIDTH = 500;
-	private final int BOARD_HEIGHT = 500;
+	private final int BOARD_WIDTH = 600;
+	private final int BOARD_HEIGHT = 600;
 	private static final Point locatePt = new Point(0,0);
 	LoadImage image;
 	
 	public BoardScreen(Graphics g){
 		g.setColor(Color.red);
-		g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+		g.fillRect(locatePt.x,locatePt.y, BOARD_WIDTH, BOARD_HEIGHT);
 		image=new LoadImage();
 		image.draw(g, "map", 0, 0, BOARD_WIDTH, BOARD_HEIGHT);
 		

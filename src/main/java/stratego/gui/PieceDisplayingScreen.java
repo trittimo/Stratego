@@ -11,14 +11,14 @@ import java.awt.Point;
  *
  */
 public class PieceDisplayingScreen {
-	private static final int PIECE_BOARD_WIDTH = 300;
-	private static final int PIECE_BOARD_HEIGHT = 500;
-	private static final Point locatePt = new Point(300,0);
+	private static final int PIECE_BOARD_WIDTH = 200;
+	private static final int PIECE_BOARD_HEIGHT = 600;
+	private static final Point locatePt = new Point(600,0);
 	
 	
 	public PieceDisplayingScreen(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect(300,0,PIECE_BOARD_WIDTH,PIECE_BOARD_HEIGHT);
+		g.fillRect(locatePt.x,locatePt.y,PIECE_BOARD_WIDTH,PIECE_BOARD_HEIGHT);
 	}
 	
 }
