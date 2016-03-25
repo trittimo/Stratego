@@ -16,3 +16,10 @@ Please see the **build.gradle** and **.gitlab-ci.yml** for more detials.
 The project was setup using Eclipse (Mars 1 - Java Developer). It can be downloaded from the [On-Campus AFS Server](http://www.rose-hulman.edu/class/csse/binaries/Eclipse/mars/). You will also need to install Gradle plugin from [Eclipse Marketplace](https://marketplace.eclipse.org/content/gradle-integration-eclipse-0). After that, the project can be built within Eclipse IDE.
 
 To build the project in Eclipse, right-click on the project -> Run As -> Gradle Build ... -> Under Gradle task box, enter **build** -> Apply -> Run. Your build should start. Note that you must **install JDK 8 (not JRE)** for all of these to work. 
+
+
+Milestone 2 Progress
+
+Stefan Brand: I worked in the software engineer role and helped implement the Board and Piece classes.  I used TTD while developing these classes and the control logic of the application.
+I spent the majority of the time on this milestone pair programming with Vibha but also spent time finishing up the Board class on my own.
+I added some more detail to some of the Javadocs in the Board class.
