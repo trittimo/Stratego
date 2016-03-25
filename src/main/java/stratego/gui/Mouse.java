@@ -10,6 +10,9 @@ public class Mouse implements MouseListener{
 	public Mouse(Main main){
 		this.main = main;
 	}
+	/**
+	 * Move the piece
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		for(int i = 0; i < 10; i++){
@@ -26,26 +29,22 @@ public class Mouse implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		//do nothing
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		//do nothing
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		//do nothing
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		//do nothing
 	}
 	
 

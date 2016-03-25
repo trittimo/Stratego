@@ -8,51 +8,73 @@ public class GameComponent {
 	int tile;
 	String sign;
 	
+	/**
+	 * GameComponent Constructor
+	 * @param tile
+	 * @param sign
+	 */
 	public GameComponent(int tile, String sign){
 		this.piece = new LoadImage();
 		this.tile = tile;
 		this.sign = sign;
 	}
 	
+	/**
+	 * Draw the piece
+	 * 
+	 * @param g
+	 */
 	public void draw(Graphics g) {
-		piece.draw(g, this.pickPiece(sign), 10+60*tile/10, 60*(tile%10), 60, 60);
+		piece.draw(g, this.pickPiece(sign), 10+57*tile/10, 57*(tile%10), 60, 60);
 	}
 	
+	/**
+	 * Get the tile
+	 * @return
+	 */
 	public int getTile(){
 		return this.tile;
 	}
 	
+	/**
+	 * 
+	 * @param tile
+	 */
 	public void setTile(int tile){
 		this.tile = tile;
 	}
 	
+	/**
+	 * 
+	 * @param sign
+	 * @return
+	 */
 	public String pickPiece(String sign){
-//		sign = "0";
 		switch(sign){
 		case "1":
 			return "spy";
 		case "2":
-			return PATH+"/scout";
+			return "scout";
 		case "3":
-			return PATH+"/minor";
+			return "miner";
 		case "4":
-			return PATH+"/sergent";
+			return "sergent";
 		case "5":
-			return PATH+"/lieutenant";
+			return "lieutenant";
 		case "6":
-			return PATH+"/captain";
+			return "captain";
 		case "7":
-			return PATH+"/major";
+			return "major";
 		case "8":
-			return PATH+"/colonel";
+			return "colonel";
 		case "9":
-			return PATH+"/general";
+			return "general";
 		case "0":
-			return PATH+"/marshall";
+			return "marshall";
 		case "B":
-			return PATH+"/bomb";
+			return "bomb";
 		case "F":
-			return PATH+"/flag";
+			return "flag";
 		}
 		return sign;
 	}
