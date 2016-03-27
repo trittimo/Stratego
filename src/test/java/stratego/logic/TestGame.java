@@ -124,6 +124,8 @@ public class TestGame {
 		assertEquals(p1.getValue(), p3.getValue());
 	}
 	
+
+	
 	
 
 }
