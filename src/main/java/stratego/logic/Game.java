@@ -1,10 +1,21 @@
 package stratego.logic;
 
 public class Game {
+	
+	private Board gameBoard; 
+	
+	
+	public Game (Board b){
+		this.gameBoard = b; 
+		
+		
+		
+	}
+	
 
 	public Board getBoard() {
 		// TODO Auto-generated method stub
-		return new Board(new Piece[10][10]);
+		return this.gameBoard;
 	}
 	
 }

@@ -8,8 +8,10 @@ public class TestGame {
 
 	@Test
 	public void testBoardEmpty() {
-		Game g = new Game();
-		Board b1 = g.getBoard();
+		
+		Piece[][] p1 = new Piece[10][10];
+		Board b1 = new Board(p1);
+		Game g = new Game(b1);
 		
 		Piece[][] p = new Piece[10][10];
 		Board b2 = new Board(p);
@@ -19,18 +21,20 @@ public class TestGame {
 	
 	@Test
 	public void addPieceToBoardTest() {
-		Game g = new Game();
-		Board b1 = g.getBoard();
+		
+		Piece[][] p1 = new Piece[10][10];
+		Board b1 = new Board(p1);
+		Game g = new Game(b1);
 		
 		Piece[][] p = new Piece[10][10];
 		Board b2 = new Board(p);
 		
 		assertEquals(b1.pieceCount(), b2.pieceCount());
 		
-		Piece p1 = new Piece (1, 1);
-		b1.placePiece(3, 0, p1);
+		Piece p2 = new Piece (1, 1);
+		b1.placePiece(3, 0, p2);
 		
-		b2.placePiece(3, 0, p1);
+		b2.placePiece(3, 0, p2);
 		
 		assertEquals(g.getBoard().pieceCount(), b2.pieceCount());
 		
