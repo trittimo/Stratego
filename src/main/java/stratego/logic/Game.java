@@ -17,5 +17,11 @@ public class Game {
 		// TODO Auto-generated method stub
 		return this.gameBoard;
 	}
+
+
+	public int whoseTurn() {
+		// TODO Auto-generated method stub.
+		return 1;
+	}
 	
 }
