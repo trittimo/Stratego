@@ -77,6 +77,15 @@ public class TestGame {
 		g.switchTurns();
 		assertEquals(g.whoseTurn(), 1);
 		
+		g.switchTurns();
+		g.switchTurns();
+		g.switchTurns();
+		g.switchTurns();
+		g.switchTurns();
+		g.switchTurns();
+		g.switchTurns();
+		
+		assertEquals(g.whoseTurn(), 2);
 		
 	}
 	
