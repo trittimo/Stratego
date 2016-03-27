@@ -24,5 +24,11 @@ public class Game {
 		// TODO Auto-generated method stub.
 		return this.whoseTurn;
 	}
+
+
+	public void switchTurns() {
+		// TODO Auto-generated method stub
+		this.whoseTurn = 2;
+	}
 	
 }
