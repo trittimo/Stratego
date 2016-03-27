@@ -49,7 +49,19 @@ public class TestGame {
 		
 	}
 	
-
+	@Test
+	public void switchTurnsTest(){
+		Piece[][] p1 = new Piece[10][10];
+		Board b1 = new Board(p1);
+		Game g = new Game(b1);
+		
+		assertEquals(g.whoseTurn(), 1);
+		
+		g.switchTurns();
+		
+		assertEquals(g.whoseTurn(), 2);
+		
+	}
 	
 
 }
