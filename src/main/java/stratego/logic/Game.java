@@ -28,7 +28,10 @@ public class Game {
 
 	public void switchTurns() {
 		// TODO Auto-generated method stub
-		this.whoseTurn = 2;
+		if (whoseTurn == 1)
+			this.whoseTurn = 2;
+		else
+			this.whoseTurn = 1;
 	}
 	
 }
