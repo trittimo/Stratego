@@ -47,7 +47,6 @@ public class TestGame {
 		
 		assertEquals(g.whoseTurn(), 1);
 		
-		
 	}
 	
 
