@@ -37,9 +37,15 @@ public class TestGame {
 		b2.placePiece(3, 0, p2);
 		
 		assertEquals(g.getBoard().pieceCount(), b2.pieceCount());
+	}
+	
+	@Test
+	public void whoseTurnTest(){
+		Piece[][] p1 = new Piece[10][10];
+		Board b1 = new Board(p1);
+		Game g = new Game(b1);
 		
-		
-		
+		assertEquals(g.whoseTurn(), 1);
 		
 		
 	}
