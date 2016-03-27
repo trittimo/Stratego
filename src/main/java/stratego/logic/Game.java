@@ -33,5 +33,12 @@ public class Game {
 		else
 			this.whoseTurn = 1;
 	}
+
+
+	public void makeMove(int x1, int y1, int x2, int y2) {
+		// TODO Auto-generated method stub
+		
+		this.gameBoard.movePiece(0, 0, 0, 1);
+	}
 	
 }

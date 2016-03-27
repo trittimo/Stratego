@@ -89,7 +89,21 @@ public class TestGame {
 		
 	}
 	
-	
+	@Test
+	public void makeMoveTest(){
+		Piece[][] p = new Piece[10][10];
+		Board b1 = new Board(p);
+		Game g = new Game(b1);
+		
+		Piece p1 = new Piece(5, 1);
+		g.getBoard().placePiece(0, 0, p1);
+		
+		g.makeMove(0, 0, 0, 1);
+		
+		Piece p2 = g.getBoard().getPieces()[0][1];
+		assertEquals(p1.getPlayer(), p2.getPlayer());
+		assertEquals(p1.getValue(), p2.getValue());
+	}
 	
 
 }
