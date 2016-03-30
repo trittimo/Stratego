@@ -5,8 +5,9 @@ import stratego.logic.exceptions.InvalidMovement;
 import stratego.logic.exceptions.InvalidPlacement;
 
 /**
- * The Board class represents the Stratego Board.  It contains the pieces that are placed on it.  
- * These piece's locations on the board can be manipulated by calling placePiece(), movePiece(), and removePiece()
+ * The Board class represents the Stratego Board. It contains the pieces that
+ * are placed on it. These piece's locations on the board can be manipulated by
+ * calling placePiece(), movePiece(), and removePiece()
  */
 
 public class Board {
@@ -24,9 +25,12 @@ public class Board {
 	/**
 	 * Place a piece on the board at position (x, y)
 	 * 
-	 * @param x position of piece on board
-	 * @param y position of piece on board
-	 * @param p - the piece object to be placed on the board
+	 * @param x
+	 *            position of piece on board
+	 * @param y
+	 *            position of piece on board
+	 * @param p
+	 *            - the piece object to be placed on the board
 	 */
 	public void placePiece(int x, int y, Piece p) {
 		if (x < 0 || y < 0 || x > pieces.length || y > pieces[0].length) {
@@ -42,10 +46,14 @@ public class Board {
 	/**
 	 * Move a piece at location (x1, y1) to (x2, y2)
 	 * 
-	 * @param x1 starting position of piece on board
-	 * @param y1 starting position of piece on board
-	 * @param x2 final position of piece on board
-	 * @param y2 final position of piece on board
+	 * @param x1
+	 *            starting position of piece on board
+	 * @param y1
+	 *            starting position of piece on board
+	 * @param x2
+	 *            final position of piece on board
+	 * @param y2
+	 *            final position of piece on board
 	 */
 	public void movePiece(int x1, int y1, int x2, int y2) {
 		if (this.pieces[x1][y1] == null) {
@@ -64,10 +72,14 @@ public class Board {
 	 * Check if a piece is allowed to move from (x1, y1) to (x2, y2): only does
 	 * distance and directional testing
 	 * 
-	 * @param x1 starting position of piece on board
-	 * @param x2 starting position of piece on board
-	 * @param y1 final position of piece on board
-	 * @param y2 final position of piece on board
+	 * @param x1
+	 *            starting position of piece on board
+	 * @param x2
+	 *            starting position of piece on board
+	 * @param y1
+	 *            final position of piece on board
+	 * @param y2
+	 *            final position of piece on board
 	 * @return true if a piece can move from (x1, y1) to (x2, y2)
 	 */
 	public boolean isValidMoveDirection(int x1, int x2, int y1, int y2) {
@@ -83,8 +95,10 @@ public class Board {
 	/**
 	 * Removes the piece at (x, y)
 	 * 
-	 * @param x position of piece on board
-	 * @param y position of piece on board
+	 * @param x
+	 *            position of piece on board
+	 * @param y
+	 *            position of piece on board
 	 */
 	public void removePiece(int x, int y) {
 		if (this.pieces[x][y] == null) {
@@ -97,8 +111,10 @@ public class Board {
 	/**
 	 * Checks if there is a piece at (x, y)
 	 * 
-	 * @param x position on board
-	 * @param y position on board
+	 * @param x
+	 *            position on board
+	 * @param y
+	 *            position on board
 	 * @return true if there is a piece at (x, y)
 	 */
 	public boolean isOccupied(int x, int y) {

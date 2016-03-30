@@ -18,9 +18,10 @@ public class Main extends JPanel implements ActionListener {
 	GameComponent gc, currentPiece;
 	boolean clicked;
 	GameComponent[] survivalCheckList;
-	GameComponent flag, bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, spy, scout1, scout2, scout3, scout4, scout5, scout6,
-			scout7, scout8, minor1, minor2, minor3, minor4, minor5, serg1, serg2, serg3, serg4, lieut1, lieut2, lieut3,
-			lieut4, cap1, cap2, cap3, cap4, major1, major2, major3, colo1, colo2, gen, marsh;
+	GameComponent flag, bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, spy, scout1, scout2, scout3,
+			scout4, scout5, scout6, scout7, scout8, minor1, minor2, minor3, minor4, minor5, serg1,
+			serg2, serg3, serg4, lieut1, lieut2, lieut3, lieut4, cap1, cap2, cap3, cap4, major1,
+			major2, major3, colo1, colo2, gen, marsh;
 
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Statego!");

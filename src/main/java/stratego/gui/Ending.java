@@ -7,15 +7,15 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Ending extends JPanel{
-	
+public class Ending extends JPanel {
+
 	JFrame frame;
-	
+
 	public Ending(JFrame f) {
 		this.frame = f;
 	}
-	
-	public void paintComponent(Graphics g){
+
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, 800, 800);
