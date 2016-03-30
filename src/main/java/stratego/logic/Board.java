@@ -60,7 +60,7 @@ public class Board {
 			throw new InvalidMovement("non-existant", x1, y1, x2, y2);
 		} else if (this.pieces[x2][y2] != null) {
 			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
-		} else if (!isValidMoveDirection(x1, x2, y1, y2)) {
+		} else if (!isValidMoveDirection(x1, y1, x2, y2)) {
 			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
 		}
 
@@ -82,7 +82,7 @@ public class Board {
 	 *            final position of piece on board
 	 * @return true if a piece can move from (x1, y1) to (x2, y2)
 	 */
-	public boolean isValidMoveDirection(int x1, int x2, int y1, int y2) {
+	public boolean isValidMoveDirection(int x1, int y1, int x2, int y2) {
 		Piece piece = this.pieces[x1][y1];
 		if (x1 != x2 && y1 != y2) {
 			return false;
