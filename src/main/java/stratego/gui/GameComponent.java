@@ -6,17 +6,18 @@ public class GameComponent {
 	LoadImage piece;
 	final String PATH = "/CodeCoverageExample/images";
 	int tile;
-	String sign;
+	String name;
+	
 	
 	/**
 	 * GameComponent Constructor
 	 * @param tile
 	 * @param sign
 	 */
-	public GameComponent(int tile, String sign){
+	public GameComponent(int tile, String name){
 		this.piece = new LoadImage();
 		this.tile = tile;
-		this.sign = sign;
+		this.name = name;
 	}
 	
 	/**
@@ -25,7 +26,7 @@ public class GameComponent {
 	 * @param g
 	 */
 	public void draw(Graphics g) {
-		piece.draw(g, this.pickPiece(sign), 10+57*tile/10, 57*(tile%10), 60, 60);
+		piece.draw(g, this.pickPiece(name), 5+60*tile/10, 60*(tile%10), 60, 60);
 	}
 	
 	/**

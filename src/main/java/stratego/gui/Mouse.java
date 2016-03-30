@@ -5,9 +5,9 @@ import java.awt.event.MouseListener;
 
 public class Mouse implements MouseListener{
 
-	Main main;
+	MainScreen main;
 	
-	public Mouse(Main main){
+	public Mouse(MainScreen main){
 		this.main = main;
 	}
 	/**
