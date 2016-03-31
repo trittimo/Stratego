@@ -12,8 +12,8 @@ import java.awt.Point;
  *
  */
 public class MessageScreen {
-	private static final int MSG_PANEL_WIDTH = 800;
-	private static final int MSG_PANEL_HEIGHT = 200;
+	private static final int MSG_PANEL_WIDTH = 900;
+	private static final int MSG_PANEL_HEIGHT = 300;
 	private static final Point locatePt = new Point(0,600);
 	
 	public MessageScreen(Graphics g){

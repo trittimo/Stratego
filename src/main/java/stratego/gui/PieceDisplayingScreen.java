@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  */
 public class PieceDisplayingScreen {
-	private static final int PIECE_BOARD_WIDTH = 200;
+	private static final int PIECE_BOARD_WIDTH = 300;
 	private static final int PIECE_BOARD_HEIGHT = 600;
 	private static final Point locatePt = new Point(600, 0);
 	private ArrayList<GameComponent> pieceList;
@@ -31,7 +31,7 @@ public class PieceDisplayingScreen {
 	public void putPiece() {
 		for (int i = 0; i < 40; i++) {
 			if (i < 1) {
-				pieceList.add(new GameComponent(100, ""));
+				pieceList.add(new GameComponent(100, "spy"));
 				spyCounter += 1;
 			} else if (i < 9) {
 				pieceList.add(new GameComponent(100 + i, "scout"));
@@ -76,7 +76,7 @@ public class PieceDisplayingScreen {
 	 * 
 	 * @param g
 	 */
-	public void drawOn(Graphics g) {
+	public ArrayList<GameComponent> drawOn(Graphics g) {
 		g.setColor(Color.blue);
 		g.fillRect(locatePt.x, locatePt.y, PIECE_BOARD_WIDTH, PIECE_BOARD_HEIGHT);
 		for (int i = 0; i < this.pieceList.size(); i++) {
@@ -86,6 +86,7 @@ public class PieceDisplayingScreen {
 		g.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		g.setColor(Color.white);
 		g.drawString("X" + spyCounter, 600, 100);
+		return pieceList;
 	}
 
 }

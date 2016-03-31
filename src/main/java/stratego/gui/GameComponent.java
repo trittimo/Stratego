@@ -7,51 +7,52 @@ public class GameComponent {
 	final String PATH = "/CodeCoverageExample/images";
 	int tile;
 	String name;
-	
-	
+
 	/**
 	 * GameComponent Constructor
+	 * 
 	 * @param tile
 	 * @param sign
 	 */
-	public GameComponent(int tile, String name){
+	public GameComponent(int tile, String name) {
 		this.piece = new LoadImage();
 		this.tile = tile;
 		this.name = name;
 	}
-	
+
 	/**
 	 * Draw the piece
 	 * 
 	 * @param g
 	 */
 	public void draw(Graphics g) {
-		piece.draw(g, this.pickPiece(name), 5+60*tile/10, 60*(tile%10), 60, 60);
+		piece.draw(g, this.pickPiece(name), 5 + 60 * (int) (tile / 10), 60 * (int)(tile % 10), 60, 60);
 	}
-	
+
 	/**
 	 * Get the tile
+	 * 
 	 * @return
 	 */
-	public int getTile(){
+	public int getTile() {
 		return this.tile;
 	}
-	
+
 	/**
 	 * 
 	 * @param tile
 	 */
-	public void setTile(int tile){
+	public void setTile(int tile) {
 		this.tile = tile;
 	}
-	
+
 	/**
 	 * 
 	 * @param sign
 	 * @return
 	 */
-	public String pickPiece(String sign){
-		switch(sign){
+	public String pickPiece(String sign) {
+		switch (sign) {
 		case "1":
 			return "spy";
 		case "2":
