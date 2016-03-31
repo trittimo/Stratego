@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-
 /**
  * This is the message displaying part on the main game screen.
  * 
@@ -14,12 +13,11 @@ import java.awt.Point;
 public class MessageScreen {
 	private static final int MSG_PANEL_WIDTH = 800;
 	private static final int MSG_PANEL_HEIGHT = 200;
-	private static final Point locatePt = new Point(0,600);
-	
-	public MessageScreen(Graphics g){
+	private static final Point locatePt = new Point(0, 600);
+
+	public MessageScreen(Graphics g) {
 		g.setColor(Color.darkGray);
-		g.fillRect(locatePt.x,locatePt.y,MSG_PANEL_WIDTH,MSG_PANEL_HEIGHT);
+		g.fillRect(locatePt.x, locatePt.y, MSG_PANEL_WIDTH, MSG_PANEL_HEIGHT);
 	}
-	
-	
+
 }
