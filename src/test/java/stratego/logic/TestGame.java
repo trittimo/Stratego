@@ -8,6 +8,15 @@ import org.junit.Test;
 public class TestGame {
 
 	@Test
+	public void testInvalidMoveWithNullPiece() {
+		Piece[][] p = new Piece[10][10];
+		Board b1 = new Board(p);
+		Game g = new Game(b1);
+		
+		assertFalse(g.makeMove(0, 0, 1, 1));
+	}
+	
+	@Test
 	public void testInvalidMoveOffBoard() {
 		Piece[][] p = new Piece[10][10];
 		Board b1 = new Board(p);
