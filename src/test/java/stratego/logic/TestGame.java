@@ -2,8 +2,12 @@ package stratego.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
+
+import stratego.logic.exceptions.InvalidPiece;
 
 public class TestGame {
 
@@ -13,7 +17,13 @@ public class TestGame {
 		Board b1 = new Board(p);
 		Game g = new Game(b1);
 		
-		assertFalse(g.makeMove(0, 0, 1, 1));
+		boolean testPasses = false;
+		try {
+			g.makeMove(0, 0, 1, 1);
+		} catch (Exception e) {
+			testPasses = e instanceof InvalidPiece;
+		}
+		assertTrue(testPasses);
 	}
 	
 	@Test

@@ -13,6 +13,15 @@ import stratego.logic.exceptions.InvalidPlacement;
 public class TestBoard {
 
 	@Test
+	public void getPiece() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		Piece p = new Piece(3, 1);
+		b.placePiece(2, 2, p);
+		assertTrue(b.getPiece(2, 2) == p);
+	}
+	
+	@Test
 	public void testPlacementOutsideBoard() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);

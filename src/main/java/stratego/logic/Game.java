@@ -1,5 +1,8 @@
 package stratego.logic;
 
+import stratego.logic.exceptions.InvalidMovement;
+import stratego.logic.exceptions.InvalidPiece;
+
 /**
  * This class contains the information about the game itself as well as the
  * gameplay
@@ -50,7 +53,6 @@ public class Game {
 		Board b = this.gameBoard;
 		try {
 			if (b.isOccupied(x2, y2)) {
-	
 				if (b.getPieces()[x1][y1].getRank() > b.getPieces()[x2][y2].getRank()) {
 					b.removePiece(x2, y2);
 					b.movePiece(x1, y1, x2, y2);
@@ -63,6 +65,11 @@ public class Game {
 			}
 			return true;
 		} catch (Exception e) {
+			if (e instanceof InvalidMovement) {
+				throw new InvalidPiece(x1, y1);
+			} else if (e instanceof InvalidMovement) {
+				throw e;
+			}
 			return false;
 		}
 	}
