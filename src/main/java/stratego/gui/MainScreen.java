@@ -11,13 +11,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+@SuppressWarnings("serial")
 public class MainScreen extends JPanel implements ActionListener {
 
-	Timer timer;
-	GameComponent gc, currentPiece;
-	boolean clicked, once;
-	GameComponent[] survivalCheckList;
-	ArrayList<GameComponent> pieceList;
+	private Timer timer;
+	private GameComponent currentPiece;
+	private boolean clicked, once;
+	private ArrayList<GameComponent> pieceList;
 
 	/**
 	 * This is the Main constructor
