@@ -4,17 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class MainScreen extends JPanel implements ActionListener {
 
-	private Timer timer;
 	private GameComponent currentPiece;
 	private boolean clicked, once;
 	private ArrayList<GameComponent> pieceList;
@@ -23,10 +19,10 @@ public class MainScreen extends JPanel implements ActionListener {
 	 * This is the Main constructor
 	 */
 	public MainScreen() {
-		this.timer = new Timer(20, this);
-		this.timer.start();
 		this.currentPiece = null;
+		this.once = false;
 		this.clicked = false;
+		this.pieceList = null;
 	}
 
 	/**
