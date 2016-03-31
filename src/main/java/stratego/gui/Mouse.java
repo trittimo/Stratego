@@ -18,11 +18,8 @@ public class Mouse implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (e.getX() > i * 60 + 20 && e.getX() < 60 * (i + 1) + 20) {
-					if (e.getY() > j * 60 + 30 && e.getY() < 60 * (j + 1) + 30) {
-						System.out.println("mouse " + (j + 10 * i));
+				if (e.getX() > i * 60 + 20 && e.getX() < 60 * (i + 1) + 20 && e.getY() > j * 60 + 30 && e.getY() < 60 * (j + 1) + 30) {
 						this.main.selectPiece(j + 10 * i);
-					}
 				}
 			}
 		}
