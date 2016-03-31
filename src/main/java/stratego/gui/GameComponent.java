@@ -26,7 +26,8 @@ public class GameComponent {
 	 * @param g
 	 */
 	public void draw(Graphics g) {
-		piece.draw(g, this.pickPiece(name), 5 + 60 * (int) (tile / 10), 60 * (int)(tile % 10), 60, 60);
+		piece.draw(g, this.pickPiece(name), 5 + 60 * (tile / 10), 60 * (tile % 10), 60,
+				60);
 	}
 
 	/**

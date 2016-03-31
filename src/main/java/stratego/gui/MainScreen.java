@@ -19,9 +19,10 @@ public class MainScreen extends JPanel implements ActionListener {
 	GameComponent gc, currentPiece;
 	boolean clicked, once;
 	GameComponent[] survivalCheckList;
-	GameComponent flag, bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, spy, scout1, scout2, scout3, scout4, scout5, scout6,
-			scout7, scout8, minor1, minor2, minor3, minor4, minor5, serg1, serg2, serg3, serg4, lieut1, lieut2, lieut3,
-			lieut4, cap1, cap2, cap3, cap4, major1, major2, major3, colo1, colo2, gen, marsh;
+	GameComponent flag, bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, spy, scout1, scout2, scout3,
+			scout4, scout5, scout6, scout7, scout8, minor1, minor2, minor3, minor4, minor5, serg1,
+			serg2, serg3, serg4, lieut1, lieut2, lieut3, lieut4, cap1, cap2, cap3, cap4, major1,
+			major2, major3, colo1, colo2, gen, marsh;
 	ArrayList<GameComponent> pieceList;
 
 	public static void main(String[] args) {
@@ -55,20 +56,16 @@ public class MainScreen extends JPanel implements ActionListener {
 	 * @param tile
 	 */
 	public void selectPiece(int tile) {
-		// System.out.println(tile + " " + this.gc.getTile());
 		for (int i = 0; i < pieceList.size(); i++) {
 
 			if (this.clicked) {
-				System.out.println("curTile: " + this.currentPiece.getTile());
 				this.currentPiece.setTile(tile);
 				this.clicked = false;
 				this.currentPiece = null;
-				System.out.println("there");
 				break;
 			} else if (this.pieceList.get(i).getTile() == tile) {
 				currentPiece = pieceList.get(i);
 				this.clicked = true;
-				System.out.println(this.currentPiece.getTile() + " cur tile");
 				break;
 			}
 		}
@@ -83,10 +80,10 @@ public class MainScreen extends JPanel implements ActionListener {
 		BoardScreen board = new BoardScreen(g);
 		g.setColor(Color.blue);
 		g.fillRect(600, 0, 300, 900);
-		if(!once){
+		if (!once) {
 			PieceDisplayingScreen piecesBoard = new PieceDisplayingScreen();
 			this.pieceList = piecesBoard.drawOn(g);
-			once=true;
+			once = true;
 		}
 
 		MessageScreen msg = new MessageScreen(g);

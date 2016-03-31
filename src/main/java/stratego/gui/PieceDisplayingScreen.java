@@ -19,9 +19,9 @@ public class PieceDisplayingScreen {
 	private static final int PIECE_BOARD_HEIGHT = 600;
 	private static final Point locatePt = new Point(600, 0);
 	private ArrayList<GameComponent> pieceList;
-	private int spyCounter = 0, scoutCounter = 0, minerCounter = 0, sergentCounter = 0, lieutCounter = 0,
-			capCounter = 0, majorCounter = 0, coloCounter = 0, genCounter = 0, marshCounter = 0, bombCounter = 0,
-			flagCounter = 0;
+	private int spyCounter = 0, scoutCounter = 0, minerCounter = 0, sergentCounter = 0,
+			lieutCounter = 0, capCounter = 0, majorCounter = 0, coloCounter = 0, genCounter = 0,
+			marshCounter = 0, bombCounter = 0, flagCounter = 0;
 
 	/**
 	 * Displays the pieces on the graphics
@@ -32,7 +32,7 @@ public class PieceDisplayingScreen {
 	}
 
 	/**
-	 * Initialize the game with certain number of pieces displayed 
+	 * Initialize the game with certain number of pieces displayed
 	 */
 	public void putPiece() {
 		for (int i = 0; i < 40; i++) {
