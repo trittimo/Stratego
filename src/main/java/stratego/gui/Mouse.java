@@ -12,7 +12,7 @@ public class Mouse implements MouseListener {
 	}
 
 	/**
-	 * Move the piece
+	 * Move the piece when click the new place on board
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {

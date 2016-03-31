@@ -23,11 +23,17 @@ public class PieceDisplayingScreen {
 			capCounter = 0, majorCounter = 0, coloCounter = 0, genCounter = 0, marshCounter = 0, bombCounter = 0,
 			flagCounter = 0;
 
+	/**
+	 * Displays the pieces on the graphics
+	 */
 	public PieceDisplayingScreen() {
 		this.pieceList = new ArrayList<GameComponent>();
 		this.putPiece();
 	}
 
+	/**
+	 * Initialize the game with certain number of pieces displayed 
+	 */
 	public void putPiece() {
 		for (int i = 0; i < 40; i++) {
 			if (i < 1) {
@@ -73,6 +79,7 @@ public class PieceDisplayingScreen {
 	}
 
 	/**
+	 * Draw pieces on graphics
 	 * 
 	 * @param g
 	 */

@@ -15,10 +15,23 @@ public class LoadImage {
 	private JPanel panel;
 	private Graphics graphics;
 	
+	/**
+	 * Constructor
+	 */
 	public LoadImage() {
 		//nothing
 	}
 	
+	/**
+	 * Load image from desired file and draw it on frame
+	 * 
+	 * @param g
+	 * @param name
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public void draw(Graphics g, String name, int x, int y, int width, int height) {
 		BufferedImage bImg = null;
 		try{

@@ -19,6 +19,10 @@ public class BoardScreen{
 	private static final Point locatePt = new Point(0,0);
 	LoadImage image;
 	
+	/**
+	 * Constructor
+	 * @param g
+	 */
 	public BoardScreen(Graphics g){
 		g.setColor(Color.red);
 		g.fillRect(locatePt.x,locatePt.y, BOARD_WIDTH, BOARD_HEIGHT);

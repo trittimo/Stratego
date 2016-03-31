@@ -15,6 +15,9 @@ public class Ending extends JPanel{
 		this.frame = f;
 	}
 	
+	/**
+	 * Just a ending screen says "Game Over!" when ends the game
+	 */
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(Color.GREEN);
