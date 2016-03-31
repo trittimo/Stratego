@@ -44,10 +44,15 @@ public class Game {
 
 	/**
 	 * Attempts to move a piece at position (x1, y1) to position (x2, y2)
-	 * @param x1 piece1 x
-	 * @param y1 piece1 y
-	 * @param x2 piece2 x
-	 * @param y2 piece2 y
+	 * 
+	 * @param x1
+	 *            piece1 x
+	 * @param y1
+	 *            piece1 y
+	 * @param x2
+	 *            piece2 x
+	 * @param y2
+	 *            piece2 y
 	 */
 	public boolean makeMove(int x1, int y1, int x2, int y2) {
 		Board b = this.gameBoard;
@@ -59,7 +64,7 @@ public class Game {
 				} else {
 					b.removePiece(x1, y1);
 				}
-	
+
 			} else {
 				b.movePiece(x1, y1, x2, y2);
 			}

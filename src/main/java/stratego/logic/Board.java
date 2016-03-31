@@ -22,7 +22,7 @@ public class Board {
 	public Piece[][] getPieces() {
 		return this.pieces;
 	}
-	
+
 	public Piece getPiece(int x, int y) {
 		if (pieces[x][y] != null) {
 			return pieces[x][y];

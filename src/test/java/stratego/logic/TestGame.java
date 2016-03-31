@@ -16,7 +16,7 @@ public class TestGame {
 		Piece[][] p = new Piece[10][10];
 		Board b1 = new Board(p);
 		Game g = new Game(b1);
-		
+
 		boolean testPasses = false;
 		try {
 			g.makeMove(0, 0, 1, 1);
@@ -25,7 +25,7 @@ public class TestGame {
 		}
 		assertTrue(testPasses);
 	}
-	
+
 	@Test
 	public void testInvalidMoveOffBoard() {
 		Piece[][] p = new Piece[10][10];
@@ -33,12 +33,12 @@ public class TestGame {
 		Game g = new Game(b1);
 
 		Piece p1 = new Piece(5, 1);
-		
+
 		g.getBoard().placePiece(0, 0, p1);
 
 		assertFalse(g.makeMove(0, 0, -1, -1));
 	}
-	
+
 	@Test
 	public void testBoardEmpty() {
 

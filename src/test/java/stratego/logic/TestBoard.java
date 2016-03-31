@@ -20,7 +20,7 @@ public class TestBoard {
 		b.placePiece(2, 2, p);
 		assertTrue(b.getPiece(2, 2) == p);
 	}
-	
+
 	@Test
 	public void testPlacementOutsideBoard() {
 		Piece[][] pieces = new Piece[3][3];

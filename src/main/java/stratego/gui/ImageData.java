@@ -13,7 +13,7 @@ public class ImageData {
 	public int y;
 	public int width;
 	public int height;
-	
+
 	public ImageData(String fileName, int x, int y, int width, int height) {
 		this.name = fileName;
 		this.x = x;
@@ -21,5 +21,5 @@ public class ImageData {
 		this.width = width;
 		this.height = height;
 	}
-	
+
 }
