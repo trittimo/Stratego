@@ -13,39 +13,18 @@ import javax.swing.Timer;
 
 public class MainScreen extends JPanel implements ActionListener {
 
-	final static int WINDOW_WIDTH = 900;
-	final static int WINDOW_HEIGHT = 900;
 	Timer timer;
 	GameComponent gc, currentPiece;
 	boolean clicked, once;
 	GameComponent[] survivalCheckList;
-	GameComponent flag, bomb1, bomb2, bomb3, bomb4, bomb5, bomb6, spy, scout1, scout2, scout3,
-			scout4, scout5, scout6, scout7, scout8, minor1, minor2, minor3, minor4, minor5, serg1,
-			serg2, serg3, serg4, lieut1, lieut2, lieut3, lieut4, cap1, cap2, cap3, cap4, major1,
-			major2, major3, colo1, colo2, gen, marsh;
 	ArrayList<GameComponent> pieceList;
-
-	public static void main(String[] args) {
-		JFrame f = new JFrame("Statego!");
-
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		f.setVisible(true);
-
-		MainScreen main = new MainScreen();
-		MouseListener mouse = new Mouse(main);
-		f.add(main);
-		f.addMouseListener(mouse);
-		main.timer.start();
-
-	}
 
 	/**
 	 * This is the Main constructor
 	 */
 	public MainScreen() {
 		this.timer = new Timer(20, this);
-		// this.gc = new GameComponent(10, "1");
+		this.timer.start();
 		this.currentPiece = null;
 		this.clicked = false;
 	}
