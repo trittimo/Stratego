@@ -1,11 +1,25 @@
 package stratego.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
 public class TestGame {
 
+	@Test
+	public void testInvalidMoveOffBoard() {
+		Piece[][] p = new Piece[10][10];
+		Board b1 = new Board(p);
+		Game g = new Game(b1);
+
+		Piece p1 = new Piece(5, 1);
+		
+		g.getBoard().placePiece(0, 0, p1);
+
+		assertFalse(g.makeMove(0, 0, -1, -1));
+	}
+	
 	@Test
 	public void testBoardEmpty() {
 

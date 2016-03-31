@@ -12,7 +12,6 @@ public class Game {
 	public Game(Board b) {
 		this.gameBoard = b;
 		this.whoseTurn = 1;
-
 	}
 
 	/**
@@ -31,10 +30,8 @@ public class Game {
 	}
 
 	/**
-	 * void method that switches the player turns to be called after moves are
-	 * made
+	 * switches the player turns to be called after moves are made
 	 */
-
 	public void switchTurns() {
 		if (whoseTurn == 1)
 			this.whoseTurn = 2;
@@ -42,6 +39,13 @@ public class Game {
 			this.whoseTurn = 1;
 	}
 
+	/**
+	 * Attempts to move a piece at position (x1, y1) to position (x2, y2)
+	 * @param x1 piece1 x
+	 * @param y1 piece1 y
+	 * @param x2 piece2 x
+	 * @param y2 piece2 y
+	 */
 	public void makeMove(int x1, int y1, int x2, int y2) {
 		Board b = this.gameBoard;
 		if (b.isOccupied(x2, y2)) {
