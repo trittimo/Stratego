@@ -106,7 +106,7 @@ public class TestGame {
 	}
 	
 	@Test
-	public void makeMoveAttackTest(){
+	public void makeMoveAttackWinTest(){
 		Piece[][] p = new Piece[10][10];
 		Board b1 = new Board(p);
 		Game g = new Game(b1);
@@ -124,6 +124,24 @@ public class TestGame {
 		assertEquals(p1.getValue(), p3.getValue());
 	}
 	
+	@Test
+	public void makeMoveAttackLoseTest(){
+		Piece[][] p = new Piece[10][10];
+		Board b1 = new Board(p);
+		Game g = new Game(b1);
+		
+		Piece p1 = new Piece(5, 1);
+		g.getBoard().placePiece(0, 0, p1);
+		
+		Piece p2 = new Piece (8, 2);
+		g.getBoard().placePiece (0, 1, p2);
+		
+		g.makeMove(0, 0, 0, 1);
+		
+		Piece p3 = g.getBoard().getPieces()[0][1];
+		assertEquals(p2.getPlayer(), p3.getPlayer());
+		assertEquals(p2.getValue(), p3.getValue());
+	}
 
 	
 	
