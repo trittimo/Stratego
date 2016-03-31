@@ -2,11 +2,13 @@ package stratego.gui;
 
 import java.awt.Graphics;
 
+import stratego.Constants;
+
 public class GameComponent {
-	LoadImage piece;
-	final String PATH = "/CodeCoverageExample/images";
-	int tile;
-	String name;
+	private LoadImage piece;
+	private static final String IMAGES_PATH = "/CodeCoverageExample/images";
+	private int tile;
+	private String name;
 
 	/**
 	 * GameComponent Constructor
@@ -26,8 +28,8 @@ public class GameComponent {
 	 * @param g
 	 */
 	public void draw(Graphics g) {
-		piece.draw(g, this.pickPiece(name), 5 + 60 * (tile / 10), 60 * (tile % 10), 60,
-				60);
+		ImageData data = new ImageData(this.pickPiece(name), 5 + 60 * (tile / 10), 60 * (tile % 10), 60, 60);
+		piece.draw(g, data);
 	}
 
 	/**
@@ -53,32 +55,13 @@ public class GameComponent {
 	 * @return
 	 */
 	public String pickPiece(String sign) {
-		switch (sign) {
-		case "1":
-			return "spy";
-		case "2":
-			return "scout";
-		case "3":
-			return "miner";
-		case "4":
-			return "sergent";
-		case "5":
-			return "lieutenant";
-		case "6":
-			return "captain";
-		case "7":
-			return "major";
-		case "8":
-			return "colonel";
-		case "9":
-			return "general";
-		case "0":
-			return "marshall";
-		case "B":
-			return "bomb";
-		case "F":
-			return "flag";
+		if (sign.equals("F") || sign.equals("B")) {
+			return sign.equals("F") ? "flag" : "bomb";
 		}
-		return sign;
+		try {
+			return Constants.PIECES[Integer.parseInt(sign)];
+		} catch (Exception e) {
+			return sign;
+		}
 	}
 }

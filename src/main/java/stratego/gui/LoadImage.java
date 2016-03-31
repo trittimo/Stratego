@@ -11,10 +11,6 @@ import javax.swing.JPanel;
 
 public class LoadImage {
 
-	private Image image;
-	private JPanel panel;
-	private Graphics graphics;
-
 	/**
 	 * Load image from desired file and draw it on frame
 	 * 
@@ -25,11 +21,11 @@ public class LoadImage {
 	 * @param width
 	 * @param height
 	 */
-	public void draw(Graphics g, String name, int x, int y, int width, int height) {
+	public void draw(Graphics g, ImageData data) {
 		BufferedImage bImg = null;
 		try {
-			bImg = ImageIO.read(new File("images" + File.separator + name + ".png"));
-			g.drawImage(bImg, x, y, width, height, null);
+			bImg = ImageIO.read(new File("images" + File.separator + data.name + ".png"));
+			g.drawImage(bImg, data.x, data.y, data.width, data.height, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("error");

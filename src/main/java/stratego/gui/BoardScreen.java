@@ -28,7 +28,8 @@ public class BoardScreen {
 		g.setColor(Color.red);
 		g.fillRect(locatePt.x, locatePt.y, BOARD_WIDTH, BOARD_HEIGHT);
 		image = new LoadImage();
-		image.draw(g, "map", 0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+		ImageData data = new ImageData("map", 0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+		image.draw(g, data);
 
 	}
 

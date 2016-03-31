@@ -57,7 +57,6 @@ public class MainScreen extends JPanel implements ActionListener {
 	 */
 	public void selectPiece(int tile) {
 		for (int i = 0; i < pieceList.size(); i++) {
-
 			if (this.clicked) {
 				this.currentPiece.setTile(tile);
 				this.clicked = false;
