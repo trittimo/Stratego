@@ -47,14 +47,20 @@ public class Game {
 
 
 	public void makeMove(int x1, int y1, int x2, int y2) {
-		// TODO Auto-generated method stub
-		if (this.gameBoard.isOccupied(x2, y2)){
-			this.gameBoard.removePiece(x2, y2);
-			this.gameBoard.movePiece(x1, y1, x2, y2);
+		Board b = this.gameBoard;
+		if (b.isOccupied(x2, y2)){
+			
+			if(b.getPieces()[x1][y1].getRank() > b.getPieces()[x2][y2].getRank()){
+				b.removePiece(x2, y2);
+				b.movePiece(x1, y1, x2, y2);
+			}else{
+				b.removePiece(x1, y1);
+			}
+			
 			
 		}
 		else 
-			this.gameBoard.movePiece(x1, y1, x2, y2);
+			b.movePiece(x1, y1, x2, y2);
 	}
 	
 }
