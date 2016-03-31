@@ -2,6 +2,7 @@ package stratego.logic;
 
 import stratego.logic.exceptions.InvalidAction;
 import stratego.logic.exceptions.InvalidMovement;
+import stratego.logic.exceptions.InvalidPiece;
 import stratego.logic.exceptions.InvalidPlacement;
 
 /**
@@ -20,6 +21,14 @@ public class Board {
 
 	public Piece[][] getPieces() {
 		return this.pieces;
+	}
+	
+	public Piece getPiece(int x, int y) {
+		if (pieces[x][y] != null) {
+			return pieces[x][y];
+		} else {
+			throw new InvalidPiece(x, y);
+		}
 	}
 
 	/**

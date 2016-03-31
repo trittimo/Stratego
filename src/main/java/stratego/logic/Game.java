@@ -53,7 +53,7 @@ public class Game {
 		Board b = this.gameBoard;
 		try {
 			if (b.isOccupied(x2, y2)) {
-				if (b.getPieces()[x1][y1].getRank() > b.getPieces()[x2][y2].getRank()) {
+				if (b.getPiece(x1, y1).getRank() > b.getPiece(x2, y2).getRank()) {
 					b.removePiece(x2, y2);
 					b.movePiece(x1, y1, x2, y2);
 				} else {
