@@ -46,19 +46,25 @@ public class Game {
 	 * @param x2 piece2 x
 	 * @param y2 piece2 y
 	 */
-	public void makeMove(int x1, int y1, int x2, int y2) {
+	public boolean makeMove(int x1, int y1, int x2, int y2) {
 		Board b = this.gameBoard;
-		if (b.isOccupied(x2, y2)) {
-
-			if (b.getPieces()[x1][y1].getRank() > b.getPieces()[x2][y2].getRank()) {
-				b.removePiece(x2, y2);
-				b.movePiece(x1, y1, x2, y2);
+		try {
+			if (b.isOccupied(x2, y2)) {
+	
+				if (b.getPieces()[x1][y1].getRank() > b.getPieces()[x2][y2].getRank()) {
+					b.removePiece(x2, y2);
+					b.movePiece(x1, y1, x2, y2);
+				} else {
+					b.removePiece(x1, y1);
+				}
+	
 			} else {
-				b.removePiece(x1, y1);
+				b.movePiece(x1, y1, x2, y2);
 			}
-
-		} else
-			b.movePiece(x1, y1, x2, y2);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
