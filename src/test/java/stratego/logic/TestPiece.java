@@ -51,7 +51,7 @@ public class TestPiece {
 	}
 	
 	//boundary value analysis:
-	//pieces are in a range [1-12]
+	//pieces are in a range [1, 12]
 	//need to test 1, 12, 0, 13
 	@Test
 	public void testGetPieceNameLower() {
@@ -83,8 +83,8 @@ public class TestPiece {
 		}	
 	}
 
-	//bva: rank is in a range [1-10]
-	//would need to test 0, 1, 11, 12
+	//bva: rank is in a range [-1, 10]
+	//would need to test pieces of value 0, 1, 11, 12
 	//but you can't create pieces of value 0 or 12
 	//already been tested in testInvalidPieceValue 
 	//no need to duplicate code 
@@ -97,8 +97,8 @@ public class TestPiece {
 	
 	@Test
 	public void testGetPieceRankUpper() {
-		Piece newPiece = new Piece(10, 1); 
-		assertEquals (newPiece.getRank(), 1);
+		Piece newPiece = new Piece(12, 1); 
+		assertEquals (newPiece.getRank(), -1);
 	}
 
 	
