@@ -20,7 +20,6 @@ public class TestPiece {
 	
 	//bva: can only have 2 players 
 	//need to test 1, 2, -1, and 3 
-	
 	@Test
 	public void testGetPlayerLower() {
 		Piece newPiece = new Piece(1, 1);
@@ -52,8 +51,8 @@ public class TestPiece {
 	}
 	
 	//boundary value analysis:
-	//pieces are in a range [1-11]
-	//need to test 0, 1, 11, 12
+	//pieces are in a range [1-12]
+	//need to test 1, 12, 0, 13
 	@Test
 	public void testGetPieceNameLower() {
 		Piece newPiece = new Piece(1, 1);
@@ -69,7 +68,7 @@ public class TestPiece {
 	@Test
 	public void testInvalidPieceValueLower() {
 		try {
-			Piece newPiece = new Piece(-0, 1);
+			Piece newPiece = new Piece(0, 1);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidPieceValue);
 		}
@@ -78,15 +77,13 @@ public class TestPiece {
 	@Test
 	public void testInvalidPieceValueUpper(){
 		try{
-			Piece newPiece = new Piece(12, 1);
+			Piece newPiece = new Piece(13, 1);
 		} catch (Exception e){
 			assertTrue (e instanceof InvalidPieceValue);
-		}
-		
-		
+		}	
 	}
 
-	//bva: rank is in a range [1-11]
+	//bva: rank is in a range [1-10]
 	//would need to test 0, 1, 11, 12
 	//but you can't create pieces of value 0 or 12
 	//already been tested in testInvalidPieceValue 
@@ -100,8 +97,8 @@ public class TestPiece {
 	
 	@Test
 	public void testGetPieceRankUpper() {
-		Piece newPiece = new Piece(11, 1); 
-		assertEquals (newPiece.getRank(), 0);
+		Piece newPiece = new Piece(10, 1); 
+		assertEquals (newPiece.getRank(), 1);
 	}
 
 	
