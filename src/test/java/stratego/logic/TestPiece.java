@@ -23,19 +23,43 @@ public class TestPiece {
 		assertEquals(newPiece.getPlayer(), 1);
 	}
 
+	//boundary value analysis:
+	//pieces are in a range (1-11)
+	//need to test lower and upper edge, 
+	//as well as 1 more and 1 less than boundaries 
 	@Test
-	public void testGetPieceName() {
+	public void testGetPieceNameLower() {
 		Piece newPiece = new Piece(1, 1);
 		assertEquals(newPiece.getPieceName(), "Marshal");
-
 	}
 
 	@Test
-	public void testGetPieceName2() {
-		Piece newPiece = new Piece(3, 1);
-		assertEquals(newPiece.getPieceName(), "Colonel");
+	public void testGetPieceNameUpper() {
+		Piece newPiece = new Piece(12, 1);
+		assertEquals(newPiece.getPieceName(), "Flag");
 
 	}
+	@Test
+	public void testInvalidPieceValueLower() {
+		try {
+			Piece newPiece = new Piece(-1, 1);
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidPieceValue);
+		}
+	}
+	
+	@Test
+	public void testInvalidPieceValueUpper(){
+		try{
+			Piece newPiece = new Piece(12, 1);
+		} catch (Exception e){
+			assertTrue (e instanceof InvalidPieceValue);
+		}
+		
+		
+	}
+
+	
 
 	@Test
 	public void testGetPieceRank() {
@@ -43,14 +67,8 @@ public class TestPiece {
 		assertEquals(newPiece.getRank(), 10);
 	}
 
-	@Test
-	public void testInvalidPieceValue() {
-		try {
-			Piece newPiece = new Piece(-1, 1);
-		} catch (Exception e) {
-			assertTrue(e instanceof InvalidPieceValue);
-		}
-	}
+	
+	
 
 	@Test
 	public void testInvalidPlayer() {
