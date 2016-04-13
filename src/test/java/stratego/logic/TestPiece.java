@@ -17,11 +17,40 @@ public class TestPiece {
 		assertEquals(newPiece.getValue(), 1);
 	}
 
+	
+	//bva: can only have 2 players 
+	//need to test 1, 2, -1, and 3 
+	
 	@Test
-	public void testGetPlayer() {
+	public void testGetPlayerLower() {
 		Piece newPiece = new Piece(1, 1);
 		assertEquals(newPiece.getPlayer(), 1);
 	}
+	
+	@Test 
+	public void testGetPlayerUpper(){
+		Piece newPiece = new Piece(1, 2);
+		assertEquals(newPiece.getPlayer(), 2);
+	}
+	
+	@Test 
+	public void testInvalidPlayerLower(){
+		try {
+			Piece newPiece = new Piece(1, -1);
+		} catch (Exception e) {
+			assertTrue(e instanceof InvalidPlayer);
+		}
+	}
+	
+	@Test
+	public void testInvalidPlayerUpper(){
+		try{
+			Piece newPiece = new Piece(1, 3);
+		} catch (Exception e){
+			assertTrue (e instanceof InvalidPlayer);
+		}
+	}
+	
 
 	//boundary value analysis:
 	//pieces are in a range (1-11)
