@@ -51,11 +51,9 @@ public class TestPiece {
 		}
 	}
 	
-
 	//boundary value analysis:
-	//pieces are in a range (1-11)
-	//need to test lower and upper edge, 
-	//as well as 1 more and 1 less than boundaries 
+	//pieces are in a range [1-11]
+	//need to test 0, 1, 11, 12
 	@Test
 	public void testGetPieceNameLower() {
 		Piece newPiece = new Piece(1, 1);
@@ -71,7 +69,7 @@ public class TestPiece {
 	@Test
 	public void testInvalidPieceValueLower() {
 		try {
-			Piece newPiece = new Piece(-1, 1);
+			Piece newPiece = new Piece(-0, 1);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidPieceValue);
 		}
@@ -88,23 +86,26 @@ public class TestPiece {
 		
 	}
 
+	//bva: rank is in a range [1-11]
+	//would need to test 0, 1, 11, 12
+	//but you can't create pieces of value 0 or 12
+	//already been tested in testInvalidPieceValue 
+	//no need to duplicate code 
 	
-
 	@Test
-	public void testGetPieceRank() {
+	public void testGetPieceRankLower() {
 		Piece newPiece = new Piece(1, 1);
 		assertEquals(newPiece.getRank(), 10);
 	}
-
 	
-	
-
 	@Test
-	public void testInvalidPlayer() {
-		try {
-			Piece newPiece = new Piece(1, -1);
-		} catch (Exception e) {
-			assertTrue(e instanceof InvalidPlayer);
-		}
+	public void testGetPieceRankUpper() {
+		Piece newPiece = new Piece(11, 1); 
+		assertEquals (newPiece.getRank(), 0);
 	}
+
+	
+	
+
+
 }
