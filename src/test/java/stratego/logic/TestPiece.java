@@ -10,11 +10,12 @@ import stratego.logic.exceptions.InvalidPlayer;
 
 @SuppressWarnings("unused")
 public class TestPiece {
-
+//NOTE: assertEquals(expected, actual) 
+	
 	@Test
 	public void testPieceConstrutor() {
 		Piece newPiece = new Piece(1, 1);
-		assertEquals(newPiece.getValue(), 1);
+		assertEquals(1, newPiece.getValue());
 	}
 
 	
@@ -23,13 +24,14 @@ public class TestPiece {
 	@Test
 	public void testGetPlayerLower() {
 		Piece newPiece = new Piece(1, 1);
-		assertEquals(newPiece.getPlayer(), 1);
+		assertEquals(1, newPiece.getPlayer());
 	}
 	
 	@Test 
 	public void testGetPlayerUpper(){
 		Piece newPiece = new Piece(1, 2);
-		assertEquals(newPiece.getPlayer(), 2);
+		assertEquals(2, newPiece.getPlayer());
+		
 	}
 	
 	@Test 
@@ -56,13 +58,13 @@ public class TestPiece {
 	@Test
 	public void testGetPieceNameLower() {
 		Piece newPiece = new Piece(1, 1);
-		assertEquals(newPiece.getPieceName(), "Marshal");
+		assertEquals("Marshal", newPiece.getPieceName());
 	}
 
 	@Test
 	public void testGetPieceNameUpper() {
 		Piece newPiece = new Piece(12, 1);
-		assertEquals(newPiece.getPieceName(), "Flag");
+		assertEquals("Flag", newPiece.getPieceName());
 
 	}
 	@Test
@@ -92,13 +94,13 @@ public class TestPiece {
 	@Test
 	public void testGetPieceRankLower() {
 		Piece newPiece = new Piece(1, 1);
-		assertEquals(newPiece.getRank(), 10);
+		assertEquals(10, newPiece.getRank());
 	}
 	
 	@Test
 	public void testGetPieceRankUpper() {
 		Piece newPiece = new Piece(12, 1); 
-		assertEquals (newPiece.getRank(), -1);
+		assertEquals(-1, newPiece.getRank());
 	}
 
 	
