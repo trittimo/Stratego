@@ -103,8 +103,4 @@ public class TestPiece {
 		assertEquals(-1, newPiece.getRank());
 	}
 
-	
-	
-
-
 }
