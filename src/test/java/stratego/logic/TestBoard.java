@@ -4,6 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.easymock.EasyMock;
 import org.junit.Test;
 
 import stratego.logic.exceptions.InvalidAction;
@@ -16,9 +17,14 @@ public class TestBoard {
 	public void getPiece() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(3, 1);
-		b.placePiece(2, 2, p);
-		assertTrue(b.getPiece(2, 2) == p);
+		
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		EasyMock.replay(fakePiece);
+		
+		b.placePiece(2, 2, fakePiece);
+		assertTrue(b.getPiece(2, 2) == fakePiece);
+		
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
