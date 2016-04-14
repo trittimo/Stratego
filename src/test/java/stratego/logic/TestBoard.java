@@ -88,6 +88,11 @@ public class TestBoard {
 			assertTrue (e instanceof InvalidLocation);
 		}
 		
+		try{
+			b.isOccupied(-1, -1);
+		} catch (Exception e){
+			assertTrue (e instanceof InvalidLocation);
+		}
 	}
 	
 	
