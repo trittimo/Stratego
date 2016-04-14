@@ -7,11 +7,21 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import stratego.logic.exceptions.InvalidAction;
+import stratego.logic.exceptions.InvalidLocation;
 import stratego.logic.exceptions.InvalidMovement;
+import stratego.logic.exceptions.InvalidPiece;
 import stratego.logic.exceptions.InvalidPlacement;
 
 public class TestBoard {
+	
+	@Test
+	public void testGetPieces() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		assertArrayEquals(b.getPieces(), pieces);
+	}
 
+	//bva - test whether piece exists, and whether it doesnt  
 	@Test
 	public void getPiece() {
 		Piece[][] pieces = new Piece[3][3];
@@ -20,6 +30,72 @@ public class TestBoard {
 		b.placePiece(2, 2, p);
 		assertTrue(b.getPiece(2, 2) == p);
 	}
+	
+	@Test
+	public void getNonExistingPiece(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces); 
+		
+		try{
+			b.getPiece(2, 2);
+		} catch (Exception e) {
+			assertTrue (e instanceof InvalidPiece);
+		}
+	}
+	
+	@Test
+	public void testPieceCount() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		
+		assertEquals(b.pieceCount(), 0);
+		
+		Piece p = new Piece(10, 1);
+		b.placePiece(0, 0, p);
+		
+		assertEquals(b.pieceCount(), 1);
+	}
+	
+	//bva: boolean value 
+	//need to test return true, false, and error  
+	@Test
+	public void testIsOccupiedFalse() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		
+		assertEquals(b.isOccupied(0, 0), false);
+	}
+	
+	@Test
+	public void testIsOccupiedTrue() {
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		
+		Piece p = new Piece(10, 1);
+		b.placePiece(0, 0, p);
+		
+		assertEquals(b.isOccupied(0, 0), true);
+	}
+	
+	@Test
+	public void testIsOccupiedError(){
+		Piece[][] pieces = new Piece[3][3];
+		Board b = new Board(pieces);
+		
+		try{
+			b.isOccupied(4, 4);
+		} catch (Exception e){
+			assertTrue (e instanceof InvalidLocation);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	@Test
 	public void testPlacementOutsideBoard() {
@@ -104,12 +180,6 @@ public class TestBoard {
 		}
 	}
 
-	@Test
-	public void testGetPieces() {
-		Piece[][] pieces = new Piece[3][3];
-		Board b = new Board(pieces);
-		assertArrayEquals(b.getPieces(), pieces);
-	}
 
 	@Test
 	public void testPlacePiece() {
@@ -182,35 +252,5 @@ public class TestBoard {
 		assertEquals(b.getPieces()[1][0], null);
 	}
 
-	@Test
-	public void testIsOccupied1() {
-		Piece[][] pieces = new Piece[3][3];
-		Board b = new Board(pieces);
 
-		assertEquals(b.isOccupied(0, 0), false);
-	}
-
-	@Test
-	public void testIsOccupied2() {
-		Piece[][] pieces = new Piece[3][3];
-		Board b = new Board(pieces);
-
-		Piece p = new Piece(10, 1);
-		b.placePiece(0, 0, p);
-
-		assertEquals(b.isOccupied(0, 0), true);
-	}
-
-	@Test
-	public void testPieceCount() {
-		Piece[][] pieces = new Piece[3][3];
-		Board b = new Board(pieces);
-
-		assertEquals(b.pieceCount(), 0);
-
-		Piece p = new Piece(10, 1);
-		b.placePiece(0, 0, p);
-
-		assertEquals(b.pieceCount(), 1);
-	}
 }
