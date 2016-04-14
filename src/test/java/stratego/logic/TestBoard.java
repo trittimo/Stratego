@@ -31,23 +31,37 @@ public class TestBoard {
 	public void testPlacementOutsideBoard() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
+		
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.replay();
+		
 		try {
-			b.placePiece(4, 4, new Piece(3, 1));
+			b.placePiece(4, 4, fakePiece);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidPlacement);
 		}
+		
+		EasyMock.verify();
 	}
 
 	@Test
 	public void testPlacementOnPiece() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		b.placePiece(2, 2, new Piece(3, 1));
+		
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.replay();
+		
+		b.placePiece(2, 2, fakePiece);
 		try {
-			b.placePiece(2, 2, new Piece(4, 1));
+			b.placePiece(2, 2, fakePiece);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidPlacement);
 		}
+		
+		EasyMock.verify();
 	}
 
 	@Test
