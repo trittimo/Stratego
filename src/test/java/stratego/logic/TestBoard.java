@@ -91,25 +91,43 @@ public class TestBoard {
 	public void testMoveOverPiece() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		b.placePiece(1, 1, new Piece(3, 1));
-		b.placePiece(2, 2, new Piece(3, 2));
+		
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.expect(fakePiece.getPieceName()).andReturn("piece");
+		
+		EasyMock.replay(fakePiece);
+		
+		b.placePiece(1, 1, fakePiece);
+		b.placePiece(2, 2, fakePiece);
 		try {
 			b.movePiece(1, 1, 2, 2);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidMovement);
 		}
+		
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
 	public void testMoveTooFar() {
 		Piece[][] pieces = new Piece[5][5];
 		Board b = new Board(pieces);
-		b.placePiece(1, 1, new Piece(1, 1));
+		
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.expect(fakePiece.getPieceName()).andReturn("piece");
+		
+		EasyMock.replay(fakePiece);
+		
+		b.placePiece(1, 1, fakePiece);
 		try {
 			b.movePiece(1, 1, 1, 4);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidMovement);
 		}
+		
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
