@@ -1,27 +1,42 @@
 package stratego;
 
-import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+
 import javax.swing.JFrame;
-import stratego.gui.MainScreen;
-import stratego.gui.Mouse;
-import javax.swing.Timer;
+
+import stratego.gui.StrategoPanel;
 
 public class Main {
-	final static int WINDOW_WIDTH = 900;
-	final static int WINDOW_HEIGHT = 900;
+
+	private static final String[] PIECES = { "Marshal", "General", "Colonel", "Major", "Captain", "Lieutenant",
+			"Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag" };
+
+	private static HashMap<String, File> imageFiles = new HashMap<String, File>();
 
 	public static void main(String[] args) {
-		JFrame f = new JFrame("Statego!");
+		try {
+			loadImageFiles();
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
 
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		f.setVisible(true);
+		JFrame frame = new JFrame("Stratego!");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		MainScreen main = new MainScreen();
-		Timer timer = new Timer(20, main);
-		timer.start();
-		MouseListener mouse = new Mouse(main);
-		f.add(main);
-		f.addMouseListener(mouse);
+		StrategoPanel gui = new StrategoPanel();
+		frame.getContentPane().add(gui);
+
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+	public static void loadImageFiles() throws FileNotFoundException {
+		for (int i = 0; i < PIECES.length; i++) {
+			imageFiles.put(PIECES[i], new File("images" + File.separator + PIECES[i] + ".png"));
+
+		}
 	}
 }
