@@ -1,6 +1,7 @@
 package stratego.logic;
 
 import stratego.logic.exceptions.InvalidAction;
+import stratego.logic.exceptions.InvalidLocation;
 import stratego.logic.exceptions.InvalidMovement;
 import stratego.logic.exceptions.InvalidPiece;
 import stratego.logic.exceptions.InvalidPlacement;
@@ -58,6 +59,9 @@ public class Board {
 	 */
 	
 	public boolean isOccupied(int x, int y) {
+		if (x < 0 || y < 0 || x > this.pieces.length || y > this.pieces[0].length){
+			throw new InvalidLocation(x, y);
+		}
 		return !(this.pieces[x][y] == null);
 	}
 	
