@@ -225,22 +225,28 @@ public class TestBoard {
 	public void testRemove1() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(10, 1);
-		b.placePiece(0, 0, p);
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.replay(fakePiece);
+		b.placePiece(0, 0, fakePiece);
 		b.removePiece(0, 0);
 
 		assertEquals(b.getPieces()[0][0], null);
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
 	public void testRemove2() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(10, 1);
-		b.placePiece(1, 0, p);
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.replay(fakePiece);
+		b.placePiece(1, 0, fakePiece);
 		b.removePiece(1, 0);
 
 		assertEquals(b.getPieces()[1][0], null);
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
@@ -256,11 +262,13 @@ public class TestBoard {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
 
-		Piece p = new Piece(10, 1);
-
-		b.placePiece(0, 0, p);
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.replay(fakePiece);
+		b.placePiece(0, 0, fakePiece);
 
 		assertEquals(b.isOccupied(0, 0), true);
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
@@ -270,9 +278,12 @@ public class TestBoard {
 
 		assertEquals(b.pieceCount(), 0);
 
-		Piece p = new Piece(10, 1);
-		b.placePiece(0, 0, p);
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.replay(fakePiece);
+		b.placePiece(0, 0, fakePiece);
 
 		assertEquals(b.pieceCount(), 1);
+		EasyMock.verify(fakePiece);
 	}
 }
