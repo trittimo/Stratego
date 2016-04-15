@@ -202,12 +202,22 @@ public class TestBoard {
 	public void testMove2() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(9, 1);
-		b.placePiece(0, 0, p);
-		assertEquals(b.getPieces()[0][0].getValue(), p.getValue());
+	
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.expect(fakePiece.getValue()).andReturn(9);
+		EasyMock.expect(fakePiece.getValue()).andReturn(9);
+		EasyMock.expect(fakePiece.getValue()).andReturn(9);
+		
+		EasyMock.replay(fakePiece);
+		
+		b.placePiece(0, 0, fakePiece);
+		assertEquals(b.getPieces()[0][0].getValue(), fakePiece.getValue());
 
 		b.movePiece(0, 0, 2, 0);
-		assertEquals(b.getPieces()[2][0].getValue(), p.getValue());
+		assertEquals(b.getPieces()[2][0].getValue(), fakePiece.getValue());
+		
+		EasyMock.verify(fakePiece);
 
 	}
 

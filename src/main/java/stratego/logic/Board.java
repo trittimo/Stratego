@@ -148,9 +148,5 @@ public class Board {
 		}
 		return count;
 	}
-	
-	public void setPieces(Piece[][] p){
-		this.pieces = p;
-	}
 
 }
