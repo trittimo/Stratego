@@ -1,6 +1,7 @@
 package stratego.logic;
 
 import stratego.logic.exceptions.InvalidAction;
+import stratego.logic.exceptions.InvalidLocation;
 import stratego.logic.exceptions.InvalidMovement;
 import stratego.logic.exceptions.InvalidPiece;
 import stratego.logic.exceptions.InvalidPlacement;
@@ -24,13 +25,46 @@ public class Board {
 	}
 
 	public Piece getPiece(int x, int y) {
-		if (pieces[x][y] != null) {
+		if (this.pieces[x][y] != null) {
 			return pieces[x][y];
 		} else {
 			throw new InvalidPiece(x, y);
 		}
 	}
+	
+	/**
+	 * @return the total number of pieces on the board
+	 */
+	public int pieceCount() {
+		int count = 0;
+		for (int i = 0; i < this.pieces.length; i++) {
+			for (int j = 0; j < this.pieces[0].length; j++) {
+				if (this.pieces[i][j] != null) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 
+	/**
+	 * Checks whether a location on the board is occupied
+	 * throws 
+	 *
+	 * @param x, y 
+	 * 		location on board we are looking at 
+	 * @return
+	 * 		boolean of whether location is occupied
+	 * 
+	 */
+	
+	public boolean isOccupied(int x, int y) {
+		if (x < 0 || y < 0 || x > this.pieces.length || y > this.pieces[0].length){
+			throw new InvalidLocation(x, y);
+		}
+		return !(this.pieces[x][y] == null);
+	}
+	
 	/**
 	 * Place a piece on the board at position (x, y)
 	 * 
@@ -50,6 +84,30 @@ public class Board {
 					"Attempt to place piece in an already occupied location");
 		}
 		this.pieces[x][y] = p;
+	}
+	
+	/**
+	 * Check if a piece is allowed to move from (x1, y1) to (x2, y2): only does
+	 * distance and directional testing
+	 * 
+	 * @param x1
+	 *            starting position of piece on board
+	 * @param x2
+	 *            starting position of piece on board
+	 * @param y1
+	 *            final position of piece on board
+	 * @param y2
+	 *            final position of piece on board
+	 * @return true if a piece can move from (x1, y1) to (x2, y2)
+	 */
+	public boolean isValidMoveDirection(int x1, int y1, int x2, int y2) {
+		Piece piece = this.pieces[x1][y1];
+		if (x1 != x2 && y1 != y2) {
+			return false;
+		} else if (piece.getValue() != 9 && Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) > 1) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -77,29 +135,6 @@ public class Board {
 		this.pieces[x1][y1] = null;
 	}
 
-	/**
-	 * Check if a piece is allowed to move from (x1, y1) to (x2, y2): only does
-	 * distance and directional testing
-	 * 
-	 * @param x1
-	 *            starting x position of piece on board
-	 * @param x2
-	 *            final x position of piece on board
-	 * @param y1
-	 *            starting y position of piece on board
-	 * @param y2
-	 *            final y position of piece on board
-	 * @return true if a piece can move from (x1, y1) to (x2, y2)
-	 */
-	public boolean isValidMoveDirection(int x1, int y1, int x2, int y2) {
-		Piece piece = this.pieces[x1][y1];
-		if (x1 != x2 && y1 != y2) {
-			return false;
-		} else if (piece.getValue() != 9 && Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) > 1) {
-			return false;
-		}
-		return true;
-	}
 
 	/**
 	 * Removes the piece at (x, y)
@@ -126,27 +161,6 @@ public class Board {
 	 *            position on board
 	 * @return true if there is a piece at (x, y)
 	 */
-	public boolean isOccupied(int x, int y) {
-		if (this.pieces[x][y] == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
 
-	/**
-	 * @return the total number of pieces on the board
-	 */
-	public int pieceCount() {
-		int count = 0;
-		for (int i = 0; i < this.pieces.length; i++) {
-			for (int j = 0; j < this.pieces[0].length; j++) {
-				if (this.pieces[i][j] != null) {
-					count++;
-				}
-			}
-		}
-		return count;
-	}
 
 }
