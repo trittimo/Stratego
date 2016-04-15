@@ -10,6 +10,9 @@ public class MouseHandler implements MouseListener {
 
 	private Game game;
 	private GUIPiece selectedPiece;
+	private GUIPiece mapSelectedPiece;
+	private int mapSelectedX;
+	private int mapSelectedY;
 	private GUIPieceSelector selector;
 	private GUIMap map;
 
@@ -30,26 +33,39 @@ public class MouseHandler implements MouseListener {
 		if (e.getComponent() instanceof GUIPiece) {
 			if (selectedPiece != null) {
 				selectedPiece.setSelected(false);
-				selectedPiece.repaint();
 			}
 			selectedPiece = (GUIPiece) e.getComponent();
 			selectedPiece.setSelected(true);
-			selectedPiece.repaint();
 		} else if (e.getComponent() instanceof GUIMap) {
+			int x = (int) (((double) e.getX()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);
+			int y = (int) (((double) e.getY()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);
 			if (selectedPiece != null) {
 				selectedPiece.setSelected(false);
-				int x = (int) (((double) e.getX()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);
-				int y = (int) (((double) e.getY()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);
-
 				if (!game.getBoard().isOccupied(x, y)) {
 					game.getBoard().placePiece(x, y, selectedPiece.getPiece());
 					map.addPiece(selectedPiece, x, y);
 					selector.removePiece(selectedPiece);
 				}
-
-				// TODO logic
-
 				selectedPiece = null;
+			} else if (mapSelectedPiece != null) {
+				mapSelectedPiece.setSelected(false);
+
+				try {
+					game.getBoard().movePiece(mapSelectedX, mapSelectedY, x, y);
+					map.movePiece(mapSelectedPiece, mapSelectedX, mapSelectedY, x, y);
+				} catch (Exception exception) {
+					// TODO do something with these exceptions
+					System.err.println("Unable to move: " + exception.getMessage());
+				}
+
+				mapSelectedPiece = null;
+			} else if (game.getBoard().isOccupied(x, y)) {
+				mapSelectedPiece = map.getPiece(x, y);
+				if (mapSelectedPiece != null) {
+					mapSelectedPiece.setSelected(true);
+					mapSelectedX = x;
+					mapSelectedY = y;
+				}
 			}
 		}
 	}
