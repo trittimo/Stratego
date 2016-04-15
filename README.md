@@ -1,9 +1,8 @@
 # Stratego
 
-## Milestone 3 Progress
+## Milestone 4 Progress
 
-Stefan Brand: I worked in the software engineer role and helped implement the Game class.  I used TTD while developing these classes and the control logic of the application.
-I spent the majority of the time on this milestone pair programming with Vibha.
+Stefan Brand: I worked in the software engineer role and helped refactor all of our previous test code to use mocks and stubs when needed.  I did not add any new tests during this milestone because we did not add anymore game logic.
 
 Vibha Alangar: I worked in the software engineer role and Stefan and I implement both added more logic to the Board and Pieces class, as well as started the game class. We worked to get some of the game logic in. We pair programmed, using TDD to test the Game Logic. Stefan and I worked together and checked each others work. 
 
