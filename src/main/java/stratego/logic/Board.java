@@ -82,13 +82,13 @@ public class Board {
 	 * distance and directional testing
 	 * 
 	 * @param x1
-	 *            starting position of piece on board
+	 *            starting x position of piece on board
 	 * @param x2
-	 *            starting position of piece on board
+	 *            final x position of piece on board
 	 * @param y1
-	 *            final position of piece on board
+	 *            starting y position of piece on board
 	 * @param y2
-	 *            final position of piece on board
+	 *            final y position of piece on board
 	 * @return true if a piece can move from (x1, y1) to (x2, y2)
 	 */
 	public boolean isValidMoveDirection(int x1, int y1, int x2, int y2) {

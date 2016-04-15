@@ -1,8 +1,6 @@
 package stratego.logic;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
@@ -17,13 +15,13 @@ public class TestBoard {
 	public void getPiece() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		
+
 		Piece fakePiece = EasyMock.niceMock(Piece.class);
 		EasyMock.replay(fakePiece);
-		
+
 		b.placePiece(2, 2, fakePiece);
 		assertTrue(b.getPiece(2, 2) == fakePiece);
-		
+
 		EasyMock.verify(fakePiece);
 	}
 
@@ -31,17 +29,17 @@ public class TestBoard {
 	public void testPlacementOutsideBoard() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		
+
 		Piece fakePiece = EasyMock.niceMock(Piece.class);
-		
+
 		EasyMock.replay();
-		
+
 		try {
 			b.placePiece(4, 4, fakePiece);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidPlacement);
 		}
-		
+
 		EasyMock.verify();
 	}
 
@@ -49,18 +47,18 @@ public class TestBoard {
 	public void testPlacementOnPiece() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		
+
 		Piece fakePiece = EasyMock.niceMock(Piece.class);
-		
+
 		EasyMock.replay();
-		
+
 		b.placePiece(2, 2, fakePiece);
 		try {
 			b.placePiece(2, 2, fakePiece);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidPlacement);
 		}
-		
+
 		EasyMock.verify();
 	}
 
@@ -91,13 +89,13 @@ public class TestBoard {
 	public void testMoveOverPiece() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		
+
 		Piece fakePiece = EasyMock.niceMock(Piece.class);
-		
+
 		EasyMock.expect(fakePiece.getPieceName()).andReturn("piece");
-		
+
 		EasyMock.replay(fakePiece);
-		
+
 		b.placePiece(1, 1, fakePiece);
 		b.placePiece(2, 2, fakePiece);
 		try {
@@ -105,7 +103,7 @@ public class TestBoard {
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidMovement);
 		}
-		
+
 		EasyMock.verify(fakePiece);
 	}
 
@@ -113,20 +111,20 @@ public class TestBoard {
 	public void testMoveTooFar() {
 		Piece[][] pieces = new Piece[5][5];
 		Board b = new Board(pieces);
-		
+
 		Piece fakePiece = EasyMock.niceMock(Piece.class);
-		
+
 		EasyMock.expect(fakePiece.getPieceName()).andReturn("piece");
-		
+
 		EasyMock.replay(fakePiece);
-		
+
 		b.placePiece(1, 1, fakePiece);
 		try {
 			b.movePiece(1, 1, 1, 4);
 		} catch (Exception e) {
 			assertTrue(e instanceof InvalidMovement);
 		}
-		
+
 		EasyMock.verify(fakePiece);
 	}
 
@@ -134,12 +132,13 @@ public class TestBoard {
 	public void testMoveInvalidDirection() {
 		Piece[][] pieces = new Piece[5][5];
 		Board b = new Board(pieces);
-		b.placePiece(1, 1, new Piece(1, 1));
-		try {
-			b.movePiece(1, 1, 2, 2);
-		} catch (Exception e) {
-			assertTrue(e instanceof InvalidMovement);
-		}
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+
+		b.placePiece(1, 1, fakePiece);
+
+		EasyMock.replay(fakePiece);
+		assertFalse(b.isValidMoveDirection(1, 1, 2, 2));
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
@@ -234,6 +233,7 @@ public class TestBoard {
 		Board b = new Board(pieces);
 
 		Piece p = new Piece(10, 1);
+
 		b.placePiece(0, 0, p);
 
 		assertEquals(b.isOccupied(0, 0), true);
