@@ -205,10 +205,6 @@ public class TestGame {
 		//Piece p1 = new Piece(3, 1);
 		Piece fakePiece1 = EasyMock.niceMock(Piece.class);
 		Piece fakePiece2 = EasyMock.niceMock(Piece.class);
-		
-		p[0][0] = fakePiece1;
-		p[0][1] = fakePiece2;
-		fakeBoard.setPieces(p);
 
 		EasyMock.expect(fakeBoard.isOccupied(0, 1)).andReturn(true);
 		System.out.println(fakeBoard.getPiece(0, 0));
