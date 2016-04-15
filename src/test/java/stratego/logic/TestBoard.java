@@ -153,34 +153,48 @@ public class TestBoard {
 		Piece[][] pieces = new Piece[3][3];
 		Piece[][] piecestest = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(10, 1);
-		b.placePiece(0, 0, p);
-		piecestest[0][0] = p;
+		
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+
+		b.placePiece(0, 0, fakePiece);
+		piecestest[0][0] = fakePiece;
+
+		EasyMock.replay(fakePiece);
+		assertFalse(b.isValidMoveDirection(1, 1, 2, 2));
 		assertEquals(b.getPieces()[0][0].getValue(), piecestest[0][0].getValue());
+		EasyMock.verify(fakePiece);
 	}
 
 	@Test
 	public void testPlacePiece2() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(10, 1);
-		b.placePiece(0, 0, p);
-		assertEquals(b.getPieces()[0][0].getValue(), p.getValue());
-		Piece p2 = new Piece(5, 1);
-		b.placePiece(0, 1, p2);
-		assertEquals(b.getPieces()[0][1].getValue(), p2.getValue());
+		
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		Piece fakePiece2 = EasyMock.niceMock(Piece.class);
+		
+		b.placePiece(0, 0, fakePiece);
+		b.placePiece(0, 1, fakePiece2);
+
+		EasyMock.replay(fakePiece,fakePiece2);
+		assertEquals(b.getPieces()[0][0].getValue(), fakePiece.getValue());
+		assertEquals(b.getPieces()[0][1].getValue(), fakePiece2.getValue());
+		EasyMock.verify(fakePiece,fakePiece2);		
 	}
 
 	@Test
 	public void testMove1() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
-		Piece p = new Piece(10, 1);
-		b.placePiece(0, 0, p);
-		assertEquals(b.getPieces()[0][0].getValue(), p.getValue());
+		Piece fakePiece = EasyMock.niceMock(Piece.class);
+		
+		EasyMock.replay(fakePiece);
+		b.placePiece(0, 0, fakePiece);
+		assertEquals(b.getPieces()[0][0].getValue(), fakePiece.getValue());
 
 		b.movePiece(0, 0, 1, 0);
-		assertEquals(b.getPieces()[1][0].getValue(), p.getValue());
+		assertEquals(b.getPieces()[1][0].getValue(), fakePiece.getValue());
+		EasyMock.verify(fakePiece);		
 
 	}
 
