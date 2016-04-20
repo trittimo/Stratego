@@ -1,27 +1,38 @@
 package stratego;
 
-import java.awt.event.MouseListener;
+import java.io.IOException;
+
 import javax.swing.JFrame;
-import stratego.gui.MainScreen;
-import stratego.gui.Mouse;
-import javax.swing.Timer;
+import javax.swing.SwingUtilities;
+
+import stratego.gui.GUIPiece;
+import stratego.gui.GUIPiece.PieceType;
+import stratego.gui.StrategoPanel;
+import stratego.logic.Board;
+import stratego.logic.Game;
+import stratego.logic.Piece;
 
 public class Main {
-	final static int WINDOW_WIDTH = 900;
-	final static int WINDOW_HEIGHT = 900;
-
 	public static void main(String[] args) {
-		JFrame f = new JFrame("Statego!");
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				JFrame frame = new JFrame("Stratego!");
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		f.setVisible(true);
+				StrategoPanel gui = null;
+				try {
+					gui = new StrategoPanel(new Game(new Board(new Piece[10][10])));
+				} catch (IOException e) {
+					System.err.println(e.getMessage());
+					return;
+				}
+				frame.getContentPane().add(gui);
 
-		MainScreen main = new MainScreen();
-		Timer timer = new Timer(20, main);
-		timer.start();
-		MouseListener mouse = new Mouse(main);
-		f.add(main);
-		f.addMouseListener(mouse);
+				frame.pack();
+				frame.setResizable(false);
+				frame.setVisible(true);
+			}
+		});
+
 	}
 }
