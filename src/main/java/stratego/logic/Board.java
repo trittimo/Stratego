@@ -19,11 +19,24 @@ public class Board {
 	public Board(Piece[][] pieces) {
 		this.pieces = pieces;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public Piece[][] getPieces() {
 		return this.pieces;
 	}
 
+	/**
+	 * Returns the piece at position (x, y) on the board, or an InvalidPiece
+	 * exception if no piece is found
+	 * 
+	 * @param x
+	 *            xPosition of piece on board
+	 * @param y
+	 *            yPosition of piece on board
+	 * @return
+	 */
 	public Piece getPiece(int x, int y) {
 		if (this.pieces[x][y] != null) {
 			return pieces[x][y];
@@ -31,7 +44,7 @@ public class Board {
 			throw new InvalidPiece(x, y);
 		}
 	}
-	
+
 	/**
 	 * @return the total number of pieces on the board
 	 */
@@ -48,23 +61,22 @@ public class Board {
 	}
 
 	/**
-	 * Checks whether a location on the board is occupied
-	 * throws 
+	 * Checks whether a location on the board is occupied throws
 	 *
-	 * @param x, y 
-	 * 		location on board we are looking at 
-	 * @return
-	 * 		boolean of whether location is occupied
+	 * @param x
+	 *            xPosition to check
+	 * @param y
+	 *            yPosition to check
+	 * @return true if the location is occupied, false otherwise
 	 * 
 	 */
-	
 	public boolean isOccupied(int x, int y) {
-		if (x < 0 || y < 0 || x > this.pieces.length || y > this.pieces[0].length){
+		if (x < 0 || y < 0 || x > this.pieces.length || y > this.pieces[0].length) {
 			throw new InvalidLocation(x, y);
 		}
 		return !(this.pieces[x][y] == null);
 	}
-	
+
 	/**
 	 * Place a piece on the board at position (x, y)
 	 * 
@@ -77,15 +89,13 @@ public class Board {
 	 */
 	public void placePiece(int x, int y, Piece p) {
 		if (x < 0 || y < 0 || x > pieces.length || y > pieces[0].length) {
-			throw new InvalidPlacement(p, this, x, y,
-					"Attempt to place piece outside of the board");
+			throw new InvalidPlacement(p, this, x, y, "Attempt to place piece outside of the board");
 		} else if (isOccupied(x, y)) {
-			throw new InvalidPlacement(p, this, x, y,
-					"Attempt to place piece in an already occupied location");
+			throw new InvalidPlacement(p, this, x, y, "Attempt to place piece in an already occupied location");
 		}
 		this.pieces[x][y] = p;
 	}
-	
+
 	/**
 	 * Check if a piece is allowed to move from (x1, y1) to (x2, y2): only does
 	 * distance and directional testing
@@ -135,7 +145,6 @@ public class Board {
 		this.pieces[x1][y1] = null;
 	}
 
-
 	/**
 	 * Removes the piece at (x, y)
 	 * 
@@ -146,21 +155,9 @@ public class Board {
 	 */
 	public void removePiece(int x, int y) {
 		if (this.pieces[x][y] == null) {
-			throw new InvalidAction(
-					"Cannot remove piece at (" + x + ", " + y + "): piece does not exist");
+			throw new InvalidAction("Cannot remove piece at (" + x + ", " + y + "): piece does not exist");
 		}
 		this.pieces[x][y] = null;
 	}
-
-	/**
-	 * Checks if there is a piece at (x, y)
-	 * 
-	 * @param x
-	 *            position on board
-	 * @param y
-	 *            position on board
-	 * @return true if there is a piece at (x, y)
-	 */
-
 
 }
