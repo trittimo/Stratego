@@ -43,11 +43,8 @@ public class GUIPiece extends JComponent {
 
 	public int getPieceSize() {
 		if (this.onBoard) {
-			this.setPreferredSize(new Dimension(Dimensions.BOARD_WIDTH / 10, Dimensions.BOARD_WIDTH / 10));
 			return Dimensions.BOARD_WIDTH / 10;
 		} else {
-			this.setPreferredSize(
-					new Dimension(Dimensions.SELECTOR_WIDTH * 3 / 40, Dimensions.SELECTOR_WIDTH * 3 / 40));
 			return Dimensions.SELECTOR_WIDTH * 3 / 40;
 		}
 	}
@@ -71,7 +68,7 @@ public class GUIPiece extends JComponent {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		//super.paintComponent(g);
 		g.drawImage(this.getImage(), 0, 0, this.getPieceSize(), this.getPieceSize(), null);
 		if (this.selected) {
 			Graphics2D g2 = (Graphics2D) g;

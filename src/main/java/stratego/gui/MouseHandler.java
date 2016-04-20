@@ -60,6 +60,10 @@ public class MouseHandler implements MouseListener {
 
 				mapSelectedPiece = null;
 			} else if (game.getBoard().isOccupied(x, y)) {
+				if (mapSelectedPiece != null) {
+					// TODO attack
+					mapSelectedPiece.setSelected(false);
+				}
 				mapSelectedPiece = map.getPiece(x, y);
 				if (mapSelectedPiece != null) {
 					mapSelectedPiece.setSelected(true);

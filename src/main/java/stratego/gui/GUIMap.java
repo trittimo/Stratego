@@ -43,12 +43,13 @@ public class GUIMap extends JPanel {
 	}
 
 	public void addPiece(GUIPiece piece, int x, int y) {
-		grid[x][y].add(piece);
 		grid[x][y].setOpaque(true);
 		grid[x][y].setBackground(new Color(0, 0, 0, 0));
+		grid[x][y].add(piece);
 		piece.setOnBoard(true);
+		piece.setPreferredSize(new Dimension(piece.getPieceSize(), piece.getPieceSize()));
 		piece.repaint();
-		grid[x][y].repaint();
+		//grid[x][y].repaint();
 	}
 	
 	public void movePiece(GUIPiece piece, int x1, int y1, int x2, int y2) {
@@ -56,6 +57,7 @@ public class GUIMap extends JPanel {
 		grid[x1][y1].setOpaque(false);
 		addPiece(piece, x2, y2);
 		grid[x1][y1].repaint();
+		
 	}
 	
 	public GUIPiece getPiece(int x, int y) {
