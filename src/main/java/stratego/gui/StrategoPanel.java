@@ -1,6 +1,7 @@
 package stratego.gui;
 
-import static stratego.Constants.Dimensions.*;
+import static stratego.Constants.Dimensions.WINDOW_HEIGHT;
+import static stratego.Constants.Dimensions.WINDOW_WIDTH;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +9,7 @@ import java.awt.FlowLayout;
 import java.io.IOException;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import stratego.logic.Game;
@@ -30,10 +32,19 @@ public class StrategoPanel extends JPanel {
 
 		mapDisplayContainer.add(map);
 		mapDisplayContainer.add(display);
+		//mapDisplayContainer.add(playerTurn);
+		
+		JLabel playerTurn = new JLabel("Player " + game.whoseTurn() + " 's turn");
+		playerTurn.setSize(new Dimension 
+				(stratego.Constants.Dimensions.MESSAGES_HEIGHT, 100));
+		playerTurn.setLocation(0, 0);
+		display.add(playerTurn);
+		
 
 		this.setBackground(Color.GRAY);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+		//this.add(playerTurn);
 		this.add(mapDisplayContainer);
 		this.add(selector);
 
