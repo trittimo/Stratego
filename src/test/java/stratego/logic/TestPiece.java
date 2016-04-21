@@ -20,7 +20,8 @@ public class TestPiece {
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
 			{3, 11, 3}, // Miner defuses bomb
-			{10, 1, 10}, // Spy beats Marshal
+			{10, 1, 10}, // Spy beats Marshal if spy attacks
+			{1, 10, 1}, // Marshal beats spy if marshal attacks
 			{1, 11, 11}, // Marshal loses to bomb
 			{1, 5, 1}, // Marshal beats captain
 			{5, 5, -1}, // Nobody wins if ranks are equal
