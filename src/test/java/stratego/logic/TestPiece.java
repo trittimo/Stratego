@@ -1,11 +1,14 @@
 package stratego.logic;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.*;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import stratego.logic.exceptions.InvalidPieceValue;
 import stratego.logic.exceptions.InvalidPlayer;
@@ -13,8 +16,33 @@ import stratego.logic.exceptions.InvalidPlayer;
 @SuppressWarnings("unused")
 @RunWith(Parameterized.class)
 public class TestPiece {
-	// NOTE: assertEquals(expected, actual)
-
+	@Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(new Object[][] {
+			{3, 11, 3}, // Miner defuses bomb
+			{10, 1, 10}, // Spy beats Marshal
+			{1, 11, 11}, // Marshal loses to bomb
+			{1, 5, 1}, // Marshal beats captain
+			{5, 5, -1}, // Nobody wins if ranks are equal
+			{5, 1, 1} // Captain loses to marshal
+		});
+	}
+	
+	
+	private int pieceAValue;
+	private int pieceBValue;
+	private int expectedWinner;
+	public TestPiece(int pieceAValue, int pieceBValue, int expected) {
+		this.pieceAValue = pieceAValue;
+		this.pieceBValue = pieceBValue;
+		this.expectedWinner = expected;
+	}
+	
+	@Test
+	public void testGetWinner() {
+		assertEquals(expectedWinner, Piece.getWinner(pieceAValue, pieceBValue));
+	}
+	
 	@Test
 	public void testPieceConstrutor() {
 		Piece newPiece = new Piece(1, 1);
