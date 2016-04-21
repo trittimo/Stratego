@@ -1,6 +1,6 @@
 package stratego.gui;
 
-import static stratego.Constants.*;
+import static stratego.Constants.MAP_FILE;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -49,14 +49,22 @@ public class GUIMap extends JPanel {
 		piece.setOnBoard(true);
 		piece.setPreferredSize(new Dimension(piece.getPieceSize(), piece.getPieceSize()));
 		piece.repaint();
+		piece.revalidate();
 		// grid[x][y].repaint();
 	}
 
 	public void movePiece(GUIPiece piece, int x1, int y1, int x2, int y2) {
+		System.out.println(grid[x1][y1].getComponentCount());
 		grid[x1][y1].remove(piece);
-		grid[x1][y1].setOpaque(false);
+		System.out.println(grid[x1][y1].getComponentCount());
+		
+		grid[x1][y1].setOpaque(true);
 		addPiece(piece, x2, y2);
+		grid[x1][y1].revalidate();
 		grid[x1][y1].repaint();
+		
+		this.revalidate();
+		this.repaint();
 
 	}
 
