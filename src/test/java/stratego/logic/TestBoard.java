@@ -5,8 +5,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.easymock.EasyMock;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import stratego.logic.exceptions.InvalidAction;
 import stratego.logic.exceptions.InvalidLocation;
@@ -14,13 +22,42 @@ import stratego.logic.exceptions.InvalidMovement;
 import stratego.logic.exceptions.InvalidPiece;
 import stratego.logic.exceptions.InvalidPlacement;
 
+@RunWith(Parameterized.class)
 public class TestBoard {
 
+	@Parameters
+	public static Collection<Object[]>data(){
+		return Arrays.asList(new Object[][]{
+			{new Object[] {2,4,1}, false},
+			{new Object[] {7,5,2}, false},
+			{new Object[] {5,5,6}, false},
+			{new Object[] {2,7,10}, true}
+		});
+	}
+
+	private Object[] pieces;
+	private boolean expected;
+	
+	public TestBoard(Object[] pieces, boolean expected){
+		this.pieces = pieces;
+		this.expected = expected;
+	}
+
+	
 	@Test
 	public void testGetPieces() {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
 		assertArrayEquals(b.getPieces(), pieces);
+	}
+	
+	@Test
+	public void testPlacePieceAtBeginning(){
+		//testing just the beginning
+		Piece p1 = new Piece((int)pieces[2],1);
+		Board b = new Board(new Piece[10][10]);
+		
+		assertEquals(expected, b.isValidToPlacePiece((int)pieces[0],(int)pieces[1]));
 	}
 
 	// bva - test whether piece exists, and whether it doesnt

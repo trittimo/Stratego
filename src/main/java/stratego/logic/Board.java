@@ -16,10 +16,12 @@ public class Board {
 
 	private Piece[][] pieces;
 	private boolean isValid;
-
+	private boolean isBeginning;
+	
 	public Board(Piece[][] pieces) {
 		this.pieces = pieces;
 		this.isValid = true;
+		this.isBeginning = true;
 	}
 
 	/**
