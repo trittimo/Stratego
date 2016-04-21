@@ -8,8 +8,8 @@ import stratego.logic.exceptions.InvalidPlayer;
  */
 public class Piece {
 
-	private static String[] pieceNames = { "Marshal", "General", "Colonel", "Major", "Captain",
-			"Lieutenant", "Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag" };
+	private static String[] pieceNames = { "Marshal", "General", "Colonel", "Major", "Captain", "Lieutenant",
+			"Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag" };
 
 	private int pieceValue;
 	private int player;
@@ -47,10 +47,9 @@ public class Piece {
 	}
 
 	/**
-	 * @return the rank of the piece, in the range [1, 10]
-	 * rank in the range of [1, 10] are regular pieces
-	 * rank of 0 is a bomb  
-	 * rank of -1 is the flag 
+	 * @return the rank of the piece, in the range [1, 10] rank in the range of
+	 *         [1, 10] are regular pieces rank of 0 is a bomb rank of -1 is the
+	 *         flag
 	 */
 	public int getRank() {
 		return 11 - this.getValue();

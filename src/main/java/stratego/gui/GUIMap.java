@@ -49,17 +49,17 @@ public class GUIMap extends JPanel {
 		piece.setOnBoard(true);
 		piece.setPreferredSize(new Dimension(piece.getPieceSize(), piece.getPieceSize()));
 		piece.repaint();
-		//grid[x][y].repaint();
+		// grid[x][y].repaint();
 	}
-	
+
 	public void movePiece(GUIPiece piece, int x1, int y1, int x2, int y2) {
 		grid[x1][y1].remove(piece);
 		grid[x1][y1].setOpaque(false);
 		addPiece(piece, x2, y2);
 		grid[x1][y1].repaint();
-		
+
 	}
-	
+
 	public GUIPiece getPiece(int x, int y) {
 		if (grid[x][y].getComponentCount() != 0) {
 			return (GUIPiece) grid[x][y].getComponent(0);

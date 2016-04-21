@@ -12,6 +12,5 @@ public class GUIMessageDisplay extends JPanel {
 		this.setPreferredSize(new Dimension(Constants.Dimensions.MESSAGES_WIDTH, Constants.Dimensions.MESSAGES_HEIGHT));
 		this.setBackground(Color.DARK_GRAY);
 	}
-	
-	
+
 }

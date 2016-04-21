@@ -11,7 +11,6 @@ import stratego.logic.Piece;
 @SuppressWarnings("serial")
 public class InvalidPieceValue extends RuntimeException {
 	public InvalidPieceValue(int value) {
-		super("'" + value
-				+ "' is an invalid piece value: Pieces values must fall within the range [1-12]");
+		super("'" + value + "' is an invalid piece value: Pieces values must fall within the range [1-12]");
 	}
 }

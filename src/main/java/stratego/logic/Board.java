@@ -19,6 +19,7 @@ public class Board {
 	public Board(Piece[][] pieces) {
 		this.pieces = pieces;
 	}
+
 	/**
 	 * 
 	 * @return

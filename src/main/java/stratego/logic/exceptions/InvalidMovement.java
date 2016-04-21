@@ -8,7 +8,6 @@ package stratego.logic.exceptions;
  */
 public class InvalidMovement extends InvalidAction {
 	public InvalidMovement(String pieceName, int x1, int y1, int x2, int y2) {
-		super("Cannot move " + pieceName + " from (" + x1 + ", " + y1 + ") to (" + x2 + ", " + y2
-				+ ")");
+		super("Cannot move " + pieceName + " from (" + x1 + ", " + y1 + ") to (" + x2 + ", " + y2 + ")");
 	}
 }

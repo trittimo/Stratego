@@ -68,7 +68,7 @@ public class GUIPiece extends JComponent {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		//super.paintComponent(g);
+		// super.paintComponent(g);
 		g.drawImage(this.getImage(), 0, 0, this.getPieceSize(), this.getPieceSize(), null);
 		if (this.selected) {
 			Graphics2D g2 = (Graphics2D) g;
