@@ -1,0 +1,14 @@
+package stratego.logic;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class TestIntegration {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}
