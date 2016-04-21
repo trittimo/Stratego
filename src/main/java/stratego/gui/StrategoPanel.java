@@ -9,7 +9,6 @@ import java.awt.FlowLayout;
 import java.io.IOException;
 
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import stratego.logic.Game;
@@ -24,21 +23,15 @@ public class StrategoPanel extends JPanel {
 		MouseHandler mouseHandler = new MouseHandler(game);
 		GUIMap map = new GUIMap(game, mouseHandler);
 		GUIPieceSelector selector = new GUIPieceSelector(game, mouseHandler);
-		GUIMessageDisplay display = new GUIMessageDisplay();
+		GUIMessageDisplay display = new GUIMessageDisplay(game);
 
+		//displays the JPanel that holds the map 
 		JPanel mapDisplayContainer = new JPanel();
-
 		mapDisplayContainer.setLayout(new FlowLayout(FlowLayout.LEADING));
-
 		mapDisplayContainer.add(map);
 		mapDisplayContainer.add(display);
-		//mapDisplayContainer.add(playerTurn);
 		
-		JLabel playerTurn = new JLabel("Player " + game.whoseTurn() + " 's turn");
-		playerTurn.setSize(new Dimension 
-				(stratego.Constants.Dimensions.MESSAGES_HEIGHT, 100));
-		playerTurn.setLocation(0, 0);
-		display.add(playerTurn);
+
 		
 
 		this.setBackground(Color.GRAY);
