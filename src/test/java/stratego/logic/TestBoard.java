@@ -14,8 +14,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 import stratego.logic.exceptions.InvalidAction;
 import stratego.logic.exceptions.InvalidLocation;
 import stratego.logic.exceptions.InvalidMovement;
@@ -28,18 +26,21 @@ public class TestBoard {
 	@Parameters
 	public static Collection<Object[]>data(){
 		return Arrays.asList(new Object[][]{
-			{new Object[] {2,4,1}, false},
-			{new Object[] {7,5,2}, false},
-			{new Object[] {5,5,6}, false},
-			{new Object[] {2,7,10}, true}
+			{new Object[] {2,4,1,1}, false}, // River
+			{new Object[] {7,5,2,1}, false}, // River
+			{new Object[] {5,5,6,1}, false}, // Not river, but can't place since game is starting
+			{new Object[] {2,7,10,2}, true}, // Fine
+			{new Object[] {2,7,10,1}, false}, // Player 1 can't place here
+			{new Object[] {0,0,1,1}, true}, // Edge case for player 1
+			{new Object[] {0,0,1,1, 0,0,2,1}, false} // Can't place on already occupied place
 		});
 	}
 
-	private Object[] pieces;
+	private Object[] args;
 	private boolean expected;
 	
-	public TestBoard(Object[] pieces, boolean expected){
-		this.pieces = pieces;
+	public TestBoard(Object[] args, boolean expected){
+		this.args = args;
 		this.expected = expected;
 	}
 
@@ -54,10 +55,15 @@ public class TestBoard {
 	@Test
 	public void testPlacePieceAtBeginning(){
 		//testing just the beginning
-		Piece p1 = new Piece((int)pieces[2],1);
 		Board b = new Board(new Piece[10][10]);
-		
-		assertEquals(expected, b.isValidToPlacePiece((int)pieces[0],(int)pieces[1]));
+		boolean result = true;
+		for (int i = 0; i < this.args.length; i+=4) {
+			result = result && b.isValidToPlacePiece((int)args[i],(int)args[i+1],(int)args[i+3]);
+			if (result) {
+				b.placePiece((int)args[i], (int)args[i+1], new Piece((int)args[i+2], (int)args[i+3]));
+			}
+		}
+		assertEquals(expected, result);
 	}
 
 	// bva - test whether piece exists, and whether it doesnt

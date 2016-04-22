@@ -15,12 +15,10 @@ import stratego.logic.exceptions.InvalidPlacement;
 public class Board {
 
 	private Piece[][] pieces;
-	private boolean isValid;
 	private boolean isBeginning;
 	
 	public Board(Piece[][] pieces) {
 		this.pieces = pieces;
-		this.isValid = true;
 		this.isBeginning = true;
 	}
 
@@ -40,8 +38,7 @@ public class Board {
 	 * @return
 	 */
 	public boolean isRiver(int x, int y) {
-		if ((x == 2 && y == 4) || (x == 2 && y == 5) || (x == 3 && y == 4) || (x == 3 && y == 5) || (x == 7 && y == 4)
-				|| (x == 7 && y == 5) || (x == 8 && y == 4) || (x == 8 && y == 5)) {
+		if ((x >= 2 && y >= 4 && x <= 3 && y <= 5) || (x >= 7 && y >= 4 && x <= 8 && y <= 5)) {
 			return true;
 		}
 		return false;
@@ -52,10 +49,14 @@ public class Board {
 	 * 
 	 * @return
 	 */
-	public boolean isValidToPlacePiece(int x, int y) {
-		if (isValid)
+	public boolean isValidToPlacePiece(int x, int y, int player) {
+		if (isRiver(x, y)) {
 			return false;
-		return isValid;
+		} else if (this.isBeginning) {
+			return ((y < 4 && player == 1) || (y > 6 && player == 2)) && !this.isOccupied(x, y);
+		} else {
+			return !this.isBeginning && !this.isOccupied(x, y);
+		}
 	}
 
 	/**
