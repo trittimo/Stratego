@@ -1,5 +1,6 @@
 package stratego.logic;
 
+import stratego.logic.exceptions.InvalidAttacker;
 import stratego.logic.exceptions.InvalidPieceValue;
 import stratego.logic.exceptions.InvalidPlayer;
 
@@ -62,6 +63,14 @@ public class Piece {
 	 * @return the piece value of the winner, or -1 if neither piece wins
 	 */
 	public static int getWinner(int valueAttacker, int valueDefender) {
+		//if trying to attack with a bomb or flag
+		if (valueAttacker == 11 || valueAttacker == 12){
+			throw new InvalidAttacker(valueAttacker);
+		}else if(valueAttacker < 1 || valueAttacker > 12){
+			throw new InvalidPieceValue(valueAttacker);
+		}else if(valueDefender < 1 || valueDefender > 12){
+			throw new InvalidPieceValue(valueDefender);
+		}
 		if (valueAttacker == valueDefender) { // If the pieces are the same rank
 			return -1; // Nobody wins
 		} else if (valueDefender == 12) { // The flag can't win
