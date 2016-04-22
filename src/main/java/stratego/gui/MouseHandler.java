@@ -1,5 +1,6 @@
 package stratego.gui;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -28,17 +29,41 @@ public class MouseHandler implements MouseListener {
 		this.map = map;
 	}
 
+	@SuppressWarnings("unqualified-field-access")
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getComponent() instanceof GUIPiece) {
-			if (selectedPiece != null) {
-				selectedPiece.setSelected(false);
+		
+		if (e.getComponent() instanceof GUIPiece){
+			
+			if (e.getComponent().getParent() instanceof GUIPieceSelector) {
+				if (selectedPiece != null) {
+					selectedPiece.setSelected(false);
+				}
+				selectedPiece = (GUIPiece) e.getComponent();
+				selectedPiece.setSelected(true); 
 			}
-			selectedPiece = (GUIPiece) e.getComponent();
-			selectedPiece.setSelected(true);
+			else{
+			Point p = map.getLocation(e.getComponent().getParent()); 
+			int x = (int) p.getX(); 
+			int y = (int) p.getY();
+				if (game.getBoard().isOccupied(x, y)) {
+					if (mapSelectedPiece != null) {
+						// TODO attack
+						mapSelectedPiece.setSelected(false);
+					}
+					mapSelectedPiece = map.getPiece(x, y);
+					if (mapSelectedPiece != null) {
+						mapSelectedPiece.setSelected(true);
+						mapSelectedX = x;
+						mapSelectedY = y;
+					}
+				}
+			}
+			
 		} else if (e.getComponent() instanceof GUIMap) {
 			int x = (int) (((double) e.getX()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);
 			int y = (int) (((double) e.getY()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);
+			
 			if (selectedPiece != null) {
 				selectedPiece.setSelected(false);
 				if (!game.getBoard().isOccupied(x, y)) {
@@ -59,17 +84,6 @@ public class MouseHandler implements MouseListener {
 				}
 
 				mapSelectedPiece = null;
-			} else if (game.getBoard().isOccupied(x, y)) {
-				if (mapSelectedPiece != null) {
-					// TODO attack
-					mapSelectedPiece.setSelected(false);
-				}
-				mapSelectedPiece = map.getPiece(x, y);
-				if (mapSelectedPiece != null) {
-					mapSelectedPiece.setSelected(true);
-					mapSelectedX = x;
-					mapSelectedY = y;
-				}
 			}
 		}
 	}

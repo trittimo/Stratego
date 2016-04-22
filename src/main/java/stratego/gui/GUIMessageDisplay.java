@@ -19,11 +19,17 @@ public class GUIMessageDisplay extends JPanel {
 		this.game = game; 
 		
 		JLabel playerTurn = new JLabel("Player " + game.whoseTurn() + " 's turn");
-		playerTurn.setSize(new Dimension 
-				(stratego.Constants.Dimensions.MESSAGES_HEIGHT, 100));
-		playerTurn.setLocation(0, 0);
+//		playerTurn.setSize(new Dimension 
+//				(stratego.Constants.Dimensions.MESSAGES_HEIGHT, 100));
+//		playerTurn.setLocation(0, 0);
 		playerTurn.setForeground(Color.RED);
 		this.add(playerTurn);
+		
+		JLabel playerPieces = new JLabel("Player " + game.whoseTurn() + " 's pieces: ");
+		playerPieces.setForeground(Color.RED);
+		
+		//JLabel playerPieces = new JLabel()
+		
 		
 		
 
