@@ -54,5 +54,34 @@ public class Piece {
 	public int getRank() {
 		return 11 - this.getValue();
 	}
+	
+	/**
+	 * Returns the winner between an exchange
+	 * @param valueAttacker The piece value of the attacker
+	 * @param valueDefender The piece value of the defender
+	 * @return the piece value of the winner, or -1 if neither piece wins
+	 */
+	public static int getWinner(int valueAttacker, int valueDefender) {
+		if (valueAttacker == valueDefender) { // If the pieces are the same rank
+			return -1; // Nobody wins
+		} else if (valueDefender == 12) { // The flag can't win
+			return valueAttacker;
+		}
+		
+		switch(valueAttacker) {
+		case 3:
+			return valueDefender == 11 || valueAttacker < valueDefender ? valueAttacker : valueDefender;
+		case 10:
+			return valueDefender == 1 ? valueAttacker : valueDefender;
+		}
+		
+		if (valueDefender == 11) { // Bombs win in most exchanges
+			return valueDefender;
+		} else if (valueAttacker < valueDefender) {
+			return valueAttacker;
+		} else {
+			return valueDefender;
+		}
+	}
 
 }

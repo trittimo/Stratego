@@ -1,10 +1,10 @@
 package stratego.gui;
 
-import static stratego.Constants.*;
+import static stratego.Constants.IMAGES;
+import static stratego.Constants.INVISIBLE_FILE;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

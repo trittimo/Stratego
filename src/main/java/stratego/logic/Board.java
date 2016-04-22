@@ -15,9 +15,11 @@ import stratego.logic.exceptions.InvalidPlacement;
 public class Board {
 
 	private Piece[][] pieces;
+	private boolean isValid;
 
 	public Board(Piece[][] pieces) {
 		this.pieces = pieces;
+		this.isValid = true;
 	}
 
 	/**
@@ -26,6 +28,42 @@ public class Board {
 	 */
 	public Piece[][] getPieces() {
 		return this.pieces;
+	}
+
+	/**
+	 * Return true if it is the river part of the board.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean isRiver(int x, int y) {
+		if ((x == 2 && y == 4) || (x == 2 && y == 5) || (x == 3 && y == 4) || (x == 3 && y == 5) || (x == 7 && y == 4)
+				|| (x == 7 && y == 5) || (x == 8 && y == 4) || (x == 8 && y == 5)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Return if a piece and be put on the position on the board
+	 * 
+	 * @return
+	 */
+	public boolean isValidToPlacePiece(int x, int y) {
+		if (isValid)
+			return false;
+		return isValid;
+	}
+
+	/**
+	 * When initializing the game, player can only put piece in the last 4 rows
+	 * on the board(the 4 rows are closer to the player).
+	 * 
+	 * @return
+	 */
+	public boolean initializingGame() {
+		return true;
 	}
 
 	/**

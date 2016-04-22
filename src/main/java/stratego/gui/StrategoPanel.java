@@ -1,6 +1,7 @@
 package stratego.gui;
 
-import static stratego.Constants.Dimensions.*;
+import static stratego.Constants.Dimensions.WINDOW_HEIGHT;
+import static stratego.Constants.Dimensions.WINDOW_WIDTH;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,18 +23,21 @@ public class StrategoPanel extends JPanel {
 		MouseHandler mouseHandler = new MouseHandler(game);
 		GUIMap map = new GUIMap(game, mouseHandler);
 		GUIPieceSelector selector = new GUIPieceSelector(game, mouseHandler);
-		GUIMessageDisplay display = new GUIMessageDisplay();
+		GUIMessageDisplay display = new GUIMessageDisplay(game);
 
+		//displays the JPanel that holds the map 
 		JPanel mapDisplayContainer = new JPanel();
-
 		mapDisplayContainer.setLayout(new FlowLayout(FlowLayout.LEADING));
-
 		mapDisplayContainer.add(map);
 		mapDisplayContainer.add(display);
+		
+
+		
 
 		this.setBackground(Color.GRAY);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+		//this.add(playerTurn);
 		this.add(mapDisplayContainer);
 		this.add(selector);
 
