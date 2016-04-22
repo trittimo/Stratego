@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.hamcrest.core.IsInstanceOf;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -33,11 +35,30 @@ public class TestPiece {
 	private int pieceAValue;
 	private int pieceBValue;
 	private int expectedWinner;
+	private int expectedError;
 	public TestPiece(int pieceAValue, int pieceBValue, int expected) {
 		this.pieceAValue = pieceAValue;
 		this.pieceBValue = pieceBValue;
 		this.expectedWinner = expected;
 	}
+	
+//	public TestPiece(int pieceAValue, int pieceBValue, int error) {
+//		this.pieceAValue = pieceAValue;
+//		this.pieceBValue = pieceBValue;
+//		this.expectedError = error;
+//	}
+//	
+//	@Test
+//	public void testGetWinner() {
+//		try {
+//			Piece.getWinner(pieceAValue, pieceBValue);
+//			fail("Should throw InvalidPieceValue Exception");
+//		}catch(Exception e){
+//			assertThat(e, IsInstanceOf.instanceOf(InvalidPieceValue.class));
+//			assertEquals(e.getMessage(), "'' is an invalid piece value: Pieces values must fall within the range [1-12]")
+//		}
+//		
+//	}
 	
 	@Test
 	public void testGetWinner() {
@@ -135,4 +156,16 @@ public class TestPiece {
 		assertEquals(-1, newPiece.getRank());
 	}
 
+	@Test
+	public void testInvalidAttacker() {
+		try {
+			Piece.getWinner(0, 5);
+			fail("Should throw InvalidPieceValue Exception");
+		}catch(Exception e){
+			assertThat(e, IsInstanceOf.instanceOf(InvalidPieceValue.class));
+			assertEquals(e.getMessage(), "'0' is an invalid piece value: Pieces values must fall within the range [1-12]");
+		}
+	}
+	
+	
 }
