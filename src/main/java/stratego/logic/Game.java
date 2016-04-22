@@ -11,12 +11,16 @@ public class Game {
 
 	private Board gameBoard;
 	private int whoseTurn;
+	private boolean isBeginning;
 
 	public Game(Board b) {
 		this.gameBoard = b;
 		this.whoseTurn = 1;
+		this.isBeginning = true;
 	}
 
+	
+	
 	/**
 	 * @return the Board object assigned for this game
 	 */
