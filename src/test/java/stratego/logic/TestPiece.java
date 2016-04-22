@@ -35,30 +35,13 @@ public class TestPiece {
 	private int pieceAValue;
 	private int pieceBValue;
 	private int expectedWinner;
-	private int expectedError;
 	public TestPiece(int pieceAValue, int pieceBValue, int expected) {
 		this.pieceAValue = pieceAValue;
 		this.pieceBValue = pieceBValue;
 		this.expectedWinner = expected;
 	}
 	
-//	public TestPiece(int pieceAValue, int pieceBValue, int error) {
-//		this.pieceAValue = pieceAValue;
-//		this.pieceBValue = pieceBValue;
-//		this.expectedError = error;
-//	}
-//	
-//	@Test
-//	public void testGetWinner() {
-//		try {
-//			Piece.getWinner(pieceAValue, pieceBValue);
-//			fail("Should throw InvalidPieceValue Exception");
-//		}catch(Exception e){
-//			assertThat(e, IsInstanceOf.instanceOf(InvalidPieceValue.class));
-//			assertEquals(e.getMessage(), "'' is an invalid piece value: Pieces values must fall within the range [1-12]")
-//		}
-//		
-//	}
+
 	
 	@Test
 	public void testGetWinner() {
