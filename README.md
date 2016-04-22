@@ -2,7 +2,7 @@
 
 ## Milestone 4 Progress
 
-Stefan Brand: I worked in the software engineer role and helped refactor all of our previous test code to use mocks and stubs when needed.  I did not add any new tests during this milestone because we did not add anymore game logic.
+Stefan Brand: I worked in the software engineer in test role. I added some error handling and input checks to getWinner().  I also wrote a decision table for all the cases of pieces attacking each other and the outcomes.  I wrote parameterized integration tests that are ready to be tested when the code is updated to use getWinner in the game class.
 
 Vibha Alangar: I worked as the test engineer for this milestone. I spent most of my time working to fix a bug discovered in the last milestone. Now the pieces can be moved from the PieceSelector panel onto the actual map, and they can be moved from one space in the map to another space. I also spent some time adding small things like a Jpanel on the message display section to display whose turn it is, so we can use them to help us debug later. 
 
