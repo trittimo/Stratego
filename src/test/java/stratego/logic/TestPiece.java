@@ -167,5 +167,14 @@ public class TestPiece {
 		}
 	}
 	
-	
+	@Test
+	public void testInvalidAttacker2() {
+		try {
+			Piece.getWinner(13, 5);
+			fail("Should throw InvalidPieceValue Exception");
+		}catch(Exception e){
+			assertThat(e, IsInstanceOf.instanceOf(InvalidPieceValue.class));
+			assertEquals(e.getMessage(), "'13' is an invalid piece value: Pieces values must fall within the range [1-12]");
+		}
+	}
 }
