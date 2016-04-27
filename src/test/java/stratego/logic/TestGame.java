@@ -3,9 +3,6 @@ package stratego.logic;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.lang.reflect.Field;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
@@ -14,6 +11,9 @@ import stratego.logic.exceptions.InvalidMovement;
 import stratego.logic.exceptions.InvalidPiece;
 
 public class TestGame {
+		
+
+	
 
 	@Test
 	public void testInvalidMoveWithNullPiece() {

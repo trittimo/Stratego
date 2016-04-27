@@ -76,8 +76,6 @@ public class Game {
 		} catch (Exception e) {
 			if (e instanceof InvalidMovement) {
 				throw new InvalidPiece(x1, y1);
-			} else if (e instanceof InvalidMovement) {
-				throw e;
 			}
 			return false;
 		}

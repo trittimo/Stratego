@@ -174,7 +174,7 @@ public class Board {
 	 * @param y2
 	 *            final position of piece on board
 	 */
-	public void movePiece(int x1, int y1, int x2, int y2) {
+	public void movePiece(int x1, int y1, int x2, int y2)  {
 		if (this.pieces[x1][y1] == null) {
 			throw new InvalidMovement("non-existant", x1, y1, x2, y2);
 		} else if (this.pieces[x2][y2] != null) {
