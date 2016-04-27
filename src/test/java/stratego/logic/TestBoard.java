@@ -45,6 +45,18 @@ public class TestBoard {
 	}
 	
 
+	@Test
+	public void testIsValidToPlacePieceNotAtBeginning(){
+		Piece[][] pieces = new Piece[10][10]; 
+		Board b = new Board(pieces); 
+		b.setBeginning(false); 
+		
+		
+		assertTrue(b.isValidToPlacePiece(1, 1, 1)); 
+		
+		
+		
+	}
 	
 	@Test
 	public void testGetPieces() {
