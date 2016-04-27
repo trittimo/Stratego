@@ -29,6 +29,17 @@ public class Board {
 	public Piece[][] getPieces() {
 		return this.pieces;
 	}
+	
+	/**
+	 * 
+	 * Sets the beginning boolean to what is passed in 
+	 *
+	 * @param bool- is this the beginning of the game? 
+	 */
+	
+	public void setBeginning(boolean bool){
+		this.isBeginning = bool; 
+	}
 
 	/**
 	 * Return true if it is the river part of the board.
@@ -57,16 +68,6 @@ public class Board {
 		} else {
 			return !this.isBeginning && !this.isOccupied(x, y);
 		}
-	}
-
-	/**
-	 * When initializing the game, player can only put piece in the last 4 rows
-	 * on the board(the 4 rows are closer to the player).
-	 * 
-	 * @return
-	 */
-	public boolean initializingGame() {
-		return true;
 	}
 
 	/**
