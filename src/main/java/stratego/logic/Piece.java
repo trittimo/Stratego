@@ -9,7 +9,8 @@ import stratego.logic.exceptions.InvalidPlayer;
  */
 public class Piece {
 
-	private static String[] pieceNames = { "Marshal", "General", "Colonel", "Major", "Captain", "Lieutenant",
+	private static String[] pieceNames = { "Marshal", "General", "Colonel", "Major", 
+		"Captain", "Lieutenant",
 			"Sergeant", "Miner", "Scout", "Spy", "Bomb", "Flag" };
 
 	private int pieceValue;
@@ -79,7 +80,7 @@ public class Piece {
 		
 		switch(valueAttacker) {
 		case 3:
-			return valueDefender == 11 || valueAttacker < valueDefender ? valueAttacker : valueDefender;
+			return valueDefender == 11 || valueAttacker > valueDefender ? valueAttacker : valueDefender;
 		case 10:
 			return valueDefender == 1 ? valueAttacker : valueDefender;
 		}

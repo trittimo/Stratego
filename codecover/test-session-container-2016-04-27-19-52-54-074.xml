@@ -1,0 +1,2212 @@
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1461801174056" TestSessionContainerId="1236855e-cc18-4017-b351-ff2f19b8ce36" version="1.0">
+<SrcFileList>
+<SrcFile Content="/**&#13;&#10; * &#13;&#10; */&#13;&#10;package stratego.logic.exceptions;&#13;&#10;&#13;&#10;/**&#13;&#10; * Thrown when there is an attempt to use an invalid player&#13;&#10; */&#13;&#10;@SuppressWarnings(&quot;serial&quot;)&#13;&#10;public class InvalidPlayer extends RuntimeException {&#13;&#10;&#9;public InvalidPlayer(int player) {&#13;&#10;&#9;&#9;super(&quot;'&quot; + player + &quot;' is an invalid player: players must fall within the range [1,2]&quot;);&#13;&#10;&#9;}&#13;&#10;}" Filename="InvalidPlayer.java" Intrnl_Id="1"/>
+<SrcFile Content="/**&#13;&#10; * &#13;&#10; */&#13;&#10;package stratego.logic.exceptions;&#13;&#10;&#13;&#10;import stratego.logic.Board;&#13;&#10;import stratego.logic.Piece;&#13;&#10;&#13;&#10;/**&#13;&#10; * Thrown when an attempt to place a piece in an invalid location is made&#13;&#10; */&#13;&#10;public class InvalidPlacement extends InvalidAction {&#13;&#10;&#9;public InvalidPlacement(Piece piece, Board board, int x, int y, String reason) {&#13;&#10;&#9;&#9;super(&quot;Cannot place piece at position (&quot; + x + &quot;, &quot; + y + &quot;): &quot; + reason);&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="InvalidPlacement.java" Intrnl_Id="2"/>
+<SrcFile Content="/**&#13;&#10; * &#13;&#10; */&#13;&#10;package stratego.logic.exceptions;&#13;&#10;&#13;&#10;import stratego.logic.Piece;&#13;&#10;&#13;&#10;/**&#13;&#10; * Thrown when an invalid piece value is passed to the constructor {@link Piece}&#13;&#10; */&#13;&#10;@SuppressWarnings(&quot;serial&quot;)&#13;&#10;public class InvalidPieceValue extends RuntimeException {&#13;&#10;&#9;public InvalidPieceValue(int value) {&#13;&#10;&#9;&#9;super(&quot;'&quot; + value + &quot;' is an invalid piece value: Pieces values must fall within the range [1-12]&quot;);&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="InvalidPieceValue.java" Intrnl_Id="3"/>
+<SrcFile Content="/**&#10; * &#10; */&#10;package stratego.logic.exceptions;&#10;&#10;/**&#10; *&#10; */&#10;public class InvalidPiece extends RuntimeException {&#10;&#9;public InvalidPiece(int x, int y) {&#10;&#9;&#9;super(&quot;Piece at (&quot; + x + &quot;, &quot; + y + &quot;) appears to be an invalid piece&quot;);&#10;&#9;}&#10;}&#10;" Filename="InvalidPiece.java" Intrnl_Id="4"/>
+<SrcFile Content="/**&#13;&#10; * &#13;&#10; */&#13;&#10;package stratego.logic.exceptions;&#13;&#10;&#13;&#10;/**&#13;&#10; * Thrown when an attempt to move a piece to an invalid location is made&#13;&#10; */&#13;&#10;public class InvalidMovement extends InvalidAction {&#13;&#10;&#9;public InvalidMovement(String pieceName, int x1, int y1, int x2, int y2) {&#13;&#10;&#9;&#9;super(&quot;Cannot move &quot; + pieceName + &quot; from (&quot; + x1 + &quot;, &quot; + y1 + &quot;) to (&quot; + x2 + &quot;, &quot; + y2 + &quot;)&quot;);&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="InvalidMovement.java" Intrnl_Id="5"/>
+<SrcFile Content="package stratego.logic.exceptions;&#13;&#10;&#13;&#10;public class InvalidLocation extends RuntimeException {&#13;&#10;&#9;public InvalidLocation(int x, int y) {&#13;&#10;&#9;&#9;super(&quot;Board isn't large enough to access space (&quot; + x + &quot;, &quot; + y + &quot;).&quot;);&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="InvalidLocation.java" Intrnl_Id="6"/>
+<SrcFile Content="package stratego.logic.exceptions;&#10;&#10;public class InvalidAttacker extends InvalidAction {&#10;&#9;&#10;&#9;public InvalidAttacker(int value){&#10;&#9;&#9;super(&quot;Cannot attack with piece with value of &quot; + value + &quot;! (either bomb or flag)&quot;);&#10;&#9;}&#10;}&#10;" Filename="InvalidAttacker.java" Intrnl_Id="7"/>
+<SrcFile Content="/**&#13;&#10; * &#13;&#10; */&#13;&#10;package stratego.logic.exceptions;&#13;&#10;&#13;&#10;/**&#13;&#10; * Thrown when an invalid action is taken on the board&#13;&#10; */&#13;&#10;public class InvalidAction extends RuntimeException {&#13;&#10;&#9;public InvalidAction(String message) {&#13;&#10;&#9;&#9;super(message);&#13;&#10;&#9;}&#13;&#10;}&#13;&#10;" Filename="InvalidAction.java" Intrnl_Id="8"/>
+<SrcFile Content="package stratego.logic;&#13;&#10;&#13;&#10;import stratego.logic.exceptions.InvalidAttacker;&#13;&#10;import stratego.logic.exceptions.InvalidPieceValue;&#13;&#10;import stratego.logic.exceptions.InvalidPlayer;&#13;&#10;&#13;&#10;/**&#13;&#10; * This class contains the information about pieces that are placed on the board&#13;&#10; */&#13;&#10;public class Piece {&#13;&#10;&#13;&#10;&#9;private static String[] pieceNames = { &quot;Marshal&quot;, &quot;General&quot;, &quot;Colonel&quot;, &quot;Major&quot;, &#13;&#10;&#9;&#9;&quot;Captain&quot;, &quot;Lieutenant&quot;,&#13;&#10;&#9;&#9;&#9;&quot;Sergeant&quot;, &quot;Miner&quot;, &quot;Scout&quot;, &quot;Spy&quot;, &quot;Bomb&quot;, &quot;Flag&quot; };&#13;&#10;&#13;&#10;&#9;private int pieceValue;&#13;&#10;&#9;private int player;&#13;&#10;&#13;&#10;&#9;public Piece(int value, int player) {&#13;&#10;&#9;&#9;if (value &lt; 1 || value &gt; pieceNames.length) {&#13;&#10;&#9;&#9;&#9;throw new InvalidPieceValue(value);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;if (player &lt; 1 || player &gt; 2) {&#13;&#10;&#9;&#9;&#9;throw new InvalidPlayer(player);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;this.pieceValue = value;&#13;&#10;&#9;&#9;this.player = player;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * @return the integer value corresponding to a certain piece&#13;&#10;&#9; */&#13;&#10;&#9;public int getValue() {&#13;&#10;&#9;&#9;return this.pieceValue;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * @return the player who 'owns' this particular piece&#13;&#10;&#9; */&#13;&#10;&#9;public int getPlayer() {&#13;&#10;&#9;&#9;return this.player;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * @return the string representation of this particular piece&#13;&#10;&#9; */&#13;&#10;&#9;public String getPieceName() {&#13;&#10;&#9;&#9;return pieceNames[this.getValue() - 1];&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * @return the rank of the piece, in the range [1, 10] rank in the range of&#13;&#10;&#9; *         [1, 10] are regular pieces rank of 0 is a bomb rank of -1 is the&#13;&#10;&#9; *         flag&#13;&#10;&#9; */&#13;&#10;&#9;public int getRank() {&#13;&#10;&#9;&#9;return 11 - this.getValue();&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * Returns the winner between an exchange&#13;&#10;&#9; * @param valueAttacker The piece value of the attacker&#13;&#10;&#9; * @param valueDefender The piece value of the defender&#13;&#10;&#9; * @return the piece value of the winner, or -1 if neither piece wins&#13;&#10;&#9; */&#13;&#10;&#9;public static int getWinner(int valueAttacker, int valueDefender) {&#13;&#10;&#9;&#9;//if trying to attack with a bomb or flag&#13;&#10;&#9;&#9;if (valueAttacker == 11 || valueAttacker == 12){&#13;&#10;&#9;&#9;&#9;throw new InvalidAttacker(valueAttacker);&#13;&#10;&#9;&#9;}else if(valueAttacker &lt; 1 || valueAttacker &gt; 12){&#13;&#10;&#9;&#9;&#9;throw new InvalidPieceValue(valueAttacker);&#13;&#10;&#9;&#9;}else if(valueDefender &lt; 1 || valueDefender &gt; 12){&#13;&#10;&#9;&#9;&#9;throw new InvalidPieceValue(valueDefender);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;if (valueAttacker == valueDefender) { // If the pieces are the same rank&#13;&#10;&#9;&#9;&#9;return -1; // Nobody wins&#13;&#10;&#9;&#9;} else if (valueDefender == 12) { // The flag can't win&#13;&#10;&#9;&#9;&#9;return valueAttacker;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;switch(valueAttacker) {&#13;&#10;&#9;&#9;case 3:&#13;&#10;&#9;&#9;&#9;return valueDefender == 11 || valueAttacker &gt; valueDefender ? valueAttacker : valueDefender;&#13;&#10;&#9;&#9;case 10:&#13;&#10;&#9;&#9;&#9;return valueDefender == 1 ? valueAttacker : valueDefender;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;if (valueDefender == 11) { // Bombs win in most exchanges&#13;&#10;&#9;&#9;&#9;return valueDefender;&#13;&#10;&#9;&#9;} else if (valueAttacker &lt; valueDefender) {&#13;&#10;&#9;&#9;&#9;return valueAttacker;&#13;&#10;&#9;&#9;} else {&#13;&#10;&#9;&#9;&#9;return valueDefender;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;}&#13;&#10;" Filename="Piece.java" Intrnl_Id="9"/>
+<SrcFile Content="package stratego.logic;&#13;&#10;&#13;&#10;import stratego.logic.exceptions.InvalidMovement;&#13;&#10;import stratego.logic.exceptions.InvalidPiece;&#13;&#10;&#13;&#10;/**&#13;&#10; * This class contains the information about the game itself as well as the&#13;&#10; * gameplay&#13;&#10; */&#13;&#10;public class Game {&#13;&#10;&#13;&#10;&#9;private Board gameBoard;&#13;&#10;&#9;private int whoseTurn;&#13;&#10;&#9;private boolean isBeginning;&#13;&#10;&#13;&#10;&#9;public Game(Board b) {&#13;&#10;&#9;&#9;this.gameBoard = b;&#13;&#10;&#9;&#9;this.whoseTurn = 1;&#13;&#10;&#9;&#9;this.isBeginning = true;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * @return the Board object assigned for this game&#13;&#10;&#9; */&#13;&#10;&#13;&#10;&#9;public Board getBoard() {&#13;&#10;&#9;&#9;return this.gameBoard;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * @return the integer value of the player&#13;&#10;&#9; */&#13;&#10;&#9;public int whoseTurn() {&#13;&#10;&#9;&#9;return this.whoseTurn;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * switches the player turns to be called after moves are made&#13;&#10;&#9; */&#13;&#10;&#9;public void switchTurns() {&#13;&#10;&#9;&#9;if (whoseTurn == 1)&#13;&#10;&#9;&#9;&#9;this.whoseTurn = 2;&#13;&#10;&#9;&#9;else&#13;&#10;&#9;&#9;&#9;this.whoseTurn = 1;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Attempts to move a piece at position (x1, y1) to position (x2, y2)&#13;&#10;&#9; * &#13;&#10;&#9; * @param x1&#13;&#10;&#9; *            piece1 x&#13;&#10;&#9; * @param y1&#13;&#10;&#9; *            piece1 y&#13;&#10;&#9; * @param x2&#13;&#10;&#9; *            piece2 x&#13;&#10;&#9; * @param y2&#13;&#10;&#9; *            piece2 y&#13;&#10;&#9; */&#13;&#10;&#9;public boolean makeMove(int x1, int y1, int x2, int y2) {&#13;&#10;&#9;&#9;Board b = this.gameBoard;&#13;&#10;&#9;&#9;try {&#13;&#10;&#9;&#9;&#9;if (b.isOccupied(x2, y2)) {&#13;&#10;&#9;&#9;&#9;&#9;if (b.getPiece(x1, y1).getRank() &gt; b.getPiece(x2, y2).getRank()) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;b.removePiece(x2, y2);&#13;&#10;&#9;&#9;&#9;&#9;&#9;b.movePiece(x1, y1, x2, y2);&#13;&#10;&#9;&#9;&#9;&#9;} else {&#13;&#10;&#9;&#9;&#9;&#9;&#9;b.removePiece(x1, y1);&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;&#9;} else {&#13;&#10;&#9;&#9;&#9;&#9;b.movePiece(x1, y1, x2, y2);&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;return true;&#13;&#10;&#9;&#9;} catch (Exception e) {&#13;&#10;&#9;&#9;&#9;if (e instanceof InvalidMovement) {&#13;&#10;&#9;&#9;&#9;&#9;throw new InvalidPiece(x1, y1);&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;}&#13;&#10;" Filename="Game.java" Intrnl_Id="10"/>
+<SrcFile Content="package stratego.logic;&#13;&#10;&#13;&#10;import stratego.logic.exceptions.InvalidAction;&#13;&#10;import stratego.logic.exceptions.InvalidLocation;&#13;&#10;import stratego.logic.exceptions.InvalidMovement;&#13;&#10;import stratego.logic.exceptions.InvalidPiece;&#13;&#10;import stratego.logic.exceptions.InvalidPlacement;&#13;&#10;&#13;&#10;/**&#13;&#10; * The Board class represents the Stratego Board. It contains the pieces that&#13;&#10; * are placed on it. These piece's locations on the board can be manipulated by&#13;&#10; * calling placePiece(), movePiece(), and removePiece()&#13;&#10; */&#13;&#10;&#13;&#10;public class Board {&#13;&#10;&#13;&#10;&#9;private Piece[][] pieces;&#13;&#10;&#9;private boolean isBeginning;&#13;&#10;&#9;&#13;&#10;&#9;public Board(Piece[][] pieces) {&#13;&#10;&#9;&#9;this.pieces = pieces;&#13;&#10;&#9;&#9;this.isBeginning = true;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * &#13;&#10;&#9; * @return&#13;&#10;&#9; */&#13;&#10;&#9;public Piece[][] getPieces() {&#13;&#10;&#9;&#9;return this.pieces;&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;/**&#13;&#10;&#9; * &#13;&#10;&#9; * Sets the beginning boolean to what is passed in &#13;&#10;&#9; *&#13;&#10;&#9; * @param bool- is this the beginning of the game? &#13;&#10;&#9; */&#13;&#10;&#9;&#13;&#10;&#9;public void setBeginning(boolean bool){&#13;&#10;&#9;&#9;this.isBeginning = bool; &#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Return true if it is the river part of the board.&#13;&#10;&#9; * &#13;&#10;&#9; * @param x&#13;&#10;&#9; * @param y&#13;&#10;&#9; * @return&#13;&#10;&#9; */&#13;&#10;&#9;public boolean isRiver(int x, int y) {&#13;&#10;&#9;&#9;if ((x &gt;= 2 &amp;&amp; y &gt;= 4 &amp;&amp; x &lt;= 3 &amp;&amp; y &lt;= 5) || (x &gt;= 7 &amp;&amp; y &gt;= 4 &amp;&amp; x &lt;= 8 &amp;&amp; y &lt;= 5)) {&#13;&#10;&#9;&#9;&#9;return true;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;return false;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Return if a piece and be put on the position on the board&#13;&#10;&#9; * &#13;&#10;&#9; * @return&#13;&#10;&#9; */&#13;&#10;&#9;public boolean isValidToPlacePiece(int x, int y, int player) {&#13;&#10;&#9;&#9;if (isRiver(x, y)) {&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;} else if (this.isBeginning) {&#13;&#10;&#9;&#9;&#9;return ((y &lt; 4 &amp;&amp; player == 1) || (y &gt; 6 &amp;&amp; player == 2)) &amp;&amp; !this.isOccupied(x, y);&#13;&#10;&#9;&#9;} else {&#13;&#10;&#9;&#9;&#9;return !this.isBeginning &amp;&amp; !this.isOccupied(x, y);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Returns the piece at position (x, y) on the board, or an InvalidPiece&#13;&#10;&#9; * exception if no piece is found&#13;&#10;&#9; * &#13;&#10;&#9; * @param x&#13;&#10;&#9; *            xPosition of piece on board&#13;&#10;&#9; * @param y&#13;&#10;&#9; *            yPosition of piece on board&#13;&#10;&#9; * @return&#13;&#10;&#9; */&#13;&#10;&#9;public Piece getPiece(int x, int y) {&#13;&#10;&#9;&#9;if (this.pieces[x][y] != null) {&#13;&#10;&#9;&#9;&#9;return pieces[x][y];&#13;&#10;&#9;&#9;} else {&#13;&#10;&#9;&#9;&#9;throw new InvalidPiece(x, y);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * @return the total number of pieces on the board&#13;&#10;&#9; */&#13;&#10;&#9;public int pieceCount() {&#13;&#10;&#9;&#9;int count = 0;&#13;&#10;&#9;&#9;for (int i = 0; i &lt; this.pieces.length; i++) {&#13;&#10;&#9;&#9;&#9;for (int j = 0; j &lt; this.pieces[0].length; j++) {&#13;&#10;&#9;&#9;&#9;&#9;if (this.pieces[i][j] != null) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;count++;&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;return count;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Checks whether a location on the board is occupied throws&#13;&#10;&#9; *&#13;&#10;&#9; * @param x&#13;&#10;&#9; *            xPosition to check&#13;&#10;&#9; * @param y&#13;&#10;&#9; *            yPosition to check&#13;&#10;&#9; * @return true if the location is occupied, false otherwise&#13;&#10;&#9; * &#13;&#10;&#9; */&#13;&#10;&#9;public boolean isOccupied(int x, int y) {&#13;&#10;&#9;&#9;if (x &lt; 0 || y &lt; 0 || x &gt; this.pieces.length || y &gt; this.pieces[0].length) {&#13;&#10;&#9;&#9;&#9;throw new InvalidLocation(x, y);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;return !(this.pieces[x][y] == null);&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Place a piece on the board at position (x, y)&#13;&#10;&#9; * &#13;&#10;&#9; * @param x&#13;&#10;&#9; *            position of piece on board&#13;&#10;&#9; * @param y&#13;&#10;&#9; *            position of piece on board&#13;&#10;&#9; * @param p&#13;&#10;&#9; *            - the piece object to be placed on the board&#13;&#10;&#9; */&#13;&#10;&#9;public void placePiece(int x, int y, Piece p) {&#13;&#10;&#9;&#9;if (x &lt; 0 || y &lt; 0 || x &gt; pieces.length || y &gt; pieces[0].length) {&#13;&#10;&#9;&#9;&#9;throw new InvalidPlacement(p, this, x, y, &quot;Attempt to place piece outside of the board&quot;);&#13;&#10;&#9;&#9;} else if (isOccupied(x, y)) {&#13;&#10;&#9;&#9;&#9;throw new InvalidPlacement(p, this, x, y, &quot;Attempt to place piece in an already occupied location&quot;);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;this.pieces[x][y] = p;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Check if a piece is allowed to move from (x1, y1) to (x2, y2): only does&#13;&#10;&#9; * distance and directional testing&#13;&#10;&#9; * &#13;&#10;&#9; * @param x1&#13;&#10;&#9; *            starting position of piece on board&#13;&#10;&#9; * @param x2&#13;&#10;&#9; *            starting position of piece on board&#13;&#10;&#9; * @param y1&#13;&#10;&#9; *            final position of piece on board&#13;&#10;&#9; * @param y2&#13;&#10;&#9; *            final position of piece on board&#13;&#10;&#9; * @return true if a piece can move from (x1, y1) to (x2, y2)&#13;&#10;&#9; */&#13;&#10;&#9;public boolean isValidMoveDirection(int x1, int y1, int x2, int y2) {&#13;&#10;&#9;&#9;Piece piece = this.pieces[x1][y1];&#13;&#10;&#9;&#9;if (x1 != x2 &amp;&amp; y1 != y2) {&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;} else if (piece.getValue() != 9 &amp;&amp; Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) &gt; 1) {&#13;&#10;&#9;&#9;&#9;return false;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;return true;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Move a piece at location (x1, y1) to (x2, y2)&#13;&#10;&#9; * &#13;&#10;&#9; * @param x1&#13;&#10;&#9; *            starting position of piece on board&#13;&#10;&#9; * @param y1&#13;&#10;&#9; *            starting position of piece on board&#13;&#10;&#9; * @param x2&#13;&#10;&#9; *            final position of piece on board&#13;&#10;&#9; * @param y2&#13;&#10;&#9; *            final position of piece on board&#13;&#10;&#9; */&#13;&#10;&#9;public void movePiece(int x1, int y1, int x2, int y2)  {&#13;&#10;&#9;&#9;if (this.pieces[x1][y1] == null) {&#13;&#10;&#9;&#9;&#9;throw new InvalidMovement(&quot;non-existant&quot;, x1, y1, x2, y2);&#13;&#10;&#9;&#9;} else if (this.pieces[x2][y2] != null) {&#13;&#10;&#9;&#9;&#9;throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);&#13;&#10;&#9;&#9;} else if (!isValidMoveDirection(x1, y1, x2, y2)) {&#13;&#10;&#9;&#9;&#9;throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);&#13;&#10;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;this.pieces[x2][y2] = this.pieces[x1][y1];&#13;&#10;&#9;&#9;this.pieces[x1][y1] = null;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;/**&#13;&#10;&#9; * Removes the piece at (x, y)&#13;&#10;&#9; * &#13;&#10;&#9; * @param x&#13;&#10;&#9; *            position of piece on board&#13;&#10;&#9; * @param y&#13;&#10;&#9; *            position of piece on board&#13;&#10;&#9; */&#13;&#10;&#9;public void removePiece(int x, int y) {&#13;&#10;&#9;&#9;if (this.pieces[x][y] == null) {&#13;&#10;&#9;&#9;&#9;throw new InvalidAction(&quot;Cannot remove piece at (&quot; + x + &quot;, &quot; + y + &quot;): piece does not exist&quot;);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;this.pieces[x][y] = null;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;}&#13;&#10;" Filename="Board.java" Intrnl_Id="11"/>
+</SrcFileList>
+<CritList>
+<CritListEntry Name="org.codecover.model.utils.criteria.LoopCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.QMOCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.SynchronizedStatementCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.StatementCoverage" PluginName="org.codecover"/>
+</CritList>
+<BoolOpList>
+<BoolOp Arity="2" Intrnl_Id="12" Name="conditional and (&amp;&amp;)">
+<BoolAssgnmntBoolMapList>
+<MapEntry BoolAssgnmnt="02" Value="false"/>
+<MapEntry BoolAssgnmnt="10" Value="false"/>
+<MapEntry BoolAssgnmnt="11" Value="true"/>
+</BoolAssgnmntBoolMapList>
+</BoolOp>
+<BoolOp Arity="2" Intrnl_Id="13" Name="conditional or (||)">
+<BoolAssgnmntBoolMapList>
+<MapEntry BoolAssgnmnt="00" Value="false"/>
+<MapEntry BoolAssgnmnt="01" Value="true"/>
+<MapEntry BoolAssgnmnt="12" Value="true"/>
+</BoolAssgnmntBoolMapList>
+</BoolOp>
+<BoolOp Arity="1" Intrnl_Id="14" Name="not (!)">
+<BoolAssgnmntBoolMapList>
+<MapEntry BoolAssgnmnt="1" Value="false"/>
+<MapEntry BoolAssgnmnt="0" Value="true"/>
+</BoolAssgnmntBoolMapList>
+</BoolOp>
+</BoolOpList>
+<HierarchyLvlTypeList>
+<HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="15"/>
+<HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="16"/>
+<HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="17"/>
+<HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="18"/>
+</HierarchyLvlTypeList>
+<MASTRoot>
+<HierarchyLvl HierarchyLvlId="1452" HierarchyLvlTypeId="18" Intrnl_Id="19" Name="default package">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="1451" HierarchyLvlTypeId="15" Intrnl_Id="20" Name="stratego">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="1450" HierarchyLvlTypeId="15" Intrnl_Id="21" Name="logic">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="1449" HierarchyLvlTypeId="15" Intrnl_Id="22" Name="exceptions">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="1408" HierarchyLvlTypeId="17" Intrnl_Id="23" Name="InvalidPlayer">
+<Header>
+<Loc EndOffset="204" SrcFileId="1" StartOffset="124"/>
+</Header>
+<LocList>
+<Loc EndOffset="343" SrcFileId="1" StartOffset="124"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1407" HierarchyLvlTypeId="16" Intrnl_Id="24" Name="InvalidPlayer">
+<Header>
+<Loc EndOffset="241" SrcFileId="1" StartOffset="209"/>
+</Header>
+<LocList>
+<Loc EndOffset="340" SrcFileId="1" StartOffset="209"/>
+</LocList>
+<StmntSeq Intrnl_Id="25">
+<LocList>
+<Loc EndOffset="336" SrcFileId="1" StartOffset="247"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidPlayer.java" Intrnl_Id="26">
+<LocList>
+<Loc EndOffset="336" SrcFileId="1" StartOffset="247"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1410" HierarchyLvlTypeId="17" Intrnl_Id="27" Name="InvalidPlacement">
+<Header>
+<Loc EndOffset="251" SrcFileId="2" StartOffset="200"/>
+</Header>
+<LocList>
+<Loc EndOffset="421" SrcFileId="2" StartOffset="200"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1409" HierarchyLvlTypeId="16" Intrnl_Id="28" Name="InvalidPlacement">
+<Header>
+<Loc EndOffset="334" SrcFileId="2" StartOffset="256"/>
+</Header>
+<LocList>
+<Loc EndOffset="418" SrcFileId="2" StartOffset="256"/>
+</LocList>
+<StmntSeq Intrnl_Id="29">
+<LocList>
+<Loc EndOffset="414" SrcFileId="2" StartOffset="340"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidPlacement.java" Intrnl_Id="30">
+<LocList>
+<Loc EndOffset="414" SrcFileId="2" StartOffset="340"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1412" HierarchyLvlTypeId="17" Intrnl_Id="31" Name="InvalidPieceValue">
+<Header>
+<Loc EndOffset="261" SrcFileId="3" StartOffset="177"/>
+</Header>
+<LocList>
+<Loc EndOffset="414" SrcFileId="3" StartOffset="177"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1411" HierarchyLvlTypeId="16" Intrnl_Id="32" Name="InvalidPieceValue">
+<Header>
+<Loc EndOffset="301" SrcFileId="3" StartOffset="266"/>
+</Header>
+<LocList>
+<Loc EndOffset="411" SrcFileId="3" StartOffset="266"/>
+</LocList>
+<StmntSeq Intrnl_Id="33">
+<LocList>
+<Loc EndOffset="407" SrcFileId="3" StartOffset="307"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidPieceValue.java" Intrnl_Id="34">
+<LocList>
+<Loc EndOffset="407" SrcFileId="3" StartOffset="307"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1414" HierarchyLvlTypeId="17" Intrnl_Id="35" Name="InvalidPiece">
+<Header>
+<Loc EndOffset="109" SrcFileId="4" StartOffset="59"/>
+</Header>
+<LocList>
+<Loc EndOffset="228" SrcFileId="4" StartOffset="59"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1413" HierarchyLvlTypeId="16" Intrnl_Id="36" Name="InvalidPiece">
+<Header>
+<Loc EndOffset="146" SrcFileId="4" StartOffset="113"/>
+</Header>
+<LocList>
+<Loc EndOffset="226" SrcFileId="4" StartOffset="113"/>
+</LocList>
+<StmntSeq Intrnl_Id="37">
+<LocList>
+<Loc EndOffset="223" SrcFileId="4" StartOffset="151"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidPiece.java" Intrnl_Id="38">
+<LocList>
+<Loc EndOffset="223" SrcFileId="4" StartOffset="151"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1416" HierarchyLvlTypeId="17" Intrnl_Id="39" Name="InvalidMovement">
+<Header>
+<Loc EndOffset="187" SrcFileId="5" StartOffset="137"/>
+</Header>
+<LocList>
+<Loc EndOffset="374" SrcFileId="5" StartOffset="137"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1415" HierarchyLvlTypeId="16" Intrnl_Id="40" Name="InvalidMovement">
+<Header>
+<Loc EndOffset="264" SrcFileId="5" StartOffset="192"/>
+</Header>
+<LocList>
+<Loc EndOffset="371" SrcFileId="5" StartOffset="192"/>
+</LocList>
+<StmntSeq Intrnl_Id="41">
+<LocList>
+<Loc EndOffset="367" SrcFileId="5" StartOffset="270"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidMovement.java" Intrnl_Id="42">
+<LocList>
+<Loc EndOffset="367" SrcFileId="5" StartOffset="270"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1418" HierarchyLvlTypeId="17" Intrnl_Id="43" Name="InvalidLocation">
+<Header>
+<Loc EndOffset="91" SrcFileId="6" StartOffset="38"/>
+</Header>
+<LocList>
+<Loc EndOffset="219" SrcFileId="6" StartOffset="38"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1417" HierarchyLvlTypeId="16" Intrnl_Id="44" Name="InvalidLocation">
+<Header>
+<Loc EndOffset="132" SrcFileId="6" StartOffset="96"/>
+</Header>
+<LocList>
+<Loc EndOffset="216" SrcFileId="6" StartOffset="96"/>
+</LocList>
+<StmntSeq Intrnl_Id="45">
+<LocList>
+<Loc EndOffset="212" SrcFileId="6" StartOffset="138"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidLocation.java" Intrnl_Id="46">
+<LocList>
+<Loc EndOffset="212" SrcFileId="6" StartOffset="138"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1420" HierarchyLvlTypeId="17" Intrnl_Id="47" Name="InvalidAttacker">
+<Header>
+<Loc EndOffset="86" SrcFileId="7" StartOffset="36"/>
+</Header>
+<LocList>
+<Loc EndOffset="219" SrcFileId="7" StartOffset="36"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1419" HierarchyLvlTypeId="16" Intrnl_Id="48" Name="InvalidAttacker">
+<Header>
+<Loc EndOffset="125" SrcFileId="7" StartOffset="92"/>
+</Header>
+<LocList>
+<Loc EndOffset="217" SrcFileId="7" StartOffset="92"/>
+</LocList>
+<StmntSeq Intrnl_Id="49">
+<LocList>
+<Loc EndOffset="214" SrcFileId="7" StartOffset="129"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidAttacker.java" Intrnl_Id="50">
+<LocList>
+<Loc EndOffset="214" SrcFileId="7" StartOffset="129"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1422" HierarchyLvlTypeId="17" Intrnl_Id="51" Name="InvalidAction">
+<Header>
+<Loc EndOffset="170" SrcFileId="8" StartOffset="119"/>
+</Header>
+<LocList>
+<Loc EndOffset="239" SrcFileId="8" StartOffset="119"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1421" HierarchyLvlTypeId="16" Intrnl_Id="52" Name="InvalidAction">
+<Header>
+<Loc EndOffset="211" SrcFileId="8" StartOffset="175"/>
+</Header>
+<LocList>
+<Loc EndOffset="236" SrcFileId="8" StartOffset="175"/>
+</LocList>
+<StmntSeq Intrnl_Id="53">
+<LocList>
+<Loc EndOffset="232" SrcFileId="8" StartOffset="217"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.exceptions.InvalidAction.java" Intrnl_Id="54">
+<LocList>
+<Loc EndOffset="232" SrcFileId="8" StartOffset="217"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1429" HierarchyLvlTypeId="17" Intrnl_Id="55" Name="Piece">
+<Header>
+<Loc EndOffset="292" SrcFileId="9" StartOffset="274"/>
+</Header>
+<LocList>
+<Loc EndOffset="2754" SrcFileId="9" StartOffset="274"/>
+</LocList>
+<StmntSeq Intrnl_Id="56">
+<LocList>
+<Loc EndOffset="467" SrcFileId="9" StartOffset="299"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="57">
+<LocList>
+<Loc EndOffset="467" SrcFileId="9" StartOffset="299"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+<HierarchyLvl HierarchyLvlId="1423" HierarchyLvlTypeId="16" Intrnl_Id="58" Name="Piece">
+<Header>
+<Loc EndOffset="557" SrcFileId="9" StartOffset="522"/>
+</Header>
+<LocList>
+<Loc EndOffset="787" SrcFileId="9" StartOffset="522"/>
+</LocList>
+<StmntSeq Intrnl_Id="59">
+<LocList>
+<Loc EndOffset="653" SrcFileId="9" StartOffset="563"/>
+<Loc EndOffset="730" SrcFileId="9" StartOffset="657"/>
+<Loc EndOffset="758" SrcFileId="9" StartOffset="734"/>
+<Loc EndOffset="783" SrcFileId="9" StartOffset="762"/>
+</LocList>
+<CondStmnt CovItemId="S2" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="60">
+<Branch CovItemId="B1" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="61">
+<Cond/>
+<LocList>
+<Loc EndOffset="653" SrcFileId="9" StartOffset="607"/>
+</LocList>
+<StmntSeq Intrnl_Id="62">
+<LocList>
+<Loc EndOffset="648" SrcFileId="9" StartOffset="613"/>
+</LocList>
+<BasicStmnt CovItemId="S3" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="63">
+<LocList>
+<Loc EndOffset="648" SrcFileId="9" StartOffset="613"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="stratego.logic.Piece.java" Implct="true" Intrnl_Id="64">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="65">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="565" SrcFileId="9" StartOffset="563"/>
+<LocList>
+<Loc EndOffset="653" SrcFileId="9" StartOffset="563"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="66">
+<OpTerm BooleanOpId="13" Intrnl_Id="67">
+<BasicBoolTerm Intrnl_Id="68">
+<LocList>
+<Loc EndOffset="576" SrcFileId="9" StartOffset="567"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="69">
+<LocList>
+<Loc EndOffset="605" SrcFileId="9" StartOffset="580"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="579" SrcFileId="9" StartOffset="577"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S4" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="70">
+<Branch CovItemId="B3" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="71">
+<Cond/>
+<LocList>
+<Loc EndOffset="730" SrcFileId="9" StartOffset="687"/>
+</LocList>
+<StmntSeq Intrnl_Id="72">
+<LocList>
+<Loc EndOffset="725" SrcFileId="9" StartOffset="693"/>
+</LocList>
+<BasicStmnt CovItemId="S5" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="73">
+<LocList>
+<Loc EndOffset="725" SrcFileId="9" StartOffset="693"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B4" CovItemPrefix="stratego.logic.Piece.java" Implct="true" Intrnl_Id="74">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="75">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="659" SrcFileId="9" StartOffset="657"/>
+<LocList>
+<Loc EndOffset="730" SrcFileId="9" StartOffset="657"/>
+</LocList>
+<RootTerm CovItemId="C2" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="76">
+<OpTerm BooleanOpId="13" Intrnl_Id="77">
+<BasicBoolTerm Intrnl_Id="78">
+<LocList>
+<Loc EndOffset="671" SrcFileId="9" StartOffset="661"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="79">
+<LocList>
+<Loc EndOffset="685" SrcFileId="9" StartOffset="675"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="674" SrcFileId="9" StartOffset="672"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S6" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="80">
+<LocList>
+<Loc EndOffset="758" SrcFileId="9" StartOffset="734"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S7" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="81">
+<LocList>
+<Loc EndOffset="783" SrcFileId="9" StartOffset="762"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1424" HierarchyLvlTypeId="16" Intrnl_Id="82" Name="getValue">
+<Header>
+<Loc EndOffset="889" SrcFileId="9" StartOffset="868"/>
+</Header>
+<LocList>
+<Loc EndOffset="922" SrcFileId="9" StartOffset="868"/>
+</LocList>
+<StmntSeq Intrnl_Id="83">
+<LocList>
+<Loc EndOffset="918" SrcFileId="9" StartOffset="895"/>
+</LocList>
+<BasicStmnt CovItemId="S8" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="84">
+<LocList>
+<Loc EndOffset="918" SrcFileId="9" StartOffset="895"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1425" HierarchyLvlTypeId="16" Intrnl_Id="85" Name="getPlayer">
+<Header>
+<Loc EndOffset="1018" SrcFileId="9" StartOffset="996"/>
+</Header>
+<LocList>
+<Loc EndOffset="1047" SrcFileId="9" StartOffset="996"/>
+</LocList>
+<StmntSeq Intrnl_Id="86">
+<LocList>
+<Loc EndOffset="1043" SrcFileId="9" StartOffset="1024"/>
+</LocList>
+<BasicStmnt CovItemId="S9" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="87">
+<LocList>
+<Loc EndOffset="1043" SrcFileId="9" StartOffset="1024"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1426" HierarchyLvlTypeId="16" Intrnl_Id="88" Name="getPieceName">
+<Header>
+<Loc EndOffset="1156" SrcFileId="9" StartOffset="1128"/>
+</Header>
+<LocList>
+<Loc EndOffset="1205" SrcFileId="9" StartOffset="1128"/>
+</LocList>
+<StmntSeq Intrnl_Id="89">
+<LocList>
+<Loc EndOffset="1201" SrcFileId="9" StartOffset="1162"/>
+</LocList>
+<BasicStmnt CovItemId="S10" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="90">
+<LocList>
+<Loc EndOffset="1201" SrcFileId="9" StartOffset="1162"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1427" HierarchyLvlTypeId="16" Intrnl_Id="91" Name="getRank">
+<Header>
+<Loc EndOffset="1416" SrcFileId="9" StartOffset="1396"/>
+</Header>
+<LocList>
+<Loc EndOffset="1454" SrcFileId="9" StartOffset="1396"/>
+</LocList>
+<StmntSeq Intrnl_Id="92">
+<LocList>
+<Loc EndOffset="1450" SrcFileId="9" StartOffset="1422"/>
+</LocList>
+<BasicStmnt CovItemId="S11" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="93">
+<LocList>
+<Loc EndOffset="1450" SrcFileId="9" StartOffset="1422"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1428" HierarchyLvlTypeId="16" Intrnl_Id="94" Name="getWinner">
+<Header>
+<Loc EndOffset="1769" SrcFileId="9" StartOffset="1704"/>
+</Header>
+<LocList>
+<Loc EndOffset="2749" SrcFileId="9" StartOffset="1704"/>
+</LocList>
+<StmntSeq Intrnl_Id="95">
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="1820"/>
+<Loc EndOffset="2319" SrcFileId="9" StartOffset="2127"/>
+<Loc EndOffset="2538" SrcFileId="9" StartOffset="2327"/>
+<Loc EndOffset="2745" SrcFileId="9" StartOffset="2546"/>
+</LocList>
+<CondStmnt CovItemId="S12" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="96">
+<Branch CovItemId="B5" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="97">
+<Cond/>
+<LocList>
+<Loc EndOffset="1919" SrcFileId="9" StartOffset="1867"/>
+</LocList>
+<StmntSeq Intrnl_Id="98">
+<LocList>
+<Loc EndOffset="1914" SrcFileId="9" StartOffset="1873"/>
+</LocList>
+<BasicStmnt CovItemId="S13" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="99">
+<LocList>
+<Loc EndOffset="1914" SrcFileId="9" StartOffset="1873"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B6" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="100">
+<Cond>
+<Loc EndOffset="1923" SrcFileId="9" StartOffset="1919"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="1924"/>
+</LocList>
+<StmntSeq Intrnl_Id="101">
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="1924"/>
+</LocList>
+<CondStmnt CovItemId="S14" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="102">
+<Branch CovItemId="B7" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="103">
+<Cond/>
+<LocList>
+<Loc EndOffset="2021" SrcFileId="9" StartOffset="1967"/>
+</LocList>
+<StmntSeq Intrnl_Id="104">
+<LocList>
+<Loc EndOffset="2016" SrcFileId="9" StartOffset="1973"/>
+</LocList>
+<BasicStmnt CovItemId="S15" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="105">
+<LocList>
+<Loc EndOffset="2016" SrcFileId="9" StartOffset="1973"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B8" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="106">
+<Cond>
+<Loc EndOffset="2025" SrcFileId="9" StartOffset="2021"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="2026"/>
+</LocList>
+<StmntSeq Intrnl_Id="107">
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="2026"/>
+</LocList>
+<CondStmnt CovItemId="S16" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="108">
+<Branch CovItemId="B9" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="109">
+<Cond/>
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="2069"/>
+</LocList>
+<StmntSeq Intrnl_Id="110">
+<LocList>
+<Loc EndOffset="2118" SrcFileId="9" StartOffset="2075"/>
+</LocList>
+<BasicStmnt CovItemId="S17" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="111">
+<LocList>
+<Loc EndOffset="2118" SrcFileId="9" StartOffset="2075"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B10" CovItemPrefix="stratego.logic.Piece.java" Implct="true" Intrnl_Id="112">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="113">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2028" SrcFileId="9" StartOffset="2026"/>
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="2026"/>
+</LocList>
+<RootTerm CovItemId="C5" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="114">
+<OpTerm BooleanOpId="13" Intrnl_Id="115">
+<BasicBoolTerm Intrnl_Id="116">
+<LocList>
+<Loc EndOffset="2046" SrcFileId="9" StartOffset="2029"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="117">
+<LocList>
+<Loc EndOffset="2068" SrcFileId="9" StartOffset="2050"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="2049" SrcFileId="9" StartOffset="2047"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1926" SrcFileId="9" StartOffset="1924"/>
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="1924"/>
+</LocList>
+<RootTerm CovItemId="C4" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="118">
+<OpTerm BooleanOpId="13" Intrnl_Id="119">
+<BasicBoolTerm Intrnl_Id="120">
+<LocList>
+<Loc EndOffset="1944" SrcFileId="9" StartOffset="1927"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="121">
+<LocList>
+<Loc EndOffset="1966" SrcFileId="9" StartOffset="1948"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1947" SrcFileId="9" StartOffset="1945"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1822" SrcFileId="9" StartOffset="1820"/>
+<LocList>
+<Loc EndOffset="2123" SrcFileId="9" StartOffset="1820"/>
+</LocList>
+<RootTerm CovItemId="C3" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="122">
+<OpTerm BooleanOpId="13" Intrnl_Id="123">
+<BasicBoolTerm Intrnl_Id="124">
+<LocList>
+<Loc EndOffset="1843" SrcFileId="9" StartOffset="1824"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="125">
+<LocList>
+<Loc EndOffset="1866" SrcFileId="9" StartOffset="1847"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1846" SrcFileId="9" StartOffset="1844"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S18" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="126">
+<Branch CovItemId="B11" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="127">
+<Cond/>
+<LocList>
+<Loc EndOffset="2234" SrcFileId="9" StartOffset="2163"/>
+</LocList>
+<StmntSeq Intrnl_Id="128">
+<LocList>
+<Loc EndOffset="2214" SrcFileId="9" StartOffset="2204"/>
+</LocList>
+<BasicStmnt CovItemId="S19" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="129">
+<LocList>
+<Loc EndOffset="2214" SrcFileId="9" StartOffset="2204"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B12" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="130">
+<Cond>
+<Loc EndOffset="2239" SrcFileId="9" StartOffset="2235"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2319" SrcFileId="9" StartOffset="2240"/>
+</LocList>
+<StmntSeq Intrnl_Id="131">
+<LocList>
+<Loc EndOffset="2319" SrcFileId="9" StartOffset="2240"/>
+</LocList>
+<CondStmnt CovItemId="S20" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="132">
+<Branch CovItemId="B13" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="133">
+<Cond/>
+<LocList>
+<Loc EndOffset="2319" SrcFileId="9" StartOffset="2265"/>
+</LocList>
+<StmntSeq Intrnl_Id="134">
+<LocList>
+<Loc EndOffset="2314" SrcFileId="9" StartOffset="2293"/>
+</LocList>
+<BasicStmnt CovItemId="S21" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="135">
+<LocList>
+<Loc EndOffset="2314" SrcFileId="9" StartOffset="2293"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B14" CovItemPrefix="stratego.logic.Piece.java" Implct="true" Intrnl_Id="136">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="137">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2242" SrcFileId="9" StartOffset="2240"/>
+<LocList>
+<Loc EndOffset="2319" SrcFileId="9" StartOffset="2240"/>
+</LocList>
+<RootTerm CovItemId="C7" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="138">
+<BasicBoolTerm Intrnl_Id="139">
+<LocList>
+<Loc EndOffset="2263" SrcFileId="9" StartOffset="2244"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2129" SrcFileId="9" StartOffset="2127"/>
+<LocList>
+<Loc EndOffset="2319" SrcFileId="9" StartOffset="2127"/>
+</LocList>
+<RootTerm CovItemId="C6" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="140">
+<BasicBoolTerm Intrnl_Id="141">
+<LocList>
+<Loc EndOffset="2161" SrcFileId="9" StartOffset="2131"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S22" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="142">
+<Branch CovItemId="B15" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="143">
+<Cond>
+<Loc EndOffset="2360" SrcFileId="9" StartOffset="2354"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2458" SrcFileId="9" StartOffset="2366"/>
+</LocList>
+<StmntSeq Intrnl_Id="144">
+<LocList>
+<Loc EndOffset="2458" SrcFileId="9" StartOffset="2366"/>
+</LocList>
+<BasicStmnt CovItemId="S23" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="145">
+<LocList>
+<Loc EndOffset="2458" SrcFileId="9" StartOffset="2366"/>
+</LocList>
+<QMO CovItemId="Q0" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="146">
+<LocList>
+<Loc EndOffset="2425" SrcFileId="9" StartOffset="2373"/>
+</LocList>
+<QMO_E CovItemId="Q0-0" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="147">
+<LocList>
+<Loc EndOffset="2441" SrcFileId="9" StartOffset="2428"/>
+</LocList>
+</QMO_E>
+<QMO_E CovItemId="Q0-1" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="148">
+<LocList>
+<Loc EndOffset="2457" SrcFileId="9" StartOffset="2444"/>
+</LocList>
+</QMO_E>
+</QMO>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B16" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="149">
+<Cond>
+<Loc EndOffset="2469" SrcFileId="9" StartOffset="2462"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2533" SrcFileId="9" StartOffset="2475"/>
+</LocList>
+<StmntSeq Intrnl_Id="150">
+<LocList>
+<Loc EndOffset="2533" SrcFileId="9" StartOffset="2475"/>
+</LocList>
+<BasicStmnt CovItemId="S24" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="151">
+<LocList>
+<Loc EndOffset="2533" SrcFileId="9" StartOffset="2475"/>
+</LocList>
+<QMO CovItemId="Q1" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="152">
+<LocList>
+<Loc EndOffset="2500" SrcFileId="9" StartOffset="2482"/>
+</LocList>
+<QMO_E CovItemId="Q1-0" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="153">
+<LocList>
+<Loc EndOffset="2516" SrcFileId="9" StartOffset="2503"/>
+</LocList>
+</QMO_E>
+<QMO_E CovItemId="Q1-1" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="154">
+<LocList>
+<Loc EndOffset="2532" SrcFileId="9" StartOffset="2519"/>
+</LocList>
+</QMO_E>
+</QMO>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B17" CovItemPrefix="stratego.logic.Piece.java" Implct="true" Intrnl_Id="155">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="156">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2333" SrcFileId="9" StartOffset="2327"/>
+<LocList>
+<Loc EndOffset="2538" SrcFileId="9" StartOffset="2327"/>
+</LocList>
+</CondStmnt>
+<CondStmnt CovItemId="S25" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="157">
+<Branch CovItemId="B18" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="158">
+<Cond/>
+<LocList>
+<Loc EndOffset="2634" SrcFileId="9" StartOffset="2571"/>
+</LocList>
+<StmntSeq Intrnl_Id="159">
+<LocList>
+<Loc EndOffset="2629" SrcFileId="9" StartOffset="2608"/>
+</LocList>
+<BasicStmnt CovItemId="S26" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="160">
+<LocList>
+<Loc EndOffset="2629" SrcFileId="9" StartOffset="2608"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B19" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="161">
+<Cond>
+<Loc EndOffset="2639" SrcFileId="9" StartOffset="2635"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2745" SrcFileId="9" StartOffset="2640"/>
+</LocList>
+<StmntSeq Intrnl_Id="162">
+<LocList>
+<Loc EndOffset="2745" SrcFileId="9" StartOffset="2640"/>
+</LocList>
+<CondStmnt CovItemId="S27" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="163">
+<Branch CovItemId="B20" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="164">
+<Cond/>
+<LocList>
+<Loc EndOffset="2707" SrcFileId="9" StartOffset="2675"/>
+</LocList>
+<StmntSeq Intrnl_Id="165">
+<LocList>
+<Loc EndOffset="2702" SrcFileId="9" StartOffset="2681"/>
+</LocList>
+<BasicStmnt CovItemId="S28" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="166">
+<LocList>
+<Loc EndOffset="2702" SrcFileId="9" StartOffset="2681"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B21" CovItemPrefix="stratego.logic.Piece.java" Implct="false" Intrnl_Id="167">
+<Cond>
+<Loc EndOffset="2712" SrcFileId="9" StartOffset="2708"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2745" SrcFileId="9" StartOffset="2713"/>
+</LocList>
+<StmntSeq Intrnl_Id="168">
+<LocList>
+<Loc EndOffset="2740" SrcFileId="9" StartOffset="2719"/>
+</LocList>
+<BasicStmnt CovItemId="S29" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="169">
+<LocList>
+<Loc EndOffset="2740" SrcFileId="9" StartOffset="2719"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2642" SrcFileId="9" StartOffset="2640"/>
+<LocList>
+<Loc EndOffset="2745" SrcFileId="9" StartOffset="2640"/>
+</LocList>
+<RootTerm CovItemId="C9" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="170">
+<BasicBoolTerm Intrnl_Id="171">
+<LocList>
+<Loc EndOffset="2673" SrcFileId="9" StartOffset="2644"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2548" SrcFileId="9" StartOffset="2546"/>
+<LocList>
+<Loc EndOffset="2745" SrcFileId="9" StartOffset="2546"/>
+</LocList>
+<RootTerm CovItemId="C8" CovItemPrefix="stratego.logic.Piece.java" Intrnl_Id="172">
+<BasicBoolTerm Intrnl_Id="173">
+<LocList>
+<Loc EndOffset="2569" SrcFileId="9" StartOffset="2550"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1435" HierarchyLvlTypeId="17" Intrnl_Id="174" Name="Game">
+<Header>
+<Loc EndOffset="245" SrcFileId="10" StartOffset="228"/>
+</Header>
+<LocList>
+<Loc EndOffset="1660" SrcFileId="10" StartOffset="228"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1430" HierarchyLvlTypeId="16" Intrnl_Id="175" Name="Game">
+<Header>
+<Loc EndOffset="357" SrcFileId="10" StartOffset="337"/>
+</Header>
+<LocList>
+<Loc EndOffset="437" SrcFileId="10" StartOffset="337"/>
+</LocList>
+<StmntSeq Intrnl_Id="176">
+<LocList>
+<Loc EndOffset="382" SrcFileId="10" StartOffset="363"/>
+<Loc EndOffset="405" SrcFileId="10" StartOffset="386"/>
+<Loc EndOffset="433" SrcFileId="10" StartOffset="409"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="177">
+<LocList>
+<Loc EndOffset="382" SrcFileId="10" StartOffset="363"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S2" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="178">
+<LocList>
+<Loc EndOffset="405" SrcFileId="10" StartOffset="386"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S3" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="179">
+<LocList>
+<Loc EndOffset="433" SrcFileId="10" StartOffset="409"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1431" HierarchyLvlTypeId="16" Intrnl_Id="180" Name="getBoard">
+<Header>
+<Loc EndOffset="538" SrcFileId="10" StartOffset="515"/>
+</Header>
+<LocList>
+<Loc EndOffset="570" SrcFileId="10" StartOffset="515"/>
+</LocList>
+<StmntSeq Intrnl_Id="181">
+<LocList>
+<Loc EndOffset="566" SrcFileId="10" StartOffset="544"/>
+</LocList>
+<BasicStmnt CovItemId="S4" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="182">
+<LocList>
+<Loc EndOffset="566" SrcFileId="10" StartOffset="544"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1432" HierarchyLvlTypeId="16" Intrnl_Id="183" Name="whoseTurn">
+<Header>
+<Loc EndOffset="654" SrcFileId="10" StartOffset="632"/>
+</Header>
+<LocList>
+<Loc EndOffset="686" SrcFileId="10" StartOffset="632"/>
+</LocList>
+<StmntSeq Intrnl_Id="184">
+<LocList>
+<Loc EndOffset="682" SrcFileId="10" StartOffset="660"/>
+</LocList>
+<BasicStmnt CovItemId="S5" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="185">
+<LocList>
+<Loc EndOffset="682" SrcFileId="10" StartOffset="660"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1433" HierarchyLvlTypeId="16" Intrnl_Id="186" Name="switchTurns">
+<Header>
+<Loc EndOffset="793" SrcFileId="10" StartOffset="768"/>
+</Header>
+<LocList>
+<Loc EndOffset="878" SrcFileId="10" StartOffset="768"/>
+</LocList>
+<StmntSeq Intrnl_Id="187">
+<LocList>
+<Loc EndOffset="874" SrcFileId="10" StartOffset="799"/>
+</LocList>
+<CondStmnt CovItemId="S6" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="188">
+<Branch CovItemId="B1" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="189">
+<Cond/>
+<LocList>
+<Loc EndOffset="842" SrcFileId="10" StartOffset="823"/>
+</LocList>
+<StmntSeq Intrnl_Id="190">
+<LocList>
+<Loc EndOffset="842" SrcFileId="10" StartOffset="823"/>
+</LocList>
+<BasicStmnt CovItemId="S7" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="191">
+<LocList>
+<Loc EndOffset="842" SrcFileId="10" StartOffset="823"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="192">
+<Cond>
+<Loc EndOffset="850" SrcFileId="10" StartOffset="846"/>
+</Cond>
+<LocList>
+<Loc EndOffset="874" SrcFileId="10" StartOffset="855"/>
+</LocList>
+<StmntSeq Intrnl_Id="193">
+<LocList>
+<Loc EndOffset="874" SrcFileId="10" StartOffset="855"/>
+</LocList>
+<BasicStmnt CovItemId="S8" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="194">
+<LocList>
+<Loc EndOffset="874" SrcFileId="10" StartOffset="855"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="801" SrcFileId="10" StartOffset="799"/>
+<LocList>
+<Loc EndOffset="874" SrcFileId="10" StartOffset="799"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="195">
+<BasicBoolTerm Intrnl_Id="196">
+<LocList>
+<Loc EndOffset="817" SrcFileId="10" StartOffset="803"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1434" HierarchyLvlTypeId="16" Intrnl_Id="197" Name="makeMove">
+<Header>
+<Loc EndOffset="1188" SrcFileId="10" StartOffset="1133"/>
+</Header>
+<LocList>
+<Loc EndOffset="1655" SrcFileId="10" StartOffset="1133"/>
+</LocList>
+<StmntSeq Intrnl_Id="198">
+<LocList>
+<Loc EndOffset="1219" SrcFileId="10" StartOffset="1194"/>
+<Loc EndOffset="1501" SrcFileId="10" StartOffset="1233"/>
+<Loc EndOffset="1518" SrcFileId="10" StartOffset="1506"/>
+<Loc EndOffset="1651" SrcFileId="10" StartOffset="1223"/>
+</LocList>
+<BasicStmnt CovItemId="S9" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="199">
+<LocList>
+<Loc EndOffset="1219" SrcFileId="10" StartOffset="1194"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S11" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="200">
+<Branch CovItemId="B4" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="201">
+<Cond/>
+<LocList>
+<Loc EndOffset="1454" SrcFileId="10" StartOffset="1259"/>
+</LocList>
+<StmntSeq Intrnl_Id="202">
+<LocList>
+<Loc EndOffset="1446" SrcFileId="10" StartOffset="1266"/>
+</LocList>
+<CondStmnt CovItemId="S12" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="203">
+<Branch CovItemId="B6" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="204">
+<Cond/>
+<LocList>
+<Loc EndOffset="1403" SrcFileId="10" StartOffset="1331"/>
+</LocList>
+<StmntSeq Intrnl_Id="205">
+<LocList>
+<Loc EndOffset="1361" SrcFileId="10" StartOffset="1339"/>
+<Loc EndOffset="1396" SrcFileId="10" StartOffset="1368"/>
+</LocList>
+<BasicStmnt CovItemId="S13" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="206">
+<LocList>
+<Loc EndOffset="1361" SrcFileId="10" StartOffset="1339"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S14" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="207">
+<LocList>
+<Loc EndOffset="1396" SrcFileId="10" StartOffset="1368"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B7" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="208">
+<Cond>
+<Loc EndOffset="1408" SrcFileId="10" StartOffset="1404"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1446" SrcFileId="10" StartOffset="1409"/>
+</LocList>
+<StmntSeq Intrnl_Id="209">
+<LocList>
+<Loc EndOffset="1439" SrcFileId="10" StartOffset="1417"/>
+</LocList>
+<BasicStmnt CovItemId="S15" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="210">
+<LocList>
+<Loc EndOffset="1439" SrcFileId="10" StartOffset="1417"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1268" SrcFileId="10" StartOffset="1266"/>
+<LocList>
+<Loc EndOffset="1446" SrcFileId="10" StartOffset="1266"/>
+</LocList>
+<RootTerm CovItemId="C3" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="211">
+<BasicBoolTerm Intrnl_Id="212">
+<LocList>
+<Loc EndOffset="1329" SrcFileId="10" StartOffset="1270"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B5" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="213">
+<Cond>
+<Loc EndOffset="1459" SrcFileId="10" StartOffset="1455"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1501" SrcFileId="10" StartOffset="1460"/>
+</LocList>
+<StmntSeq Intrnl_Id="214">
+<LocList>
+<Loc EndOffset="1495" SrcFileId="10" StartOffset="1467"/>
+</LocList>
+<BasicStmnt CovItemId="S16" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="215">
+<LocList>
+<Loc EndOffset="1495" SrcFileId="10" StartOffset="1467"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1235" SrcFileId="10" StartOffset="1233"/>
+<LocList>
+<Loc EndOffset="1501" SrcFileId="10" StartOffset="1233"/>
+</LocList>
+<RootTerm CovItemId="C2" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="216">
+<BasicBoolTerm Intrnl_Id="217">
+<LocList>
+<Loc EndOffset="1257" SrcFileId="10" StartOffset="1237"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S17" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="218">
+<LocList>
+<Loc EndOffset="1518" SrcFileId="10" StartOffset="1506"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S10" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="219">
+<Branch CovItemId="B3" CovItemPrefix="stratego.logic.Game.java" Implct="true" Intrnl_Id="220">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="221">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B8" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="222">
+<Cond>
+<Loc EndOffset="1543" SrcFileId="10" StartOffset="1524"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1651" SrcFileId="10" StartOffset="1544"/>
+</LocList>
+<StmntSeq Intrnl_Id="223">
+<LocList>
+<Loc EndOffset="1628" SrcFileId="10" StartOffset="1550"/>
+<Loc EndOffset="1646" SrcFileId="10" StartOffset="1633"/>
+</LocList>
+<CondStmnt CovItemId="S18" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="224">
+<Branch CovItemId="B9" CovItemPrefix="stratego.logic.Game.java" Implct="false" Intrnl_Id="225">
+<Cond/>
+<LocList>
+<Loc EndOffset="1628" SrcFileId="10" StartOffset="1584"/>
+</LocList>
+<StmntSeq Intrnl_Id="226">
+<LocList>
+<Loc EndOffset="1622" SrcFileId="10" StartOffset="1591"/>
+</LocList>
+<BasicStmnt CovItemId="S19" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="227">
+<LocList>
+<Loc EndOffset="1622" SrcFileId="10" StartOffset="1591"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B10" CovItemPrefix="stratego.logic.Game.java" Implct="true" Intrnl_Id="228">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="229">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1552" SrcFileId="10" StartOffset="1550"/>
+<LocList>
+<Loc EndOffset="1628" SrcFileId="10" StartOffset="1550"/>
+</LocList>
+<RootTerm CovItemId="C4" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="230">
+<BasicBoolTerm Intrnl_Id="231">
+<LocList>
+<Loc EndOffset="1582" SrcFileId="10" StartOffset="1554"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S20" CovItemPrefix="stratego.logic.Game.java" Intrnl_Id="232">
+<LocList>
+<Loc EndOffset="1646" SrcFileId="10" StartOffset="1633"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1226" SrcFileId="10" StartOffset="1223"/>
+<LocList>
+<Loc EndOffset="1651" SrcFileId="10" StartOffset="1223"/>
+</LocList>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1448" HierarchyLvlTypeId="17" Intrnl_Id="233" Name="Board">
+<Header>
+<Loc EndOffset="527" SrcFileId="11" StartOffset="509"/>
+</Header>
+<LocList>
+<Loc EndOffset="5508" SrcFileId="11" StartOffset="509"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="1436" HierarchyLvlTypeId="16" Intrnl_Id="234" Name="Board">
+<Header>
+<Loc EndOffset="626" SrcFileId="11" StartOffset="596"/>
+</Header>
+<LocList>
+<Loc EndOffset="685" SrcFileId="11" StartOffset="596"/>
+</LocList>
+<StmntSeq Intrnl_Id="235">
+<LocList>
+<Loc EndOffset="653" SrcFileId="11" StartOffset="632"/>
+<Loc EndOffset="681" SrcFileId="11" StartOffset="657"/>
+</LocList>
+<BasicStmnt CovItemId="S1" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="236">
+<LocList>
+<Loc EndOffset="653" SrcFileId="11" StartOffset="632"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S2" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="237">
+<LocList>
+<Loc EndOffset="681" SrcFileId="11" StartOffset="657"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1437" HierarchyLvlTypeId="16" Intrnl_Id="238" Name="getPieces">
+<Header>
+<Loc EndOffset="749" SrcFileId="11" StartOffset="721"/>
+</Header>
+<LocList>
+<Loc EndOffset="778" SrcFileId="11" StartOffset="721"/>
+</LocList>
+<StmntSeq Intrnl_Id="239">
+<LocList>
+<Loc EndOffset="774" SrcFileId="11" StartOffset="755"/>
+</LocList>
+<BasicStmnt CovItemId="S3" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="240">
+<LocList>
+<Loc EndOffset="774" SrcFileId="11" StartOffset="755"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1438" HierarchyLvlTypeId="16" Intrnl_Id="241" Name="setBeginning">
+<Header>
+<Loc EndOffset="956" SrcFileId="11" StartOffset="918"/>
+</Header>
+<LocList>
+<Loc EndOffset="990" SrcFileId="11" StartOffset="918"/>
+</LocList>
+<StmntSeq Intrnl_Id="242">
+<LocList>
+<Loc EndOffset="985" SrcFileId="11" StartOffset="961"/>
+</LocList>
+<BasicStmnt CovItemId="S4" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="243">
+<LocList>
+<Loc EndOffset="985" SrcFileId="11" StartOffset="961"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1439" HierarchyLvlTypeId="16" Intrnl_Id="244" Name="isRiver">
+<Header>
+<Loc EndOffset="1145" SrcFileId="11" StartOffset="1109"/>
+</Header>
+<LocList>
+<Loc EndOffset="1281" SrcFileId="11" StartOffset="1109"/>
+</LocList>
+<StmntSeq Intrnl_Id="245">
+<LocList>
+<Loc EndOffset="1260" SrcFileId="11" StartOffset="1151"/>
+<Loc EndOffset="1277" SrcFileId="11" StartOffset="1264"/>
+</LocList>
+<CondStmnt CovItemId="S5" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="246">
+<Branch CovItemId="B1" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="247">
+<Cond/>
+<LocList>
+<Loc EndOffset="1260" SrcFileId="11" StartOffset="1237"/>
+</LocList>
+<StmntSeq Intrnl_Id="248">
+<LocList>
+<Loc EndOffset="1255" SrcFileId="11" StartOffset="1243"/>
+</LocList>
+<BasicStmnt CovItemId="S6" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="249">
+<LocList>
+<Loc EndOffset="1255" SrcFileId="11" StartOffset="1243"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="stratego.logic.Board.java" Implct="true" Intrnl_Id="250">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="251">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1153" SrcFileId="11" StartOffset="1151"/>
+<LocList>
+<Loc EndOffset="1260" SrcFileId="11" StartOffset="1151"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="252">
+<OpTerm BooleanOpId="13" Intrnl_Id="253">
+<OpTerm BooleanOpId="12" Intrnl_Id="254">
+<OpTerm BooleanOpId="12" Intrnl_Id="255">
+<OpTerm BooleanOpId="12" Intrnl_Id="256">
+<BasicBoolTerm Intrnl_Id="257">
+<LocList>
+<Loc EndOffset="1162" SrcFileId="11" StartOffset="1156"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="258">
+<LocList>
+<Loc EndOffset="1172" SrcFileId="11" StartOffset="1166"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1165" SrcFileId="11" StartOffset="1163"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="259">
+<LocList>
+<Loc EndOffset="1182" SrcFileId="11" StartOffset="1176"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1175" SrcFileId="11" StartOffset="1173"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="260">
+<LocList>
+<Loc EndOffset="1192" SrcFileId="11" StartOffset="1186"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1185" SrcFileId="11" StartOffset="1183"/>
+</LocList>
+</OpTerm>
+<OpTerm BooleanOpId="12" Intrnl_Id="261">
+<OpTerm BooleanOpId="12" Intrnl_Id="262">
+<OpTerm BooleanOpId="12" Intrnl_Id="263">
+<BasicBoolTerm Intrnl_Id="264">
+<LocList>
+<Loc EndOffset="1204" SrcFileId="11" StartOffset="1198"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="265">
+<LocList>
+<Loc EndOffset="1214" SrcFileId="11" StartOffset="1208"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1207" SrcFileId="11" StartOffset="1205"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="266">
+<LocList>
+<Loc EndOffset="1224" SrcFileId="11" StartOffset="1218"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1217" SrcFileId="11" StartOffset="1215"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="267">
+<LocList>
+<Loc EndOffset="1234" SrcFileId="11" StartOffset="1228"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="1227" SrcFileId="11" StartOffset="1225"/>
+</LocList>
+</OpTerm>
+<LocList>
+<Loc EndOffset="1196" SrcFileId="11" StartOffset="1194"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S7" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="268">
+<LocList>
+<Loc EndOffset="1277" SrcFileId="11" StartOffset="1264"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1440" HierarchyLvlTypeId="16" Intrnl_Id="269" Name="isValidToPlacePiece">
+<Header>
+<Loc EndOffset="1440" SrcFileId="11" StartOffset="1380"/>
+</Header>
+<LocList>
+<Loc EndOffset="1684" SrcFileId="11" StartOffset="1380"/>
+</LocList>
+<StmntSeq Intrnl_Id="270">
+<LocList>
+<Loc EndOffset="1680" SrcFileId="11" StartOffset="1446"/>
+</LocList>
+<CondStmnt CovItemId="S8" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="271">
+<Branch CovItemId="B3" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="272">
+<Cond/>
+<LocList>
+<Loc EndOffset="1489" SrcFileId="11" StartOffset="1465"/>
+</LocList>
+<StmntSeq Intrnl_Id="273">
+<LocList>
+<Loc EndOffset="1484" SrcFileId="11" StartOffset="1471"/>
+</LocList>
+<BasicStmnt CovItemId="S9" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="274">
+<LocList>
+<Loc EndOffset="1484" SrcFileId="11" StartOffset="1471"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B4" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="275">
+<Cond>
+<Loc EndOffset="1494" SrcFileId="11" StartOffset="1490"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1680" SrcFileId="11" StartOffset="1495"/>
+</LocList>
+<StmntSeq Intrnl_Id="276">
+<LocList>
+<Loc EndOffset="1680" SrcFileId="11" StartOffset="1495"/>
+</LocList>
+<CondStmnt CovItemId="S10" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="277">
+<Branch CovItemId="B5" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="278">
+<Cond/>
+<LocList>
+<Loc EndOffset="1612" SrcFileId="11" StartOffset="1517"/>
+</LocList>
+<StmntSeq Intrnl_Id="279">
+<LocList>
+<Loc EndOffset="1607" SrcFileId="11" StartOffset="1523"/>
+</LocList>
+<BasicStmnt CovItemId="S11" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="280">
+<LocList>
+<Loc EndOffset="1607" SrcFileId="11" StartOffset="1523"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B6" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="281">
+<Cond>
+<Loc EndOffset="1617" SrcFileId="11" StartOffset="1613"/>
+</Cond>
+<LocList>
+<Loc EndOffset="1680" SrcFileId="11" StartOffset="1618"/>
+</LocList>
+<StmntSeq Intrnl_Id="282">
+<LocList>
+<Loc EndOffset="1675" SrcFileId="11" StartOffset="1624"/>
+</LocList>
+<BasicStmnt CovItemId="S12" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="283">
+<LocList>
+<Loc EndOffset="1675" SrcFileId="11" StartOffset="1624"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1497" SrcFileId="11" StartOffset="1495"/>
+<LocList>
+<Loc EndOffset="1680" SrcFileId="11" StartOffset="1495"/>
+</LocList>
+<RootTerm CovItemId="C3" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="284">
+<BasicBoolTerm Intrnl_Id="285">
+<LocList>
+<Loc EndOffset="1515" SrcFileId="11" StartOffset="1499"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1448" SrcFileId="11" StartOffset="1446"/>
+<LocList>
+<Loc EndOffset="1680" SrcFileId="11" StartOffset="1446"/>
+</LocList>
+<RootTerm CovItemId="C2" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="286">
+<BasicBoolTerm Intrnl_Id="287">
+<LocList>
+<Loc EndOffset="1463" SrcFileId="11" StartOffset="1450"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1441" HierarchyLvlTypeId="16" Intrnl_Id="288" Name="getPiece">
+<Header>
+<Loc EndOffset="1982" SrcFileId="11" StartOffset="1947"/>
+</Header>
+<LocList>
+<Loc EndOffset="2100" SrcFileId="11" StartOffset="1947"/>
+</LocList>
+<StmntSeq Intrnl_Id="289">
+<LocList>
+<Loc EndOffset="2096" SrcFileId="11" StartOffset="1988"/>
+</LocList>
+<CondStmnt CovItemId="S13" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="290">
+<Branch CovItemId="B7" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="291">
+<Cond/>
+<LocList>
+<Loc EndOffset="2050" SrcFileId="11" StartOffset="2019"/>
+</LocList>
+<StmntSeq Intrnl_Id="292">
+<LocList>
+<Loc EndOffset="2045" SrcFileId="11" StartOffset="2025"/>
+</LocList>
+<BasicStmnt CovItemId="S14" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="293">
+<LocList>
+<Loc EndOffset="2045" SrcFileId="11" StartOffset="2025"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B8" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="294">
+<Cond>
+<Loc EndOffset="2055" SrcFileId="11" StartOffset="2051"/>
+</Cond>
+<LocList>
+<Loc EndOffset="2096" SrcFileId="11" StartOffset="2056"/>
+</LocList>
+<StmntSeq Intrnl_Id="295">
+<LocList>
+<Loc EndOffset="2091" SrcFileId="11" StartOffset="2062"/>
+</LocList>
+<BasicStmnt CovItemId="S15" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="296">
+<LocList>
+<Loc EndOffset="2091" SrcFileId="11" StartOffset="2062"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="1990" SrcFileId="11" StartOffset="1988"/>
+<LocList>
+<Loc EndOffset="2096" SrcFileId="11" StartOffset="1988"/>
+</LocList>
+<RootTerm CovItemId="C4" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="297">
+<BasicBoolTerm Intrnl_Id="298">
+<LocList>
+<Loc EndOffset="2017" SrcFileId="11" StartOffset="1992"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1442" HierarchyLvlTypeId="16" Intrnl_Id="299" Name="pieceCount">
+<Header>
+<Loc EndOffset="2193" SrcFileId="11" StartOffset="2170"/>
+</Header>
+<LocList>
+<Loc EndOffset="2409" SrcFileId="11" StartOffset="2170"/>
+</LocList>
+<StmntSeq Intrnl_Id="300">
+<LocList>
+<Loc EndOffset="2213" SrcFileId="11" StartOffset="2199"/>
+<Loc EndOffset="2388" SrcFileId="11" StartOffset="2217"/>
+<Loc EndOffset="2405" SrcFileId="11" StartOffset="2392"/>
+</LocList>
+<BasicStmnt CovItemId="S16" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="301">
+<LocList>
+<Loc EndOffset="2213" SrcFileId="11" StartOffset="2199"/>
+</LocList>
+</BasicStmnt>
+<LoopStmnt CovItemId="S17" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="302" MltplExecId="L1-2" MltplExecPrefix="stratego.logic.Board.java" NvrExecId="L1-0" NvrExecPrefix="stratego.logic.Board.java" OnceExecutedId="L1-1" OnceExecutedPrefix="stratego.logic.Board.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="303">
+<LocList>
+<Loc EndOffset="2383" SrcFileId="11" StartOffset="2268"/>
+</LocList>
+<LoopStmnt CovItemId="S18" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="304" MltplExecId="L2-2" MltplExecPrefix="stratego.logic.Board.java" NvrExecId="L2-0" NvrExecPrefix="stratego.logic.Board.java" OnceExecutedId="L2-1" OnceExecutedPrefix="stratego.logic.Board.java" OptBodyExec="true">
+<StmntSeq Intrnl_Id="305">
+<LocList>
+<Loc EndOffset="2377" SrcFileId="11" StartOffset="2323"/>
+</LocList>
+<CondStmnt CovItemId="S19" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="306">
+<Branch CovItemId="B9" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="307">
+<Cond/>
+<LocList>
+<Loc EndOffset="2377" SrcFileId="11" StartOffset="2354"/>
+</LocList>
+<StmntSeq Intrnl_Id="308">
+<LocList>
+<Loc EndOffset="2370" SrcFileId="11" StartOffset="2362"/>
+</LocList>
+<BasicStmnt CovItemId="S20" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="309">
+<LocList>
+<Loc EndOffset="2370" SrcFileId="11" StartOffset="2362"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B10" CovItemPrefix="stratego.logic.Board.java" Implct="true" Intrnl_Id="310">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="311">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2325" SrcFileId="11" StartOffset="2323"/>
+<LocList>
+<Loc EndOffset="2377" SrcFileId="11" StartOffset="2323"/>
+</LocList>
+<RootTerm CovItemId="C7" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="312">
+<BasicBoolTerm Intrnl_Id="313">
+<LocList>
+<Loc EndOffset="2352" SrcFileId="11" StartOffset="2327"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+<Keyword EndOffset="2271" SrcFileId="11" StartOffset="2268"/>
+<LocList>
+<Loc EndOffset="2383" SrcFileId="11" StartOffset="2268"/>
+</LocList>
+<RootTerm CovItemId="C6" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="314">
+<BasicBoolTerm Intrnl_Id="315">
+<LocList>
+<Loc EndOffset="2309" SrcFileId="11" StartOffset="2284"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+</StmntSeq>
+<Keyword EndOffset="2220" SrcFileId="11" StartOffset="2217"/>
+<LocList>
+<Loc EndOffset="2388" SrcFileId="11" StartOffset="2217"/>
+</LocList>
+<RootTerm CovItemId="C5" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="316">
+<BasicBoolTerm Intrnl_Id="317">
+<LocList>
+<Loc EndOffset="2255" SrcFileId="11" StartOffset="2233"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</LoopStmnt>
+<BasicStmnt CovItemId="S21" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="318">
+<LocList>
+<Loc EndOffset="2405" SrcFileId="11" StartOffset="2392"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1443" HierarchyLvlTypeId="16" Intrnl_Id="319" Name="isOccupied">
+<Header>
+<Loc EndOffset="2700" SrcFileId="11" StartOffset="2661"/>
+</Header>
+<LocList>
+<Loc EndOffset="2868" SrcFileId="11" StartOffset="2661"/>
+</LocList>
+<StmntSeq Intrnl_Id="320">
+<LocList>
+<Loc EndOffset="2824" SrcFileId="11" StartOffset="2706"/>
+<Loc EndOffset="2864" SrcFileId="11" StartOffset="2828"/>
+</LocList>
+<CondStmnt CovItemId="S22" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="321">
+<Branch CovItemId="B11" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="322">
+<Cond/>
+<LocList>
+<Loc EndOffset="2824" SrcFileId="11" StartOffset="2781"/>
+</LocList>
+<StmntSeq Intrnl_Id="323">
+<LocList>
+<Loc EndOffset="2819" SrcFileId="11" StartOffset="2787"/>
+</LocList>
+<BasicStmnt CovItemId="S23" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="324">
+<LocList>
+<Loc EndOffset="2819" SrcFileId="11" StartOffset="2787"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B12" CovItemPrefix="stratego.logic.Board.java" Implct="true" Intrnl_Id="325">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="326">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="2708" SrcFileId="11" StartOffset="2706"/>
+<LocList>
+<Loc EndOffset="2824" SrcFileId="11" StartOffset="2706"/>
+</LocList>
+<RootTerm CovItemId="C8" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="327">
+<OpTerm BooleanOpId="13" Intrnl_Id="328">
+<OpTerm BooleanOpId="13" Intrnl_Id="329">
+<OpTerm BooleanOpId="13" Intrnl_Id="330">
+<BasicBoolTerm Intrnl_Id="331">
+<LocList>
+<Loc EndOffset="2715" SrcFileId="11" StartOffset="2710"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="332">
+<LocList>
+<Loc EndOffset="2724" SrcFileId="11" StartOffset="2719"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="2718" SrcFileId="11" StartOffset="2716"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="333">
+<LocList>
+<Loc EndOffset="2750" SrcFileId="11" StartOffset="2728"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="2727" SrcFileId="11" StartOffset="2725"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="334">
+<LocList>
+<Loc EndOffset="2779" SrcFileId="11" StartOffset="2754"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="2753" SrcFileId="11" StartOffset="2751"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S24" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="335">
+<LocList>
+<Loc EndOffset="2864" SrcFileId="11" StartOffset="2828"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1444" HierarchyLvlTypeId="16" Intrnl_Id="336" Name="placePiece">
+<Header>
+<Loc EndOffset="3176" SrcFileId="11" StartOffset="3131"/>
+</Header>
+<LocList>
+<Loc EndOffset="3516" SrcFileId="11" StartOffset="3131"/>
+</LocList>
+<StmntSeq Intrnl_Id="337">
+<LocList>
+<Loc EndOffset="3486" SrcFileId="11" StartOffset="3182"/>
+<Loc EndOffset="3512" SrcFileId="11" StartOffset="3490"/>
+</LocList>
+<CondStmnt CovItemId="S25" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="338">
+<Branch CovItemId="B13" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="339">
+<Cond/>
+<LocList>
+<Loc EndOffset="3347" SrcFileId="11" StartOffset="3247"/>
+</LocList>
+<StmntSeq Intrnl_Id="340">
+<LocList>
+<Loc EndOffset="3342" SrcFileId="11" StartOffset="3253"/>
+</LocList>
+<BasicStmnt CovItemId="S26" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="341">
+<LocList>
+<Loc EndOffset="3342" SrcFileId="11" StartOffset="3253"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B14" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="342">
+<Cond>
+<Loc EndOffset="3352" SrcFileId="11" StartOffset="3348"/>
+</Cond>
+<LocList>
+<Loc EndOffset="3486" SrcFileId="11" StartOffset="3353"/>
+</LocList>
+<StmntSeq Intrnl_Id="343">
+<LocList>
+<Loc EndOffset="3486" SrcFileId="11" StartOffset="3353"/>
+</LocList>
+<CondStmnt CovItemId="S27" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="344">
+<Branch CovItemId="B15" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="345">
+<Cond/>
+<LocList>
+<Loc EndOffset="3486" SrcFileId="11" StartOffset="3375"/>
+</LocList>
+<StmntSeq Intrnl_Id="346">
+<LocList>
+<Loc EndOffset="3481" SrcFileId="11" StartOffset="3381"/>
+</LocList>
+<BasicStmnt CovItemId="S28" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="347">
+<LocList>
+<Loc EndOffset="3481" SrcFileId="11" StartOffset="3381"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B16" CovItemPrefix="stratego.logic.Board.java" Implct="true" Intrnl_Id="348">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="349">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="3355" SrcFileId="11" StartOffset="3353"/>
+<LocList>
+<Loc EndOffset="3486" SrcFileId="11" StartOffset="3353"/>
+</LocList>
+<RootTerm CovItemId="C10" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="350">
+<BasicBoolTerm Intrnl_Id="351">
+<LocList>
+<Loc EndOffset="3373" SrcFileId="11" StartOffset="3357"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="3184" SrcFileId="11" StartOffset="3182"/>
+<LocList>
+<Loc EndOffset="3486" SrcFileId="11" StartOffset="3182"/>
+</LocList>
+<RootTerm CovItemId="C9" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="352">
+<OpTerm BooleanOpId="13" Intrnl_Id="353">
+<OpTerm BooleanOpId="13" Intrnl_Id="354">
+<OpTerm BooleanOpId="13" Intrnl_Id="355">
+<BasicBoolTerm Intrnl_Id="356">
+<LocList>
+<Loc EndOffset="3191" SrcFileId="11" StartOffset="3186"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="357">
+<LocList>
+<Loc EndOffset="3200" SrcFileId="11" StartOffset="3195"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="3194" SrcFileId="11" StartOffset="3192"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="358">
+<LocList>
+<Loc EndOffset="3221" SrcFileId="11" StartOffset="3204"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="3203" SrcFileId="11" StartOffset="3201"/>
+</LocList>
+</OpTerm>
+<BasicBoolTerm Intrnl_Id="359">
+<LocList>
+<Loc EndOffset="3245" SrcFileId="11" StartOffset="3225"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="3224" SrcFileId="11" StartOffset="3222"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S29" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="360">
+<LocList>
+<Loc EndOffset="3512" SrcFileId="11" StartOffset="3490"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1445" HierarchyLvlTypeId="16" Intrnl_Id="361" Name="isValidMoveDirection">
+<Header>
+<Loc EndOffset="4048" SrcFileId="11" StartOffset="3981"/>
+</Header>
+<LocList>
+<Loc EndOffset="4273" SrcFileId="11" StartOffset="3981"/>
+</LocList>
+<StmntSeq Intrnl_Id="362">
+<LocList>
+<Loc EndOffset="4088" SrcFileId="11" StartOffset="4054"/>
+<Loc EndOffset="4253" SrcFileId="11" StartOffset="4092"/>
+<Loc EndOffset="4269" SrcFileId="11" StartOffset="4257"/>
+</LocList>
+<BasicStmnt CovItemId="S30" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="363">
+<LocList>
+<Loc EndOffset="4088" SrcFileId="11" StartOffset="4054"/>
+</LocList>
+</BasicStmnt>
+<CondStmnt CovItemId="S31" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="364">
+<Branch CovItemId="B17" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="365">
+<Cond/>
+<LocList>
+<Loc EndOffset="4142" SrcFileId="11" StartOffset="4118"/>
+</LocList>
+<StmntSeq Intrnl_Id="366">
+<LocList>
+<Loc EndOffset="4137" SrcFileId="11" StartOffset="4124"/>
+</LocList>
+<BasicStmnt CovItemId="S32" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="367">
+<LocList>
+<Loc EndOffset="4137" SrcFileId="11" StartOffset="4124"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B18" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="368">
+<Cond>
+<Loc EndOffset="4147" SrcFileId="11" StartOffset="4143"/>
+</Cond>
+<LocList>
+<Loc EndOffset="4253" SrcFileId="11" StartOffset="4148"/>
+</LocList>
+<StmntSeq Intrnl_Id="369">
+<LocList>
+<Loc EndOffset="4253" SrcFileId="11" StartOffset="4148"/>
+</LocList>
+<CondStmnt CovItemId="S33" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="370">
+<Branch CovItemId="B19" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="371">
+<Cond/>
+<LocList>
+<Loc EndOffset="4253" SrcFileId="11" StartOffset="4229"/>
+</LocList>
+<StmntSeq Intrnl_Id="372">
+<LocList>
+<Loc EndOffset="4248" SrcFileId="11" StartOffset="4235"/>
+</LocList>
+<BasicStmnt CovItemId="S34" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="373">
+<LocList>
+<Loc EndOffset="4248" SrcFileId="11" StartOffset="4235"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B20" CovItemPrefix="stratego.logic.Board.java" Implct="true" Intrnl_Id="374">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="375">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="4150" SrcFileId="11" StartOffset="4148"/>
+<LocList>
+<Loc EndOffset="4253" SrcFileId="11" StartOffset="4148"/>
+</LocList>
+<RootTerm CovItemId="C12" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="376">
+<OpTerm BooleanOpId="12" Intrnl_Id="377">
+<BasicBoolTerm Intrnl_Id="378">
+<LocList>
+<Loc EndOffset="4173" SrcFileId="11" StartOffset="4152"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="379">
+<LocList>
+<Loc EndOffset="4227" SrcFileId="11" StartOffset="4177"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="4176" SrcFileId="11" StartOffset="4174"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="4094" SrcFileId="11" StartOffset="4092"/>
+<LocList>
+<Loc EndOffset="4253" SrcFileId="11" StartOffset="4092"/>
+</LocList>
+<RootTerm CovItemId="C11" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="380">
+<OpTerm BooleanOpId="12" Intrnl_Id="381">
+<BasicBoolTerm Intrnl_Id="382">
+<LocList>
+<Loc EndOffset="4104" SrcFileId="11" StartOffset="4096"/>
+</LocList>
+</BasicBoolTerm>
+<BasicBoolTerm Intrnl_Id="383">
+<LocList>
+<Loc EndOffset="4116" SrcFileId="11" StartOffset="4108"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="4107" SrcFileId="11" StartOffset="4105"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S35" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="384">
+<LocList>
+<Loc EndOffset="4269" SrcFileId="11" StartOffset="4257"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1446" HierarchyLvlTypeId="16" Intrnl_Id="385" Name="movePiece">
+<Header>
+<Loc EndOffset="4662" SrcFileId="11" StartOffset="4609"/>
+</Header>
+<LocList>
+<Loc EndOffset="5120" SrcFileId="11" StartOffset="4609"/>
+</LocList>
+<StmntSeq Intrnl_Id="386">
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4669"/>
+<Loc EndOffset="5085" SrcFileId="11" StartOffset="5043"/>
+<Loc EndOffset="5116" SrcFileId="11" StartOffset="5089"/>
+</LocList>
+<CondStmnt CovItemId="S36" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="387">
+<Branch CovItemId="B21" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="388">
+<Cond/>
+<LocList>
+<Loc EndOffset="4771" SrcFileId="11" StartOffset="4702"/>
+</LocList>
+<StmntSeq Intrnl_Id="389">
+<LocList>
+<Loc EndOffset="4766" SrcFileId="11" StartOffset="4708"/>
+</LocList>
+<BasicStmnt CovItemId="S37" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="390">
+<LocList>
+<Loc EndOffset="4766" SrcFileId="11" StartOffset="4708"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B22" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="391">
+<Cond>
+<Loc EndOffset="4776" SrcFileId="11" StartOffset="4772"/>
+</Cond>
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4777"/>
+</LocList>
+<StmntSeq Intrnl_Id="392">
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4777"/>
+</LocList>
+<CondStmnt CovItemId="S38" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="393">
+<Branch CovItemId="B23" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="394">
+<Cond/>
+<LocList>
+<Loc EndOffset="4899" SrcFileId="11" StartOffset="4810"/>
+</LocList>
+<StmntSeq Intrnl_Id="395">
+<LocList>
+<Loc EndOffset="4894" SrcFileId="11" StartOffset="4816"/>
+</LocList>
+<BasicStmnt CovItemId="S39" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="396">
+<LocList>
+<Loc EndOffset="4894" SrcFileId="11" StartOffset="4816"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B24" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="397">
+<Cond>
+<Loc EndOffset="4904" SrcFileId="11" StartOffset="4900"/>
+</Cond>
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4905"/>
+</LocList>
+<StmntSeq Intrnl_Id="398">
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4905"/>
+</LocList>
+<CondStmnt CovItemId="S40" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="399">
+<Branch CovItemId="B25" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="400">
+<Cond/>
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4948"/>
+</LocList>
+<StmntSeq Intrnl_Id="401">
+<LocList>
+<Loc EndOffset="5032" SrcFileId="11" StartOffset="4954"/>
+</LocList>
+<BasicStmnt CovItemId="S41" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="402">
+<LocList>
+<Loc EndOffset="5032" SrcFileId="11" StartOffset="4954"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B26" CovItemPrefix="stratego.logic.Board.java" Implct="true" Intrnl_Id="403">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="404">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="4907" SrcFileId="11" StartOffset="4905"/>
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4905"/>
+</LocList>
+<RootTerm CovItemId="C15" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="405">
+<OpTerm BooleanOpId="14" Intrnl_Id="406">
+<BasicBoolTerm Intrnl_Id="407">
+<LocList>
+<Loc EndOffset="4946" SrcFileId="11" StartOffset="4910"/>
+</LocList>
+</BasicBoolTerm>
+<LocList>
+<Loc EndOffset="4910" SrcFileId="11" StartOffset="4909"/>
+</LocList>
+</OpTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="4779" SrcFileId="11" StartOffset="4777"/>
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4777"/>
+</LocList>
+<RootTerm CovItemId="C14" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="408">
+<BasicBoolTerm Intrnl_Id="409">
+<LocList>
+<Loc EndOffset="4808" SrcFileId="11" StartOffset="4781"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="4671" SrcFileId="11" StartOffset="4669"/>
+<LocList>
+<Loc EndOffset="5037" SrcFileId="11" StartOffset="4669"/>
+</LocList>
+<RootTerm CovItemId="C13" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="410">
+<BasicBoolTerm Intrnl_Id="411">
+<LocList>
+<Loc EndOffset="4700" SrcFileId="11" StartOffset="4673"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S42" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="412">
+<LocList>
+<Loc EndOffset="5085" SrcFileId="11" StartOffset="5043"/>
+</LocList>
+</BasicStmnt>
+<BasicStmnt CovItemId="S43" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="413">
+<LocList>
+<Loc EndOffset="5116" SrcFileId="11" StartOffset="5089"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="1447" HierarchyLvlTypeId="16" Intrnl_Id="414" Name="removePiece">
+<Header>
+<Loc EndOffset="5327" SrcFileId="11" StartOffset="5290"/>
+</Header>
+<LocList>
+<Loc EndOffset="5503" SrcFileId="11" StartOffset="5290"/>
+</LocList>
+<StmntSeq Intrnl_Id="415">
+<LocList>
+<Loc EndOffset="5470" SrcFileId="11" StartOffset="5333"/>
+<Loc EndOffset="5499" SrcFileId="11" StartOffset="5474"/>
+</LocList>
+<CondStmnt CovItemId="S44" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="416">
+<Branch CovItemId="B27" CovItemPrefix="stratego.logic.Board.java" Implct="false" Intrnl_Id="417">
+<Cond/>
+<LocList>
+<Loc EndOffset="5470" SrcFileId="11" StartOffset="5364"/>
+</LocList>
+<StmntSeq Intrnl_Id="418">
+<LocList>
+<Loc EndOffset="5465" SrcFileId="11" StartOffset="5370"/>
+</LocList>
+<BasicStmnt CovItemId="S45" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="419">
+<LocList>
+<Loc EndOffset="5465" SrcFileId="11" StartOffset="5370"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B28" CovItemPrefix="stratego.logic.Board.java" Implct="true" Intrnl_Id="420">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="421">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="5335" SrcFileId="11" StartOffset="5333"/>
+<LocList>
+<Loc EndOffset="5470" SrcFileId="11" StartOffset="5333"/>
+</LocList>
+<RootTerm CovItemId="C16" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="422">
+<BasicBoolTerm Intrnl_Id="423">
+<LocList>
+<Loc EndOffset="5362" SrcFileId="11" StartOffset="5337"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S46" CovItemPrefix="stratego.logic.Board.java" Intrnl_Id="424">
+<LocList>
+<Loc EndOffset="5499" SrcFileId="11" StartOffset="5474"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</MASTRoot>
+</TestSessionContainer>

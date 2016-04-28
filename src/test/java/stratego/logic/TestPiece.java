@@ -1,17 +1,20 @@
 package stratego.logic;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import org.hamcrest.core.IsInstanceOf;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import stratego.logic.exceptions.InvalidAttacker;
 import stratego.logic.exceptions.InvalidPieceValue;
 import stratego.logic.exceptions.InvalidPlayer;
 
@@ -21,13 +24,19 @@ public class TestPiece {
 	@Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
-			{3, 11, 3}, // Miner defuses bomb
-			{10, 1, 10}, // Spy beats Marshal if spy attacks
-			{1, 10, 1}, // Marshal beats spy if marshal attacks
-			{1, 11, 11}, // Marshal loses to bomb
-			{1, 5, 1}, // Marshal beats captain
-			{5, 5, -1}, // Nobody wins if ranks are equal
-			{5, 1, 1} // Captain loses to marshal
+			{3, 11, 3, null}, // Miner defuses bomb
+			{10, 1, 10, null}, // Spy beats Marshal if spy attacks
+			{1, 10, 1, null}, // Marshal beats spy if marshal attacks
+			{1, 11, 11, null}, // Marshal loses to bomb
+			{1, 5, 1, null}, // Marshal beats captain
+			{5, 5, -1, null}, // Nobody wins if ranks are equal
+			{5, 1, 1, null}, // Captain loses to marshal
+			{10, 2, 2, null}, //Spy loses to anyone else 
+			{3, 4, 4, null}, // Miner loses to Sergeant
+			{3, 12, 3, null}, // Flag always loses
+			{11, 1, 1, new InvalidAttacker(11)}, // Bombs can't attack
+			{-1, 1, 1, new InvalidPieceValue(-1)}, // Invalid piece value
+			{1, -1, 1, new InvalidPieceValue(-1)}, // Invalid piece value
 		});
 	}
 	
@@ -35,17 +44,23 @@ public class TestPiece {
 	private int pieceAValue;
 	private int pieceBValue;
 	private int expectedWinner;
-	public TestPiece(int pieceAValue, int pieceBValue, int expected) {
+	private Exception expectedException;
+	public TestPiece(int pieceAValue, int pieceBValue, int expected, Exception e) {
 		this.pieceAValue = pieceAValue;
 		this.pieceBValue = pieceBValue;
 		this.expectedWinner = expected;
+		this.expectedException = e;
 	}
 	
 
 	
 	@Test
 	public void testGetWinner() {
-		assertEquals(expectedWinner, Piece.getWinner(pieceAValue, pieceBValue));
+		try {
+			assertEquals(expectedWinner, Piece.getWinner(pieceAValue, pieceBValue));
+		} catch (Exception e) {
+			assertTrue(e.getClass().equals(expectedException.getClass()));
+		}
 	}
 	
 	@Test
