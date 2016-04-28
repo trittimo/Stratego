@@ -20,7 +20,9 @@ public class Game {
 		this.isBeginning = true;
 	}
 
-	
+	public boolean isBeginning(){
+		return this.isBeginning;
+	}
 	
 	/**
 	 * @return the Board object assigned for this game
