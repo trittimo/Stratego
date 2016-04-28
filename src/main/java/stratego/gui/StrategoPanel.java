@@ -20,10 +20,15 @@ public class StrategoPanel extends JPanel {
 	public StrategoPanel(Game game) throws IOException {
 		this.game = game;
 
-		MouseHandler mouseHandler = new MouseHandler(game);
-		GUIMap map = new GUIMap(game, mouseHandler);
-		GUIPieceSelector selector = new GUIPieceSelector(game, mouseHandler);
+		
+		//GUIMap map = new GUIMap(game, mouseHandler);
+		GUIMap map = new GUIMap(game);
+		//GUIPieceSelector selector = new GUIPieceSelector(game, mouseHandler);
+		GUIPieceSelector selector = new GUIPieceSelector(game);
+		
 		GUIMessageDisplay display = new GUIMessageDisplay(game);
+		
+		MouseHandler mouseHandler = new MouseHandler(game, selector, map); //maybe doesn't need to know of game
 
 		//displays the JPanel that holds the map 
 		JPanel mapDisplayContainer = new JPanel();

@@ -23,12 +23,12 @@ public class GUIMap extends JPanel {
 
 	private JPanel[][] grid = new JPanel[10][10];
 
-	public GUIMap(Game game, MouseHandler handler) throws IOException {
+	public GUIMap(Game game) throws IOException {
 		this.game = game;
 		this.map = ImageIO.read(MAP_FILE);
 
-		this.addMouseListener(handler);
-		handler.setMap(this);
+//		this.addMouseListener(handler);
+//		handler.setMap(this);
 
 		this.setLayout(new GridLayout(10, 10));
 		this.setPreferredSize(new Dimension(Dimensions.BOARD_WIDTH, Dimensions.BOARD_HEIGHT));

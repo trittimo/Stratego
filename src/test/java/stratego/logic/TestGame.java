@@ -13,7 +13,19 @@ import stratego.logic.exceptions.InvalidPiece;
 public class TestGame {
 		
 
-	
+	@Test
+	public void testGetGameBegin(){
+		Piece[][] p = new Piece[10][10];
+
+		Board fakeBoard = EasyMock.niceMock(Board.class);
+
+		Game g = new Game(fakeBoard);
+		
+		EasyMock.replay();
+		
+		assertTrue(g.isBeginning());
+		
+	}
 
 	@Test
 	public void testInvalidMoveWithNullPiece() {

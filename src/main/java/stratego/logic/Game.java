@@ -12,6 +12,7 @@ public class Game {
 	private Board gameBoard;
 	private int whoseTurn;
 	private boolean isBeginning;
+	public final static int totalPiecesPerPlayer = 40;
 
 	public Game(Board b) {
 		this.gameBoard = b;
@@ -28,6 +29,7 @@ public class Game {
 	public Board getBoard() {
 		return this.gameBoard;
 	}
+	
 
 	/**
 	 * @return the integer value of the player
