@@ -239,14 +239,7 @@ public class TestGame {
 		Piece next = g.getBoard().getPiece(0,1); 
 		
 		assertEquals(p1, next); 
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 }
