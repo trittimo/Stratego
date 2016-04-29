@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>MouseHandler.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">stratego.gui</a> &gt; <span class="el_source">MouseHandler.java</span></div><h1>MouseHandler.java</h1><pre class="source lang-java linenums">package stratego.gui;
+
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import stratego.Constants;
+import stratego.logic.Game;
+
+public class MouseHandler implements MouseListener {
+
+	private Game game;
+	private GUIPiece selectedPiece;
+	private GUIPiece mapSelectedPiece;
+	private int mapSelectedX;
+	private int mapSelectedY;
+	private GUIPieceSelector selector;
+	private GUIMap map;
+
+<span class="nc" id="L20">	public MouseHandler(Game game) {</span>
+<span class="nc" id="L21">		this.game = game;</span>
+<span class="nc" id="L22">	}</span>
+
+	public void setSelector(GUIPieceSelector guiPieceSelector) {
+<span class="nc" id="L25">		this.selector = guiPieceSelector;</span>
+<span class="nc" id="L26">	}</span>
+
+	public void setMap(GUIMap map) {
+<span class="nc" id="L29">		this.map = map;</span>
+<span class="nc" id="L30">	}</span>
+
+	@SuppressWarnings(&quot;unqualified-field-access&quot;)
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		//if you clicked on a piece
+<span class="nc" id="L37">		System.out.println(&quot;clicked on GUIPiece&quot;);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">		if (e.getComponent() instanceof GUIPiece){</span>
+			
+<span class="nc bnc" id="L40" title="All 2 branches missed.">			if (e.getComponent().getParent() instanceof GUIPieceSelector) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">				if (selectedPiece != null) {</span>
+<span class="nc" id="L42">					selectedPiece.setSelected(false);</span>
+				}
+<span class="nc" id="L44">				selectedPiece = (GUIPiece) e.getComponent();</span>
+<span class="nc" id="L45">				selectedPiece.setSelected(true); </span>
+<span class="nc" id="L46">			}</span>
+			else{
+<span class="nc" id="L48">			Point p = map.getLocation(e.getComponent().getParent()); </span>
+<span class="nc" id="L49">			int x = (int) p.getX(); </span>
+<span class="nc" id="L50">			int y = (int) p.getY();</span>
+				//checks if the location on the board that is clicked is occupied by a piece
+<span class="nc bnc" id="L52" title="All 2 branches missed.">				if (game.getBoard().isOccupied(x, y)) {</span>
+					//checks if piece previously selected on map is a piece - starts an attack if so
+<span class="nc bnc" id="L54" title="All 2 branches missed.">					if (mapSelectedPiece != null) {</span>
+						// TODO attack
+<span class="nc" id="L56">						mapSelectedPiece.setSelected(false);</span>
+					}
+					//set currently selected piece as mapSelectedPiece
+<span class="nc" id="L59">					mapSelectedPiece = map.getPiece(x, y);</span>
+					//if where selected is an actual piece
+<span class="nc bnc" id="L61" title="All 2 branches missed.">					if (mapSelectedPiece != null) {</span>
+<span class="nc" id="L62">						mapSelectedPiece.setSelected(true);</span>
+<span class="nc" id="L63">						mapSelectedX = x;</span>
+<span class="nc" id="L64">						mapSelectedY = y;</span>
+					}
+				}
+			}
+		
+		//if click on the map, called after click on GUIPiece
+<span class="nc bnc" id="L70" title="All 2 branches missed.">		} else if (e.getComponent() instanceof GUIMap) {</span>
+<span class="nc" id="L71">			System.out.println(&quot;clicked on GUIMap&quot;);</span>
+<span class="nc" id="L72">			int x = (int) (((double) e.getX()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);</span>
+<span class="nc" id="L73">			int y = (int) (((double) e.getY()) / ((double) Constants.Dimensions.BOARD_WIDTH) * 10);</span>
+			
+<span class="nc bnc" id="L75" title="All 2 branches missed.">			if (selectedPiece != null) {</span>
+<span class="nc" id="L76">				selectedPiece.setSelected(false);</span>
+				//if the space is not occupied and it is a valid location on the board, then place piece
+<span class="nc" id="L78">				System.out.println(&quot;checking if piece can be placed there. Occupied?: &quot; + game.getBoard().isOccupied(x, y) +</span>
+<span class="nc" id="L79">						&quot; Valid place?: &quot; + game.getBoard().isValidToPlacePiece(x, y, game.whoseTurn()));</span>
+<span class="nc bnc" id="L80" title="All 4 branches missed.">				if (!game.getBoard().isOccupied(x, y) &amp;&amp; game.getBoard().isValidToPlacePiece(x, y, game.whoseTurn())) {</span>
+<span class="nc" id="L81">					System.out.println(&quot;placed new piece: &quot; + selectedPiece.getPiece().getPieceName());</span>
+<span class="nc" id="L82">					game.getBoard().placePiece(x, y, selectedPiece.getPiece());</span>
+<span class="nc" id="L83">					map.addPiece(selectedPiece, x, y);</span>
+<span class="nc" id="L84">					selector.removePiece(selectedPiece);</span>
+				}
+<span class="nc" id="L86">				selectedPiece = null;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">			} else if (mapSelectedPiece != null) {</span>
+<span class="nc" id="L88">				mapSelectedPiece.setSelected(false);</span>
+
+				try {
+<span class="nc" id="L91">					game.getBoard().movePiece(mapSelectedX, mapSelectedY, x, y);</span>
+<span class="nc" id="L92">					map.movePiece(mapSelectedPiece, mapSelectedX, mapSelectedY, x, y);</span>
+<span class="nc" id="L93">				} catch (Exception exception) {</span>
+					// TODO do something with these exceptions
+<span class="nc" id="L95">					System.err.println(&quot;Unable to move: &quot; + exception.getMessage());</span>
+				}
+
+<span class="nc" id="L98">				mapSelectedPiece = null;</span>
+			}
+		}
+<span class="nc" id="L101">	}</span>
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+<span class="nc" id="L106">	}</span>
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+<span class="nc" id="L111">	}</span>
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+<span class="nc" id="L116">	}</span>
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+<span class="nc" id="L121">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>

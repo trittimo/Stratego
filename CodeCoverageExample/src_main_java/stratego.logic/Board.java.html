@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Board.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">stratego.logic</a> &gt; <span class="el_source">Board.java</span></div><h1>Board.java</h1><pre class="source lang-java linenums">package stratego.logic;
+
+import stratego.logic.exceptions.InvalidAction;
+import stratego.logic.exceptions.InvalidLocation;
+import stratego.logic.exceptions.InvalidMovement;
+import stratego.logic.exceptions.InvalidPiece;
+import stratego.logic.exceptions.InvalidPlacement;
+
+/**
+ * The Board class represents the Stratego Board. It contains the pieces that
+ * are placed on it. These piece's locations on the board can be manipulated by
+ * calling placePiece(), movePiece(), and removePiece()
+ */
+
+public class Board {
+
+	private Piece[][] pieces;
+	private boolean isBeginning;
+	
+<span class="fc" id="L20">	public Board(Piece[][] pieces) {</span>
+<span class="fc" id="L21">		this.pieces = pieces;</span>
+<span class="fc" id="L22">		this.isBeginning = true;</span>
+<span class="fc" id="L23">	}</span>
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Piece[][] getPieces() {
+<span class="fc" id="L30">		return this.pieces;</span>
+	}
+	
+	/**
+	 * 
+	 * Sets the beginning boolean to what is passed in 
+	 *
+	 * @param bool- is this the beginning of the game? 
+	 */
+	
+	public void setBeginning(boolean bool){
+<span class="fc" id="L41">		this.isBeginning = bool; </span>
+<span class="fc" id="L42">	}</span>
+
+	/**
+	 * Return true if it is the river part of the board.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean isRiver(int x, int y) {
+<span class="pc bpc" id="L52" title="4 of 16 branches missed.">		if ((x &gt;= 2 &amp;&amp; y &gt;= 4 &amp;&amp; x &lt;= 3 &amp;&amp; y &lt;= 5) || (x &gt;= 7 &amp;&amp; y &gt;= 4 &amp;&amp; x &lt;= 8 &amp;&amp; y &lt;= 5)) {</span>
+<span class="fc" id="L53">			return true;</span>
+		}
+<span class="fc" id="L55">		return false;</span>
+	}
+
+	/**
+	 * Return if a piece and be put on the position on the board
+	 * 
+	 * @return
+	 */
+	public boolean isValidToPlacePiece(int x, int y, int player) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">		if (isRiver(x, y)) {</span>
+<span class="fc" id="L65">			return false;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">		} else if (this.isBeginning) {</span>
+<span class="pc bpc" id="L67" title="1 of 10 branches missed.">			return ((y &lt; 4 &amp;&amp; player == 1) || (y &gt; 6 &amp;&amp; player == 2)) &amp;&amp; !this.isOccupied(x, y);</span>
+		} else {
+<span class="pc bpc" id="L69" title="2 of 4 branches missed.">			return !this.isBeginning &amp;&amp; !this.isOccupied(x, y);</span>
+		}
+	}
+
+	/**
+	 * Returns the piece at position (x, y) on the board, or an InvalidPiece
+	 * exception if no piece is found
+	 * 
+	 * @param x
+	 *            xPosition of piece on board
+	 * @param y
+	 *            yPosition of piece on board
+	 * @return
+	 */
+	public Piece getPiece(int x, int y) {
+<span class="fc bfc" id="L84" title="All 2 branches covered.">		if (this.pieces[x][y] != null) {</span>
+<span class="fc" id="L85">			return pieces[x][y];</span>
+		} else {
+<span class="fc" id="L87">			throw new InvalidPiece(x, y);</span>
+		}
+	}
+
+	/**
+	 * @return the total number of pieces on the board
+	 */
+	public int pieceCount() {
+<span class="fc" id="L95">		int count = 0;</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">		for (int i = 0; i &lt; this.pieces.length; i++) {</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">			for (int j = 0; j &lt; this.pieces[0].length; j++) {</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">				if (this.pieces[i][j] != null) {</span>
+<span class="fc" id="L99">					count++;</span>
+				}
+			}
+		}
+<span class="fc" id="L103">		return count;</span>
+	}
+
+	/**
+	 * Checks whether a location on the board is occupied throws
+	 *
+	 * @param x
+	 *            xPosition to check
+	 * @param y
+	 *            yPosition to check
+	 * @return true if the location is occupied, false otherwise
+	 * 
+	 */
+	public boolean isOccupied(int x, int y) {
+<span class="pc bpc" id="L117" title="2 of 8 branches missed.">		if (x &lt; 0 || y &lt; 0 || x &gt; this.pieces.length || y &gt; this.pieces[0].length) {</span>
+<span class="fc" id="L118">			throw new InvalidLocation(x, y);</span>
+		}
+<span class="fc bfc" id="L120" title="All 2 branches covered.">		return !(this.pieces[x][y] == null);</span>
+	}
+
+	/**
+	 * Place a piece on the board at position (x, y)
+	 * 
+	 * @param x
+	 *            position of piece on board
+	 * @param y
+	 *            position of piece on board
+	 * @param p
+	 *            - the piece object to be placed on the board
+	 */
+	public void placePiece(int x, int y, Piece p) {
+<span class="pc bpc" id="L134" title="3 of 8 branches missed.">		if (x &lt; 0 || y &lt; 0 || x &gt; pieces.length || y &gt; pieces[0].length) {</span>
+<span class="fc" id="L135">			throw new InvalidPlacement(p, this, x, y, &quot;Attempt to place piece outside of the board&quot;);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">		} else if (isOccupied(x, y)) {</span>
+<span class="fc" id="L137">			throw new InvalidPlacement(p, this, x, y, &quot;Attempt to place piece in an already occupied location&quot;);</span>
+		}
+<span class="fc" id="L139">		this.pieces[x][y] = p;</span>
+<span class="fc" id="L140">	}</span>
+
+	/**
+	 * Check if a piece is allowed to move from (x1, y1) to (x2, y2): only does
+	 * distance and directional testing
+	 * 
+	 * @param x1
+	 *            starting position of piece on board
+	 * @param x2
+	 *            starting position of piece on board
+	 * @param y1
+	 *            final position of piece on board
+	 * @param y2
+	 *            final position of piece on board
+	 * @return true if a piece can move from (x1, y1) to (x2, y2)
+	 */
+	public boolean isValidMoveDirection(int x1, int y1, int x2, int y2) {
+<span class="fc" id="L157">		Piece piece = this.pieces[x1][y1];</span>
+<span class="fc bfc" id="L158" title="All 4 branches covered.">		if (x1 != x2 &amp;&amp; y1 != y2) {</span>
+<span class="fc" id="L159">			return false;</span>
+<span class="fc bfc" id="L160" title="All 4 branches covered.">		} else if (piece.getValue() != 9 &amp;&amp; Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) &gt; 1) {</span>
+<span class="fc" id="L161">			return false;</span>
+		}
+<span class="fc" id="L163">		return true;</span>
+	}
+
+	/**
+	 * Move a piece at location (x1, y1) to (x2, y2)
+	 * 
+	 * @param x1
+	 *            starting position of piece on board
+	 * @param y1
+	 *            starting position of piece on board
+	 * @param x2
+	 *            final position of piece on board
+	 * @param y2
+	 *            final position of piece on board
+	 */
+	public void movePiece(int x1, int y1, int x2, int y2)  {
+<span class="fc bfc" id="L179" title="All 2 branches covered.">		if (this.pieces[x1][y1] == null) {</span>
+<span class="fc" id="L180">			throw new InvalidMovement(&quot;non-existant&quot;, x1, y1, x2, y2);</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">		} else if (this.pieces[x2][y2] != null) {</span>
+<span class="fc" id="L182">			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">		} else if (!isValidMoveDirection(x1, y1, x2, y2)) {</span>
+<span class="fc" id="L184">			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);</span>
+		}
+
+<span class="fc" id="L187">		this.pieces[x2][y2] = this.pieces[x1][y1];</span>
+<span class="fc" id="L188">		this.pieces[x1][y1] = null;</span>
+<span class="fc" id="L189">	}</span>
+
+	/**
+	 * Removes the piece at (x, y)
+	 * 
+	 * @param x
+	 *            position of piece on board
+	 * @param y
+	 *            position of piece on board
+	 */
+	public void removePiece(int x, int y) {
+<span class="fc bfc" id="L200" title="All 2 branches covered.">		if (this.pieces[x][y] == null) {</span>
+<span class="fc" id="L201">			throw new InvalidAction(&quot;Cannot remove piece at (&quot; + x + &quot;, &quot; + y + &quot;): piece does not exist&quot;);</span>
+		}
+<span class="fc" id="L203">		this.pieces[x][y] = null;</span>
+<span class="fc" id="L204">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>

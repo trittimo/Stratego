@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Piece.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">stratego.logic</a> &gt; <span class="el_source">Piece.java</span></div><h1>Piece.java</h1><pre class="source lang-java linenums">package stratego.logic;
+
+import stratego.logic.exceptions.InvalidAttacker;
+import stratego.logic.exceptions.InvalidPieceValue;
+import stratego.logic.exceptions.InvalidPlayer;
+
+/**
+ * This class contains the information about pieces that are placed on the board
+ */
+public class Piece {
+
+<span class="fc" id="L12">	private static String[] pieceNames = { &quot;Marshal&quot;, &quot;General&quot;, &quot;Colonel&quot;, &quot;Major&quot;, </span>
+<span class="fc" id="L13">		&quot;Captain&quot;, &quot;Lieutenant&quot;,</span>
+<span class="fc" id="L14">			&quot;Sergeant&quot;, &quot;Miner&quot;, &quot;Scout&quot;, &quot;Spy&quot;, &quot;Bomb&quot;, &quot;Flag&quot; };</span>
+
+	private int pieceValue;
+	private int player;
+
+<span class="fc" id="L19">	public Piece(int value, int player) {</span>
+<span class="fc bfc" id="L20" title="All 4 branches covered.">		if (value &lt; 1 || value &gt; pieceNames.length) {</span>
+<span class="fc" id="L21">			throw new InvalidPieceValue(value);</span>
+		}
+<span class="fc bfc" id="L23" title="All 4 branches covered.">		if (player &lt; 1 || player &gt; 2) {</span>
+<span class="fc" id="L24">			throw new InvalidPlayer(player);</span>
+		}
+<span class="fc" id="L26">		this.pieceValue = value;</span>
+<span class="fc" id="L27">		this.player = player;</span>
+<span class="fc" id="L28">	}</span>
+
+	/**
+	 * @return the integer value corresponding to a certain piece
+	 */
+	public int getValue() {
+<span class="fc" id="L34">		return this.pieceValue;</span>
+	}
+
+	/**
+	 * @return the player who 'owns' this particular piece
+	 */
+	public int getPlayer() {
+<span class="fc" id="L41">		return this.player;</span>
+	}
+
+	/**
+	 * @return the string representation of this particular piece
+	 */
+	public String getPieceName() {
+<span class="fc" id="L48">		return pieceNames[this.getValue() - 1];</span>
+	}
+
+	/**
+	 * @return the rank of the piece, in the range [1, 10] rank in the range of
+	 *         [1, 10] are regular pieces rank of 0 is a bomb rank of -1 is the
+	 *         flag
+	 */
+	public int getRank() {
+<span class="fc" id="L57">		return 11 - this.getValue();</span>
+	}
+	
+	/**
+	 * Returns the winner between an exchange
+	 * @param valueAttacker The piece value of the attacker
+	 * @param valueDefender The piece value of the defender
+	 * @return the piece value of the winner, or -1 if neither piece wins
+	 */
+	public static int getWinner(int valueAttacker, int valueDefender) {
+		//if trying to attack with a bomb or flag
+<span class="pc bpc" id="L68" title="1 of 4 branches missed.">		if (valueAttacker == 11 || valueAttacker == 12){</span>
+<span class="fc" id="L69">			throw new InvalidAttacker(valueAttacker);</span>
+<span class="fc bfc" id="L70" title="All 4 branches covered.">		}else if(valueAttacker &lt; 1 || valueAttacker &gt; 12){</span>
+<span class="fc" id="L71">			throw new InvalidPieceValue(valueAttacker);</span>
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">		}else if(valueDefender &lt; 1 || valueDefender &gt; 12){</span>
+<span class="fc" id="L73">			throw new InvalidPieceValue(valueDefender);</span>
+		}
+<span class="fc bfc" id="L75" title="All 2 branches covered.">		if (valueAttacker == valueDefender) { // If the pieces are the same rank</span>
+<span class="fc" id="L76">			return -1; // Nobody wins</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">		} else if (valueDefender == 12) { // The flag can't win</span>
+<span class="fc" id="L78">			return valueAttacker;</span>
+		}
+		
+<span class="fc bfc" id="L81" title="All 3 branches covered.">		switch(valueAttacker) {</span>
+		case 3:
+<span class="pc bpc" id="L83" title="1 of 4 branches missed.">			return valueDefender == 11 || valueAttacker &gt; valueDefender ? valueAttacker : valueDefender;</span>
+		case 10:
+<span class="fc bfc" id="L85" title="All 2 branches covered.">			return valueDefender == 1 ? valueAttacker : valueDefender;</span>
+		}
+		
+<span class="fc bfc" id="L88" title="All 2 branches covered.">		if (valueDefender == 11) { // Bombs win in most exchanges</span>
+<span class="fc" id="L89">			return valueDefender;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">		} else if (valueAttacker &lt; valueDefender) {</span>
+<span class="fc" id="L91">			return valueAttacker;</span>
+		} else {
+<span class="fc" id="L93">			return valueDefender;</span>
+		}
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>

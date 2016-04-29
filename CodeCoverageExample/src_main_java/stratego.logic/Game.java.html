@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">stratego.logic</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package stratego.logic;
+
+import stratego.logic.exceptions.InvalidMovement;
+import stratego.logic.exceptions.InvalidPiece;
+
+/**
+ * This class contains the information about the game itself as well as the
+ * gameplay
+ */
+public class Game {
+
+	private Board gameBoard;
+	private int whoseTurn;
+	private boolean isBeginning;
+
+<span class="fc" id="L16">	public Game(Board b) {</span>
+<span class="fc" id="L17">		this.gameBoard = b;</span>
+<span class="fc" id="L18">		this.whoseTurn = 1;</span>
+<span class="fc" id="L19">		this.isBeginning = true;</span>
+<span class="fc" id="L20">	}</span>
+
+	
+	
+	/**
+	 * @return the Board object assigned for this game
+	 */
+
+	public Board getBoard() {
+<span class="fc" id="L29">		return this.gameBoard;</span>
+	}
+
+	/**
+	 * @return the integer value of the player
+	 */
+	public int whoseTurn() {
+<span class="fc" id="L36">		return this.whoseTurn;</span>
+	}
+
+	/**
+	 * switches the player turns to be called after moves are made
+	 */
+	public void switchTurns() {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">		if (whoseTurn == 1)</span>
+<span class="fc" id="L44">			this.whoseTurn = 2;</span>
+		else
+<span class="fc" id="L46">			this.whoseTurn = 1;</span>
+<span class="fc" id="L47">	}</span>
+
+	/**
+	 * Attempts to move a piece at position (x1, y1) to position (x2, y2)
+	 * 
+	 * @param x1
+	 *            piece1 x
+	 * @param y1
+	 *            piece1 y
+	 * @param x2
+	 *            piece2 x
+	 * @param y2
+	 *            piece2 y
+	 */
+	public boolean makeMove(int x1, int y1, int x2, int y2) {
+<span class="fc" id="L62">		Board b = this.gameBoard;</span>
+		try {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">			if (b.isOccupied(x2, y2)) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">				if (b.getPiece(x1, y1).getRank() &gt; b.getPiece(x2, y2).getRank()) {</span>
+<span class="fc" id="L66">					b.removePiece(x2, y2);</span>
+<span class="fc" id="L67">					b.movePiece(x1, y1, x2, y2);</span>
+<span class="fc" id="L68">				} else {</span>
+<span class="fc" id="L69">					b.removePiece(x1, y1);</span>
+				}
+
+<span class="fc" id="L72">			} else {</span>
+<span class="fc" id="L73">				b.movePiece(x1, y1, x2, y2);</span>
+			}
+<span class="fc" id="L75">			return true;</span>
+<span class="fc" id="L76">		} catch (Exception e) {</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">			if (e instanceof InvalidMovement) {</span>
+<span class="fc" id="L78">				throw new InvalidPiece(x1, y1);</span>
+			}
+<span class="fc" id="L80">			return false;</span>
+		}
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>
