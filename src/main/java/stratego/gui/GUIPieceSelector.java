@@ -30,8 +30,15 @@ public class GUIPieceSelector extends JPanel {
 	}
 
 	public void switchTurns() {
+		System.out.println("switching turns");
 		ArrayList<GUIPiece> pieces = this.game.whoseTurn() == 1 ? this.piecesInSelectorP1 : this.piecesInSelectorP2;
 		this.removeAll();
+		if(this.getBackground() == Color.BLUE){
+			this.setBackground(Color.RED);
+		}else {
+			this.setBackground(Color.BLUE);
+		}
+		this.setBackground(Color.RED);
 		for (GUIPiece piece : pieces) {
 			this.add(piece);
 		}
@@ -46,7 +53,7 @@ public class GUIPieceSelector extends JPanel {
 	}
 
 	public void loadPieces(MouseHandler mouseHandler) {
-		//for each piece type create a piece
+		//for each piece type create correct number of pieces
 		for (PieceType piece : GUIPiece.PieceType.values()) {
 			for (int i = 0; i < piece.initialCount; i++) {
 				GUIPiece p1 = new GUIPiece(this.game, new Piece(piece.value, 1), piece);
@@ -58,6 +65,9 @@ public class GUIPieceSelector extends JPanel {
 				piecesInSelectorP2.add(p2);
 			}
 		}
-		switchTurns();
+		
+		for (GUIPiece piece : piecesInSelectorP1) {
+			this.add(piece);
+		}
 	}
 }

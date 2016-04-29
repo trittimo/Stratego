@@ -106,7 +106,13 @@ public class MouseHandler implements MouseListener {
 				}
 				selectedPiece = null;
 				
-				if(game.getBoard().pieceCount() == game.totalPiecesPerPlayer && game.)
+				//if 40 or 80 pieces have been placed and the game is in the beginning setup phase switch selectors
+				if(game.getBoard().pieceCount() != 0 && game.getBoard().pieceCount() % game.totalPiecesPerPlayer == 0 && game.isBeginning()){
+					System.out.println("switching turns");
+					game.switchTurns();
+					selector.switchTurns();
+					mapSelectedPiece = null;
+				}
 			} else if (mapSelectedPiece != null) {
 				mapSelectedPiece.setSelected(false);
 
