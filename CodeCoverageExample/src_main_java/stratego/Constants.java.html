@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Constants.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">stratego</a> &gt; <span class="el_source">Constants.java</span></div><h1>Constants.java</h1><pre class="source lang-java linenums">package stratego;
+
+import java.io.File;
+
+<span class="nc" id="L5">public class Constants {</span>
+<span class="nc" id="L6">	public static final File IMAGES = new File(&quot;images&quot;);</span>
+<span class="nc" id="L7">	public static final File MAP_FILE = new File(IMAGES, &quot;map.png&quot;);</span>
+<span class="nc" id="L8">	public static final File INVISIBLE_FILE = new File(IMAGES, &quot;invisible.png&quot;);</span>
+
+<span class="nc" id="L10">	public static class Dimensions {</span>
+		public static final int WINDOW_WIDTH = 900;
+		public static final int WINDOW_HEIGHT = 900;
+		public static final int BOARD_WIDTH = WINDOW_WIDTH * 2 / 3;
+		public static final int BOARD_HEIGHT = WINDOW_HEIGHT * 2 / 3;
+		public static final int SELECTOR_WIDTH = WINDOW_WIDTH;
+		public static final int SELECTOR_HEIGHT = WINDOW_HEIGHT - BOARD_HEIGHT;
+		public static final int MESSAGES_HEIGHT = BOARD_HEIGHT;
+		public static final int MESSAGES_WIDTH = WINDOW_WIDTH - BOARD_WIDTH;
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>

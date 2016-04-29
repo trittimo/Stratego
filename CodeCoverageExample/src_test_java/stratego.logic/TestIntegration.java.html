@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>TestIntegration.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">stratego.logic</a> &gt; <span class="el_source">TestIntegration.java</span></div><h1>TestIntegration.java</h1><pre class="source lang-java linenums">package stratego.logic;
+
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+@RunWith(Parameterized.class)
+public class TestIntegration {
+	
+	private Piece piece1_1;
+    private Piece piece1_2;
+    private Piece piece2_1;
+    private Piece piece2_2;
+    private int winnerA;
+    private int winnerB;
+    
+<span class="nc" id="L23">    public TestIntegration(Piece p1_1, Piece p1_2, Piece p2_1, Piece p2_2, int winA, int winB){</span>
+<span class="nc" id="L24">    	this.piece1_1 = p1_1;</span>
+<span class="nc" id="L25">    	this.piece1_2 = p1_2;</span>
+<span class="nc" id="L26">    	this.piece2_1 = p2_1;</span>
+<span class="nc" id="L27">    	this.piece2_2 = p2_2;</span>
+<span class="nc" id="L28">    	this.winnerA = winA;</span>
+<span class="nc" id="L29">    	this.winnerB = winB;</span>
+<span class="nc" id="L30">    }</span>
+
+	@Parameters
+    public static Collection&lt;Object[]&gt; data() {
+<span class="nc" id="L34">        return Arrays.asList(new Object[][] {     </span>
+<span class="nc" id="L35">                 { new Piece(9, 1), new Piece(12, 1), new Piece(9, 2), new Piece(9, 2), -1, 9 },</span>
+<span class="nc" id="L36">                 { new Piece(8, 1), new Piece(11, 1), new Piece(11, 2), new Piece(6, 2), 8, 11 },</span>
+<span class="nc" id="L37">                 { new Piece(1, 1), new Piece(2, 1), new Piece(2, 2), new Piece(1, 2), 1, 1 },</span>
+<span class="nc" id="L38">                 { new Piece(10, 1), new Piece(10, 1), new Piece(1, 2), new Piece(1, 2), 10, 1 },</span>
+<span class="nc" id="L39">                 { new Piece(10, 1), new Piece(10, 1), new Piece(9, 2), new Piece(10, 2), 9, -1 },</span>
+           });
+    }
+    
+    
+    
+    
+	@Test
+	public void test() {
+		
+<span class="nc" id="L49">		Piece [][] pieces = new Piece[3][3];</span>
+<span class="nc" id="L50">		Board board = new Board(pieces);</span>
+<span class="nc" id="L51">		Game g = new Game(board);</span>
+		
+<span class="nc" id="L53">		Board game_board = g.getBoard();</span>
+		
+		//place pieces in initial positions
+<span class="nc" id="L56">		game_board.placePiece(0, 0, this.piece1_1);</span>
+<span class="nc" id="L57">		game_board.placePiece(0, 2, this.piece1_2);</span>
+<span class="nc" id="L58">		game_board.placePiece(2, 0, this.piece2_1);</span>
+<span class="nc" id="L59">		game_board.placePiece(2, 2, this.piece2_2);</span>
+		
+		//starts with player 1
+<span class="nc" id="L62">		assertEquals(g.whoseTurn(), 1);</span>
+		
+<span class="nc" id="L64">		g.makeMove(0, 2, 1, 2); //defender</span>
+		
+<span class="nc" id="L66">		g.switchTurns();</span>
+<span class="nc" id="L67">		assertEquals(g.whoseTurn(), 2);</span>
+		
+<span class="nc" id="L69">		g.makeMove(2, 2, 1, 2); //attacker</span>
+		
+<span class="nc" id="L71">		g.switchTurns();</span>
+<span class="nc" id="L72">		assertEquals(g.whoseTurn(), 1);</span>
+		
+<span class="nc" id="L74">		assertEquals(this.winnerB, game_board.getPiece(1, 2).getValue());</span>
+		
+<span class="nc" id="L76">		g.switchTurns(); //this is so the the correct pieces move on the right turns for this test</span>
+<span class="nc" id="L77">		assertEquals(g.whoseTurn(), 2);</span>
+		
+<span class="nc" id="L79">		g.makeMove(2, 0, 1, 0); //defender</span>
+
+<span class="nc" id="L81">		g.switchTurns();</span>
+<span class="nc" id="L82">		assertEquals(g.whoseTurn(), 1);</span>
+		
+<span class="nc" id="L84">		g.makeMove(0, 0, 1, 0); //attacker</span>
+		
+<span class="nc" id="L86">		g.switchTurns();</span>
+<span class="nc" id="L87">		assertEquals(g.whoseTurn(), 2);</span>
+		
+<span class="nc" id="L89">		assertEquals(this.winnerA, game_board.getPiece(1, 0).getValue());</span>
+<span class="nc" id="L90">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>
