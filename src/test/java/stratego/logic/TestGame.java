@@ -221,7 +221,26 @@ public class TestGame {
 		Piece next = g.getBoard().getPiece(0, 1);
 		
 		assertEquals(p1, next);
+	}
 	
+	@Test
+	public void makeMoveIsOccupiedDefenderWinsTest(){
+		Piece[][] p = new Piece[10][10]; 
+		Board b = new Board(p);
+		Game g = new Game(b); 
+		
+		Piece p1 = new Piece (1,1);
+		Piece p2 = new Piece (2,2);
+		
+		g.getBoard().placePiece(0, 0, p2);
+		g.getBoard().placePiece(0, 1, p1);
+		
+		g.makeMove(0, 0, 0, 1); 
+		Piece next = g.getBoard().getPiece(0,1); 
+		
+		assertEquals(p1, next); 
+		
+		
 		
 		
 		
