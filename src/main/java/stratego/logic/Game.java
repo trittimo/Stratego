@@ -12,6 +12,7 @@ public class Game {
 	private Board gameBoard;
 	private int whoseTurn;
 	private boolean isBeginning;
+	public final static int totalPiecesPerPlayer = 40;
 
 	public Game(Board b) {
 		this.gameBoard = b;
@@ -19,7 +20,9 @@ public class Game {
 		this.isBeginning = true;
 	}
 
-	
+	public boolean isBeginning(){
+		return this.isBeginning;
+	}
 	
 	/**
 	 * @return the Board object assigned for this game
@@ -28,6 +31,7 @@ public class Game {
 	public Board getBoard() {
 		return this.gameBoard;
 	}
+	
 
 	/**
 	 * @return the integer value of the player
@@ -62,7 +66,9 @@ public class Game {
 		Board b = this.gameBoard;
 		try {
 			if (b.isOccupied(x2, y2)) {
-				if (b.getPiece(x1, y1).getRank() > b.getPiece(x2, y2).getRank()) {
+				Piece p1 = b.getPiece(x1, y1);
+				Piece p2 = b.getPiece(x2, y2);
+				if (Piece.getWinner(p1.getValue(), p2.getValue()) == p1.getValue()) {
 					b.removePiece(x2, y2);
 					b.movePiece(x1, y1, x2, y2);
 				} else {

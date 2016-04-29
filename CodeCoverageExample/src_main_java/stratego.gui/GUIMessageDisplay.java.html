@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>GUIMessageDisplay.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">stratego.gui</a> &gt; <span class="el_source">GUIMessageDisplay.java</span></div><h1>GUIMessageDisplay.java</h1><pre class="source lang-java linenums">package stratego.gui;
+
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import stratego.Constants;
+import stratego.logic.Game;
+
+public class GUIMessageDisplay extends JPanel {
+	
+	private Game game; 
+	
+<span class="nc" id="L16">	public GUIMessageDisplay(Game game) {</span>
+<span class="nc" id="L17">		this.setPreferredSize(new Dimension(Constants.Dimensions.MESSAGES_WIDTH, Constants.Dimensions.MESSAGES_HEIGHT));</span>
+<span class="nc" id="L18">		this.setBackground(Color.CYAN);</span>
+<span class="nc" id="L19">		this.game = game; </span>
+		
+<span class="nc" id="L21">		JLabel playerTurn = new JLabel(&quot;Player &quot; + game.whoseTurn() + &quot; 's turn&quot;);</span>
+//		playerTurn.setSize(new Dimension 
+//				(stratego.Constants.Dimensions.MESSAGES_HEIGHT, 100));
+//		playerTurn.setLocation(0, 0);
+<span class="nc" id="L25">		playerTurn.setForeground(Color.RED);</span>
+<span class="nc" id="L26">		this.add(playerTurn);</span>
+		
+<span class="nc" id="L28">		JLabel playerPieces = new JLabel(&quot;Player &quot; + game.whoseTurn() + &quot; 's pieces: &quot;);</span>
+<span class="nc" id="L29">		playerPieces.setForeground(Color.RED);</span>
+		
+		//JLabel playerPieces = new JLabel()
+		
+		
+		
+
+<span class="nc" id="L36">	}</span>
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>

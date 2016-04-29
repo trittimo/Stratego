@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>GUIPiece.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">stratego.gui</a> &gt; <span class="el_source">GUIPiece.java</span></div><h1>GUIPiece.java</h1><pre class="source lang-java linenums"><span class="nc" id="L1">package stratego.gui;</span>
+
+import static stratego.Constants.IMAGES;
+import static stratego.Constants.INVISIBLE_FILE;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+
+import stratego.Constants.Dimensions;
+import stratego.logic.Game;
+import stratego.logic.Piece;
+
+public class GUIPiece extends JComponent {
+	private Game game;
+	private Piece piece;
+	private PieceType type;
+<span class="nc" id="L25">	private boolean onBoard = false;</span>
+<span class="nc" id="L26">	private boolean isVisible = true;</span>
+	private boolean selected;
+	private static BufferedImage invisibleImage;
+
+<span class="nc" id="L30">	public GUIPiece(Game game, Piece piece, PieceType type) {</span>
+<span class="nc" id="L31">		this.game = game;</span>
+<span class="nc" id="L32">		this.piece = piece;</span>
+<span class="nc" id="L33">		this.type = type;</span>
+<span class="nc" id="L34">	}</span>
+
+	public void setPieceVisible(boolean isVisible) {
+<span class="nc" id="L37">		this.isVisible = isVisible;</span>
+<span class="nc" id="L38">	}</span>
+
+	public void setOnBoard(boolean onBoard) {
+<span class="nc" id="L41">		this.onBoard = onBoard;</span>
+<span class="nc" id="L42">	}</span>
+
+	public int getPieceSize() {
+<span class="nc bnc" id="L45" title="All 2 branches missed.">		if (this.onBoard) {</span>
+<span class="nc" id="L46">			return Dimensions.BOARD_WIDTH / 10;</span>
+		} else {
+<span class="nc" id="L48">			return Dimensions.SELECTOR_WIDTH * 3 / 40;</span>
+		}
+	}
+
+	public BufferedImage getImage() {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">		if (this.isVisible) {</span>
+<span class="nc" id="L54">			return this.type.image;</span>
+		} else {
+<span class="nc" id="L56">			return invisibleImage;</span>
+		}
+	}
+
+	public Piece getPiece() {
+<span class="nc" id="L61">		return this.piece;</span>
+	}
+
+	public void setSelected(boolean selected) {
+<span class="nc" id="L65">		this.selected = selected;</span>
+<span class="nc" id="L66">		this.repaint();</span>
+<span class="nc" id="L67">	}</span>
+
+	@Override
+	public void paintComponent(Graphics g) {
+<span class="nc" id="L71">		super.paintComponent(g);</span>
+<span class="nc" id="L72">		g.drawImage(this.getImage(), 0, 0, this.getPieceSize(), this.getPieceSize(), null);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">		if (this.selected) {</span>
+<span class="nc" id="L74">			Graphics2D g2 = (Graphics2D) g;</span>
+<span class="nc" id="L75">			g2.setColor(Color.WHITE);</span>
+<span class="nc" id="L76">			g2.setStroke(new BasicStroke(3));</span>
+<span class="nc" id="L77">			g2.drawRect(0, 0, this.getPieceSize() - 3, this.getPieceSize());</span>
+		}
+<span class="nc" id="L79">	}</span>
+
+	public static void loadPieceImages() throws IOException {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">		for (PieceType piece : PieceType.values()) {</span>
+<span class="nc" id="L83">			piece.loadImage();</span>
+		}
+<span class="nc" id="L85">		invisibleImage = ImageIO.read(INVISIBLE_FILE);</span>
+<span class="nc" id="L86">	}</span>
+
+<span class="nc" id="L88">	public enum PieceType {</span>
+<span class="nc" id="L89">		Marshal(1, 1), General(1, 2), Colonel(2, 3), Major(3, 4), Captain(4, 5), Lieutenant(4, 6), Sergeant(4,</span>
+<span class="nc" id="L90">				7), Miner(5, 8), Scout(8, 9), Spy(1, 10), Bomb(6, 11), Flag(1, 12);</span>
+
+		public final int initialCount;
+		public final int value;
+		public BufferedImage image;
+
+<span class="nc" id="L96">		PieceType(int initialCount, int value) {</span>
+<span class="nc" id="L97">			this.initialCount = initialCount;</span>
+<span class="nc" id="L98">			this.value = value;</span>
+<span class="nc" id="L99">		}</span>
+
+		public void loadImage() throws IOException {
+<span class="nc" id="L102">			File path = new File(IMAGES, this.toString() + &quot;.png&quot;);</span>
+			try {
+<span class="nc" id="L104">				this.image = ImageIO.read(path);</span>
+<span class="nc" id="L105">			} catch (IOException e) {</span>
+<span class="nc" id="L106">				throw new IOException(&quot;Failed to load resource: &quot; + path.getName());</span>
+			}
+<span class="nc" id="L108">		}</span>
+
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>

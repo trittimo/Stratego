@@ -64,7 +64,7 @@ public class Board {
 		if (isRiver(x, y)) {
 			return false;
 		} else if (this.isBeginning) {
-			return ((y < 4 && player == 1) || (y > 6 && player == 2)) && !this.isOccupied(x, y);
+			return ((y < 4 && player == 1) || (y > 5 && player == 2)) && !this.isOccupied(x, y);
 		} else {
 			return !this.isBeginning && !this.isOccupied(x, y);
 		}

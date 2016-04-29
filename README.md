@@ -2,7 +2,7 @@
 
 ## Milestone 4 Progress
 
-Stefan Brand: I worked in the software engineer in test role. I added some error handling and input checks to getWinner().  I also wrote a decision table for all the cases of pieces attacking each other and the outcomes.  I wrote parameterized integration tests that are ready to be tested when the code is updated to use getWinner in the game class.
+Stefan Brand: I worked as the test engineer. I first spent time adding comments to the GUI code to make it more understandable.  I also rearranged some things with the mouse handler and the GUI classes to reduce coupling.  I added functionality for the start of the game where each player puts down the starting pieces.  I updated the board background and tried experimenting with different piece colors and labels.  I discovered some bugs that we can fix in the next cycle.
 
 Vibha Alangar: I worked as a software engineer with Michael this week. We implemented code coverage, and got branch coverage up to 100%. In doing so, we found and fixed some bugs in our code, as well as made some of our code much more efficient. 
 

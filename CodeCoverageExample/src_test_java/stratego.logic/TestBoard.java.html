@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>TestBoard.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (1) (Apr 28, 2016 10:41:54 PM)</a> &gt; <a href="../../index.html" class="el_group">CodeCoverageExample</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">stratego.logic</a> &gt; <span class="el_source">TestBoard.java</span></div><h1>TestBoard.java</h1><pre class="source lang-java linenums">package stratego.logic;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.easymock.EasyMock;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+import stratego.logic.exceptions.InvalidAction;
+import stratego.logic.exceptions.InvalidLocation;
+import stratego.logic.exceptions.InvalidMovement;
+import stratego.logic.exceptions.InvalidPiece;
+import stratego.logic.exceptions.InvalidPlacement;
+
+@RunWith(Parameterized.class)
+public class TestBoard {
+
+	@Parameters
+	public static Collection&lt;Object[]&gt;data(){
+<span class="fc" id="L28">		return Arrays.asList(new Object[][]{</span>
+<span class="fc" id="L29">			{new Object[] {2,4,1,1}, false}, // River</span>
+<span class="fc" id="L30">			{new Object[] {7,5,2,1}, false}, // River</span>
+<span class="fc" id="L31">			{new Object[] {5,5,6,1}, false}, // Not river, but can't place since game is starting</span>
+<span class="fc" id="L32">			{new Object[] {2,7,10,2}, true}, // Fine</span>
+<span class="fc" id="L33">			{new Object[] {2,7,10,1}, false}, // Player 1 can't place here</span>
+<span class="fc" id="L34">			{new Object[] {0,0,1,1}, true}, // Edge case for player 1</span>
+<span class="fc" id="L35">			{new Object[] {0,0,1,1, 0,0,2,1}, false} // Can't place on already occupied place</span>
+		});
+	}
+
+	private Object[] args;
+	private boolean expected;
+	
+<span class="fc" id="L42">	public TestBoard(Object[] args, boolean expected){</span>
+<span class="fc" id="L43">		this.args = args;</span>
+<span class="fc" id="L44">		this.expected = expected;</span>
+<span class="fc" id="L45">	}</span>
+	
+
+	@Test
+	public void testIsValidToPlacePieceNotAtBeginning(){
+<span class="fc" id="L50">		Piece[][] pieces = new Piece[10][10]; </span>
+<span class="fc" id="L51">		Board b = new Board(pieces); </span>
+<span class="fc" id="L52">		b.setBeginning(false); </span>
+		
+		
+<span class="fc" id="L55">		assertTrue(b.isValidToPlacePiece(1, 1, 1)); </span>
+		
+		
+		
+<span class="fc" id="L59">	}</span>
+	
+	@Test
+	public void testGetPieces() {
+<span class="fc" id="L63">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L64">		Board b = new Board(pieces);</span>
+<span class="fc" id="L65">		assertArrayEquals(b.getPieces(), pieces);</span>
+<span class="fc" id="L66">	}</span>
+	
+	@Test
+	public void testPlacePieceAtBeginning(){
+		//testing just the beginning
+<span class="fc" id="L71">		Board b = new Board(new Piece[10][10]);</span>
+<span class="fc" id="L72">		boolean result = true;</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">		for (int i = 0; i &lt; this.args.length; i+=4) {</span>
+<span class="pc bpc" id="L74" title="1 of 4 branches missed.">			result = result &amp;&amp; b.isValidToPlacePiece((int)args[i],(int)args[i+1],(int)args[i+3]);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">			if (result) {</span>
+<span class="fc" id="L76">				b.placePiece((int)args[i], (int)args[i+1], new Piece((int)args[i+2], (int)args[i+3]));</span>
+			}
+		}
+<span class="fc" id="L79">		assertEquals(expected, result);</span>
+<span class="fc" id="L80">	}</span>
+
+	// bva - test whether piece exists, and whether it doesnt
+	@Test
+	public void getPiece() {
+<span class="fc" id="L85">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L86">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L88">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+<span class="fc" id="L89">		EasyMock.replay(fakePiece);</span>
+
+<span class="fc" id="L91">		b.placePiece(2, 2, fakePiece);</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">		assertTrue(b.getPiece(2, 2) == fakePiece);</span>
+
+<span class="fc" id="L94">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L95">	}</span>
+
+	@Test
+	public void getNonExistingPiece() {
+<span class="fc" id="L99">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L100">		Board b = new Board(pieces);</span>
+
+		try {
+<span class="nc" id="L103">			b.getPiece(2, 2);</span>
+<span class="pc" id="L104">		} catch (Exception e) {</span>
+<span class="fc" id="L105">			assertTrue(e instanceof InvalidPiece);</span>
+		}
+<span class="fc" id="L107">	}</span>
+
+	@Test
+	public void testPieceCount() {
+<span class="fc" id="L111">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L112">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L114">		assertEquals(b.pieceCount(), 0);</span>
+
+<span class="fc" id="L116">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L118">		EasyMock.replay(fakePiece);</span>
+<span class="fc" id="L119">		b.placePiece(0, 0, fakePiece);</span>
+
+<span class="fc" id="L121">		assertEquals(b.pieceCount(), 1);</span>
+<span class="fc" id="L122">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L123">	}</span>
+
+	// bva: boolean value
+	// need to test return true, false, and error
+	@Test
+	public void testIsOccupiedFalse() {
+<span class="fc" id="L129">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L130">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L132">		assertEquals(b.isOccupied(0, 0), false);</span>
+<span class="fc" id="L133">	}</span>
+
+	@Test
+	public void testIsOccupiedTrue() {
+<span class="fc" id="L137">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L138">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L140">		Piece p = new Piece(10, 1);</span>
+<span class="fc" id="L141">		b.placePiece(0, 0, p);</span>
+
+<span class="fc" id="L143">		assertEquals(b.isOccupied(0, 0), true);</span>
+<span class="fc" id="L144">	}</span>
+
+	@Test
+	public void testIsOccupiedError() {
+<span class="fc" id="L148">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L149">		Board b = new Board(pieces);</span>
+
+		try {
+<span class="nc" id="L152">			b.isOccupied(4, 4);</span>
+<span class="pc" id="L153">		} catch (Exception e) {</span>
+<span class="fc" id="L154">			assertTrue(e instanceof InvalidLocation);</span>
+		}
+
+		try {
+<span class="nc" id="L158">			b.isOccupied(-1, -1);</span>
+<span class="pc" id="L159">		} catch (Exception e) {</span>
+<span class="fc" id="L160">			assertTrue(e instanceof InvalidLocation);</span>
+		}
+<span class="fc" id="L162">	}</span>
+
+	@Test
+	public void testPlacePiece() {
+<span class="fc" id="L166">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L167">		Piece[][] piecestest = new Piece[3][3];</span>
+<span class="fc" id="L168">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L170">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L172">		b.placePiece(0, 0, fakePiece);</span>
+<span class="fc" id="L173">		piecestest[0][0] = fakePiece;</span>
+
+<span class="fc" id="L175">		EasyMock.replay(fakePiece);</span>
+<span class="fc" id="L176">		assertFalse(b.isValidMoveDirection(1, 1, 2, 2));</span>
+<span class="fc" id="L177">		assertEquals(b.getPieces()[0][0].getValue(), piecestest[0][0].getValue());</span>
+<span class="fc" id="L178">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L179">	}</span>
+
+	@Test
+	public void testPlacePiece2() {
+<span class="fc" id="L183">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L184">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L186">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+<span class="fc" id="L187">		Piece fakePiece2 = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L189">		b.placePiece(0, 0, fakePiece);</span>
+<span class="fc" id="L190">		b.placePiece(0, 1, fakePiece2);</span>
+
+<span class="fc" id="L192">		EasyMock.replay(fakePiece, fakePiece2);</span>
+<span class="fc" id="L193">		assertEquals(b.getPieces()[0][0].getValue(), fakePiece.getValue());</span>
+<span class="fc" id="L194">		assertEquals(b.getPieces()[0][1].getValue(), fakePiece2.getValue());</span>
+<span class="fc" id="L195">		EasyMock.verify(fakePiece, fakePiece2);</span>
+<span class="fc" id="L196">	}</span>
+
+	@Test
+	public void testPlacementOutsideBoard() {
+<span class="fc" id="L200">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L201">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L203">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L205">		EasyMock.replay();</span>
+
+		try {
+<span class="nc" id="L208">			b.placePiece(4, 4, fakePiece);</span>
+<span class="pc" id="L209">		} catch (Exception e) {</span>
+<span class="fc" id="L210">			assertTrue(e instanceof InvalidPlacement);</span>
+		}
+
+<span class="fc" id="L213">		EasyMock.verify();</span>
+<span class="fc" id="L214">	}</span>
+
+	@Test
+	public void testPlacementOnPiece() {
+<span class="fc" id="L218">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L219">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L221">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L223">		EasyMock.replay();</span>
+
+<span class="fc" id="L225">		b.placePiece(2, 2, fakePiece);</span>
+		try {
+<span class="nc" id="L227">			b.placePiece(2, 2, fakePiece);</span>
+<span class="pc" id="L228">		} catch (Exception e) {</span>
+<span class="fc" id="L229">			assertTrue(e instanceof InvalidPlacement);</span>
+		}
+
+<span class="fc" id="L232">		EasyMock.verify();</span>
+<span class="fc" id="L233">	}</span>
+
+	@Test
+	public void testRemoveNonExistantPiece() {
+<span class="fc" id="L237">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L238">		Board b = new Board(pieces);</span>
+		try {
+<span class="nc" id="L240">			b.removePiece(2, 2);</span>
+<span class="pc" id="L241">		} catch (Exception e) {</span>
+<span class="fc" id="L242">			assertTrue(e instanceof InvalidAction);</span>
+		}
+
+<span class="fc" id="L245">	}</span>
+
+	@Test
+	public void testMoveNonExistantPiece() {
+<span class="fc" id="L249">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L250">		Board b = new Board(pieces);</span>
+		try {
+<span class="nc" id="L252">			b.movePiece(1, 1, 2, 2);</span>
+<span class="pc" id="L253">		} catch (Exception e) {</span>
+<span class="fc" id="L254">			assertTrue(e instanceof InvalidMovement);</span>
+		}
+<span class="fc" id="L256">	}</span>
+
+	@Test
+	public void testMoveOverPiece() {
+<span class="fc" id="L260">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L261">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L263">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L265">		EasyMock.expect(fakePiece.getPieceName()).andReturn(&quot;piece&quot;);</span>
+
+<span class="fc" id="L267">		EasyMock.replay(fakePiece);</span>
+
+<span class="fc" id="L269">		b.placePiece(1, 1, fakePiece);</span>
+<span class="fc" id="L270">		b.placePiece(2, 2, fakePiece);</span>
+		try {
+<span class="nc" id="L272">			b.movePiece(1, 1, 2, 2);</span>
+<span class="pc" id="L273">		} catch (Exception e) {</span>
+<span class="fc" id="L274">			assertTrue(e instanceof InvalidMovement);</span>
+		}
+
+<span class="fc" id="L277">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L278">	}</span>
+
+	@Test
+	public void testMoveTooFar() {
+<span class="fc" id="L282">		Piece[][] pieces = new Piece[5][5];</span>
+<span class="fc" id="L283">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L285">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L287">		EasyMock.expect(fakePiece.getPieceName()).andReturn(&quot;piece&quot;);</span>
+
+<span class="fc" id="L289">		EasyMock.replay(fakePiece);</span>
+
+<span class="fc" id="L291">		b.placePiece(1, 1, fakePiece);</span>
+		try {
+<span class="nc" id="L293">			b.movePiece(1, 1, 1, 4);</span>
+<span class="pc" id="L294">		} catch (Exception e) {</span>
+<span class="fc" id="L295">			assertTrue(e instanceof InvalidMovement);</span>
+		}
+
+<span class="fc" id="L298">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L299">	}</span>
+
+	@Test
+	public void testMoveInvalidDirection() {
+<span class="fc" id="L303">		Piece[][] pieces = new Piece[5][5];</span>
+<span class="fc" id="L304">		Board b = new Board(pieces);</span>
+<span class="fc" id="L305">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L307">		b.placePiece(1, 1, fakePiece);</span>
+
+<span class="fc" id="L309">		EasyMock.replay(fakePiece);</span>
+<span class="fc" id="L310">		assertFalse(b.isValidMoveDirection(1, 1, 2, 2));</span>
+<span class="fc" id="L311">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L312">	}</span>
+
+	@Test
+	public void testMove1() {
+<span class="fc" id="L316">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L317">		Board b = new Board(pieces);</span>
+<span class="fc" id="L318">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L320">		EasyMock.replay(fakePiece);</span>
+<span class="fc" id="L321">		b.placePiece(0, 0, fakePiece);</span>
+<span class="fc" id="L322">		assertEquals(b.getPieces()[0][0].getValue(), fakePiece.getValue());</span>
+
+<span class="fc" id="L324">		b.movePiece(0, 0, 1, 0);</span>
+<span class="fc" id="L325">		assertEquals(b.getPieces()[1][0].getValue(), fakePiece.getValue());</span>
+<span class="fc" id="L326">		EasyMock.verify(fakePiece);</span>
+
+<span class="fc" id="L328">	}</span>
+
+	@Test
+	public void testMove2() {
+<span class="fc" id="L332">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L333">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L335">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L337">		EasyMock.expect(fakePiece.getValue()).andReturn(9);</span>
+<span class="fc" id="L338">		EasyMock.expect(fakePiece.getValue()).andReturn(9);</span>
+<span class="fc" id="L339">		EasyMock.expect(fakePiece.getValue()).andReturn(9);</span>
+
+<span class="fc" id="L341">		EasyMock.replay(fakePiece);</span>
+
+<span class="fc" id="L343">		b.placePiece(0, 0, fakePiece);</span>
+<span class="fc" id="L344">		assertEquals(b.getPieces()[0][0].getValue(), fakePiece.getValue());</span>
+
+<span class="fc" id="L346">		b.movePiece(0, 0, 2, 0);</span>
+<span class="fc" id="L347">		assertEquals(b.getPieces()[2][0].getValue(), fakePiece.getValue());</span>
+
+<span class="fc" id="L349">		EasyMock.verify(fakePiece);</span>
+
+<span class="fc" id="L351">	}</span>
+
+	@Test
+	public void testRemove1() {
+<span class="fc" id="L355">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L356">		Board b = new Board(pieces);</span>
+<span class="fc" id="L357">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L359">		EasyMock.replay(fakePiece);</span>
+<span class="fc" id="L360">		b.placePiece(0, 0, fakePiece);</span>
+<span class="fc" id="L361">		b.removePiece(0, 0);</span>
+
+<span class="fc" id="L363">		assertEquals(b.getPieces()[0][0], null);</span>
+<span class="fc" id="L364">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L365">	}</span>
+
+	@Test
+	public void testRemove2() {
+<span class="fc" id="L369">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L370">		Board b = new Board(pieces);</span>
+<span class="fc" id="L371">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L373">		EasyMock.replay(fakePiece);</span>
+<span class="fc" id="L374">		b.placePiece(1, 0, fakePiece);</span>
+<span class="fc" id="L375">		b.removePiece(1, 0);</span>
+
+<span class="fc" id="L377">		assertEquals(b.getPieces()[1][0], null);</span>
+<span class="fc" id="L378">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L379">	}</span>
+
+	@Test
+	public void testIsOccupied1() {
+<span class="fc" id="L383">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L384">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L386">		assertEquals(b.isOccupied(0, 0), false);</span>
+<span class="fc" id="L387">	}</span>
+
+	@Test
+	public void testIsOccupied2() {
+<span class="fc" id="L391">		Piece[][] pieces = new Piece[3][3];</span>
+<span class="fc" id="L392">		Board b = new Board(pieces);</span>
+
+<span class="fc" id="L394">		Piece fakePiece = EasyMock.niceMock(Piece.class);</span>
+
+<span class="fc" id="L396">		EasyMock.replay(fakePiece);</span>
+<span class="fc" id="L397">		b.placePiece(0, 0, fakePiece);</span>
+
+<span class="fc" id="L399">		assertEquals(b.isOccupied(0, 0), true);</span>
+<span class="fc" id="L400">		EasyMock.verify(fakePiece);</span>
+<span class="fc" id="L401">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (1) (Apr 28, 2016 10:41:54 PM)</div></body></html>
