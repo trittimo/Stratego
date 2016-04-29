@@ -28,14 +28,6 @@ public class MouseHandler implements MouseListener {
 		this.map.addMouseListener(this);
 	}
 
-//	public void setSelector(GUIPieceSelector guiPieceSelector) {
-//		this.selector = guiPieceSelector;
-//	}
-
-//	public void setMap(GUIMap map) {
-//		this.map = map;
-//	}
-
 	@SuppressWarnings("unqualified-field-access")
 	@Override
 	public void mouseClicked(MouseEvent e) {
