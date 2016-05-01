@@ -182,6 +182,8 @@ public class Board {
 			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
 		} else if (!isValidMoveDirection(x1, y1, x2, y2)) {
 			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
+		} else if (!isValidToPlacePiece(x2, y2, this.pieces[x1][y1].getPlayer())){
+			throw new InvalidMovement(this.pieces[x1][y1].getPieceName(), x1, y1, x2, y2);
 		}
 
 		this.pieces[x2][y2] = this.pieces[x1][y1];
