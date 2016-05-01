@@ -12,7 +12,7 @@ public class Game {
 	private Board gameBoard;
 	private int whoseTurn;
 	private boolean isBeginning;
-	public final static int totalPiecesPerPlayer = 40;
+	public final static int totalPiecesPerPlayer = 5;
 
 	public Game(Board b) {
 		this.gameBoard = b;
