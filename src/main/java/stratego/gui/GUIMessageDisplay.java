@@ -33,9 +33,9 @@ public class GUIMessageDisplay extends JPanel {
 		JLabel playerPieces = new JLabel("Player " + game.whoseTurn() + " 's pieces: ");
 		playerPieces.setForeground(Color.RED);
 		
-		BufferedImage totalPic = ImageIO.read(new File(IMAGES,"total.png"));
-		JLabel picLabel = new JLabel(new ImageIcon(totalPic));
-		this.add(picLabel);
+//		BufferedImage totalPic = ImageIO.read(new File(IMAGES,"total.png"));
+//		JLabel picLabel = new JLabel(new ImageIcon(totalPic));
+//		this.add(picLabel);
 
 		
 	}
