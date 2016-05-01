@@ -66,7 +66,9 @@ public class Game {
 		Board b = this.gameBoard;
 		try {
 			if (b.isOccupied(x2, y2)) {
-				if (b.getPiece(x1, y1).getRank() > b.getPiece(x2, y2).getRank()) {
+				Piece p1 = b.getPiece(x1, y1);
+				Piece p2 = b.getPiece(x2, y2);
+				if (Piece.getWinner(p1.getValue(), p2.getValue()) == p1.getValue()) {
 					b.removePiece(x2, y2);
 					b.movePiece(x1, y1, x2, y2);
 				} else {
