@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,7 +21,7 @@ public class GUIMessageDisplay extends JPanel {
 	private Game game;
 	private BufferedImage pieceKey; 
 	
-	public GUIMessageDisplay(Game game) {
+	public GUIMessageDisplay(Game game) throws IOException {
 		this.setPreferredSize(new Dimension(Constants.Dimensions.MESSAGES_WIDTH, Constants.Dimensions.MESSAGES_HEIGHT));
 		this.setBackground(Color.CYAN);
 		this.game = game; 
@@ -32,9 +33,13 @@ public class GUIMessageDisplay extends JPanel {
 		JLabel playerPieces = new JLabel("Player " + game.whoseTurn() + " 's pieces: ");
 		playerPieces.setForeground(Color.RED);
 		
-		//JLabel playerPieces = new JLabel()
+		BufferedImage totalPic = ImageIO.read(new File(IMAGES,"total.png"));
+		JLabel picLabel = new JLabel(new ImageIcon(totalPic));
+		this.add(picLabel);
+
 		
 	}
+	
 	
 	public void loadImage() throws IOException{
 		File path = new File (IMAGES, this.toString() + ".png");
