@@ -1,6 +1,10 @@
+plugins {
+    id "com.github.samueltbrown.cucumber" version "0.9"
+}
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'eclipse'
+apply plugin: "com.github.samueltbrown.cucumber"
 
 sourceCompatibility = 1.8
 version = '1.0'
@@ -28,8 +32,16 @@ jacocoTestReport {
 }
 
 dependencies {
+    testCompile 'junit:junit:4.+', 'info.cukes:cucumber-java:1.2.2'
+    cucumberCompile 'junit:junit:4.+', 'info.cukes:cucumber-java:1.2.2'
     testCompile 'junit:junit:4.+', 'org.easymock:easymock:3.4'
 }
+
+
+cucumber {
+	formats = ['pretty','junit:build/cucumber.xml']
+}
+
 
 test {
     jacoco {
@@ -37,7 +49,7 @@ test {
     }
 }
 
-test.finalizedBy(jacocoTestReport)
+//test.finalizedBy(jacocoTestReport)
 
 task codeCoverageInfo (dependsOn: jacocoTestReport) {
     ext.srcFile = file("${reportsDir}/jacoco/test/jacocoTestReport.xml")
