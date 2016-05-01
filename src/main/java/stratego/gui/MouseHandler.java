@@ -32,6 +32,7 @@ public class MouseHandler implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
+		System.out.println();
 		System.out.println("selectedPiece: " + selectedPiece);
 		System.out.println("mapSelectedPiece: " + mapSelectedPiece);
 		System.out.println("mapX: " + mapSelectedX + ", mapY: " + mapSelectedY);
@@ -89,7 +90,7 @@ public class MouseHandler implements MouseListener {
 				//if the space is not occupied and it is a valid location on the board, then place piece
 				System.out.println("checking if piece can be placed there. Occupied?: " + game.getBoard().isOccupied(x, y) +
 						" Valid place?: " + game.getBoard().isValidToPlacePiece(x, y, game.whoseTurn()));
-				if (!game.getBoard().isOccupied(x, y) && game.getBoard().isValidToPlacePiece(x, y, game.whoseTurn())) {//************add more check to 
+				if (!game.getBoard().isOccupied(x, y) && game.getBoard().isValidToPlacePiece(x, y, game.whoseTurn())) { 
 					System.out.println("placed new piece: " + selectedPiece.getPiece().getPieceName());
 					game.getBoard().placePiece(x, y, selectedPiece.getPiece());
 					map.addPiece(selectedPiece, x, y);
@@ -109,6 +110,8 @@ public class MouseHandler implements MouseListener {
 				mapSelectedPiece.setSelected(false);
 
 				try {
+					
+					
 					System.out.println("moving piece on board");
 					game.getBoard().movePiece(mapSelectedX, mapSelectedY, x, y);
 					map.movePiece(mapSelectedPiece, mapSelectedX, mapSelectedY, x, y);
