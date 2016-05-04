@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 import org.junit.Assert;
+import org.junit.Test;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import stratego.logic.*;
@@ -57,7 +57,8 @@ public class GameErrorHandling {
 			this.errors.add(e);
 		}
 	}
-
+	
+	@Test
 	@Then("^we should receive an error message that says \"(.*?)\"$")
 	public void we_should_receive_an_error_message_that_says(String message) throws Throwable {
 		boolean found = false;
@@ -69,11 +70,13 @@ public class GameErrorHandling {
 		Assert.assertTrue(found);
 	}
 
+	@Test
 	@Then("^there should be no piece at \\((\\d+), (\\d+)\\)$")
 	public void there_should_be_no_piece_at(int x, int y) throws Throwable {
 		Assert.assertEquals(null, this.board.getPieces()[x][y]);
 	}
-
+	
+	@Test
 	@Then("^piece (\\d+) should be at \\((\\d+), (\\d+)\\)$")
 	public void piece_should_be_at(int pieceName, int x, int y) throws Throwable {
 		Piece piece = this.pieces.get(pieceName);
