@@ -63,7 +63,7 @@ public class MouseHandler implements MouseListener {
 				if (game.getBoard().isOccupied(x, y)) {
 					//checks if piece previously selected on map is a piece - starts an attack if so
 					if (mapSelectedPiece != null) {
-						// TODO attack
+						// TODO: attack 
 						mapSelectedPiece.setSelected(false);
 					}
 					//set currently selected piece as mapSelectedPiece
@@ -115,6 +115,9 @@ public class MouseHandler implements MouseListener {
 					System.out.println("moving piece on board");
 					game.getBoard().movePiece(mapSelectedX, mapSelectedY, x, y);
 					map.movePiece(mapSelectedPiece, mapSelectedX, mapSelectedY, x, y);
+					if (!game.isBeginning()){
+						game.switchTurns();
+					}
 				} catch (Exception exception) {
 					// TODO do something with these exceptions
 					System.err.println("Unable to move: " + exception.getMessage());

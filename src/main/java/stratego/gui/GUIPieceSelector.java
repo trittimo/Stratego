@@ -21,7 +21,6 @@ public class GUIPieceSelector extends JPanel {
 
 	public GUIPieceSelector(Game game) throws IOException {
 		this.game = game;
-
 		this.setBackground(Color.BLUE);
 		this.setPreferredSize(new Dimension(Constants.Dimensions.SELECTOR_WIDTH, Constants.Dimensions.SELECTOR_HEIGHT));
 		this.setLayout(new GridLayout(3, 14));
@@ -38,7 +37,7 @@ public class GUIPieceSelector extends JPanel {
 		}else {
 			this.setBackground(Color.BLUE);
 		}
-		this.setBackground(Color.RED);
+		//this.setBackground(Color.RED);
 		for (GUIPiece piece : pieces) {
 			this.add(piece);
 		}
