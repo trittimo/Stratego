@@ -27,6 +27,13 @@ public class GUIPieceSelector extends JPanel {
 
 		GUIPiece.loadPieceImages();
 	}
+	
+	public int getPiecesInSelectorCount (int player){
+		if (player == 1){
+			return this.piecesInSelectorP1.size();
+		}
+		return this.piecesInSelectorP2.size();
+	}
 
 	public void switchTurns() {
 		System.out.println("switching turns");

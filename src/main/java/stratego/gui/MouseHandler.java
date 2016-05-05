@@ -52,6 +52,11 @@ public class MouseHandler implements MouseListener {
 				selectedPiece = (GUIPiece) e.getComponent();
 				selectedPiece.setSelected(true); 
 			}
+			
+			//map selected piece is the old piece (for attacks, the one that is making the attack(attacker)) 
+			//selectedPiece is the new piece (for attacks, the one that is being attacked(defender)) 
+			//public int getWinner (int valueAttacker, int valueDefender)
+			
 			//if this piece is on the map
 			else{
 			System.out.println("clicked piece on map");
@@ -64,6 +69,9 @@ public class MouseHandler implements MouseListener {
 					//checks if piece previously selected on map is a piece - starts an attack if so
 					if (mapSelectedPiece != null) {
 						// TODO: attack 
+/*						int valueAttacker = mapSelectedPiece.getPieceValue();
+						int valueDefender = mapSelectedPiece.getPieceValue();*/
+						
 						mapSelectedPiece.setSelected(false);
 					}
 					//set currently selected piece as mapSelectedPiece
@@ -96,6 +104,10 @@ public class MouseHandler implements MouseListener {
 					map.addPiece(selectedPiece, x, y);
 					System.out.println("Number of pieces placed: " + game.getBoard().pieceCount());
 					selector.removePiece(selectedPiece);
+					if (selector.getPiecesInSelectorCount(1) + selector.getPiecesInSelectorCount(2) == 0){
+						//TODO: set game.isBeginning() to false; 
+						
+					}
 				}
 				selectedPiece = null;
 				
