@@ -69,10 +69,26 @@ public class MouseHandler implements MouseListener {
 					//checks if piece previously selected on map is a piece - starts an attack if so
 					if (mapSelectedPiece != null) {
 						// TODO: attack 
-/*						int valueAttacker = mapSelectedPiece.getPieceValue();
-						int valueDefender = mapSelectedPiece.getPieceValue();*/
-						
-						mapSelectedPiece.setSelected(false);
+						//problem: need to use game.makeMove, but game.makeMove takes (x1 y1) (x2 y2)
+						//how do we get these coordinates?
+						//makes sure it's not the beginning of the game 
+						if (!game.isBeginning()){
+							//make sure the player isn't trying to attack themselves 
+							if (mapSelectedPiece.getPlayer() != selectedPiece.getPlayer()){
+								System.out.println("starting attack!");
+								System.out.println("Attacker: " + mapSelectedPiece.getPieceValue());
+								System.out.println("Defender: " + selectedPiece.getPieceValue());
+								
+								game.getBoard().movePiece(mapSelectedX, mapSelectedY, x, y);
+								map.movePiece(mapSelectedPiece, mapSelectedX, mapSelectedY, x, y);
+		
+								mapSelectedPiece.setSelected(false);
+							} else{
+								System.out.println("Player is trying to attack themselves...");
+							}
+						}else {
+							System.out.println("Can't make an attack at the beginning of the game");
+						}
 					}
 					//set currently selected piece as mapSelectedPiece
 					mapSelectedPiece = map.getPiece(x, y);
@@ -106,6 +122,7 @@ public class MouseHandler implements MouseListener {
 					selector.removePiece(selectedPiece);
 					if (selector.getPiecesInSelectorCount(1) + selector.getPiecesInSelectorCount(2) == 0){
 						//TODO: set game.isBeginning() to false; 
+						this.game.getBoard().setBeginning(false);
 						
 					}
 				}

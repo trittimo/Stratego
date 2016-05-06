@@ -36,6 +36,10 @@ public class GUIPiece extends JComponent {
 	public void setPieceVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
+	
+	public int getPlayer(){
+		return this.piece.getPlayer();
+	}
 
 	public void setOnBoard(boolean onBoard) {
 		this.onBoard = onBoard;
