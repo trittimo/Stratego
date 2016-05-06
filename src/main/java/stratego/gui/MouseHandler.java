@@ -75,20 +75,19 @@ public class MouseHandler implements MouseListener {
 						if (!game.isBeginning()){
 							//make sure the player isn't trying to attack themselves 
 							if (mapSelectedPiece.getPlayer() != selectedPiece.getPlayer()){
-						
-						
-						
-						System.out.println("starting attack!");
-						System.out.println("Attacker: " + mapSelectedPiece.getPieceValue());
-						System.out.println("Defender: " + selectedPiece.getPieceValue());
-						
-						
-						game.getBoard().movePiece(mapSelectedX, mapSelectedY, x, y);
-						map.movePiece(mapSelectedPiece, mapSelectedX, mapSelectedY, x, y);
-
-						
-						mapSelectedPiece.setSelected(false);
+								System.out.println("starting attack!");
+								System.out.println("Attacker: " + mapSelectedPiece.getPieceValue());
+								System.out.println("Defender: " + selectedPiece.getPieceValue());
+								
+								game.getBoard().movePiece(mapSelectedX, mapSelectedY, x, y);
+								map.movePiece(mapSelectedPiece, mapSelectedX, mapSelectedY, x, y);
+		
+								mapSelectedPiece.setSelected(false);
+							} else{
+								System.out.println("Player is trying to attack themselves...");
 							}
+						}else {
+							System.out.println("Can't make an attack at the beginning of the game");
 						}
 					}
 					//set currently selected piece as mapSelectedPiece
@@ -123,6 +122,7 @@ public class MouseHandler implements MouseListener {
 					selector.removePiece(selectedPiece);
 					if (selector.getPiecesInSelectorCount(1) + selector.getPiecesInSelectorCount(2) == 0){
 						//TODO: set game.isBeginning() to false; 
+						this.game.getBoard().setBeginning(false);
 						
 					}
 				}
