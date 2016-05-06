@@ -40,6 +40,10 @@ public class GUIPiece extends JComponent {
 	public void setOnBoard(boolean onBoard) {
 		this.onBoard = onBoard;
 	}
+	
+	public int getPieceValue(){
+		return this.piece.getValue();
+	}
 
 	public int getPieceSize() {
 		if (this.onBoard) {
