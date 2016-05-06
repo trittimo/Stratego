@@ -66,8 +66,19 @@ public class Game {
 		Board b = this.gameBoard;
 		try {
 			if (b.isOccupied(x2, y2)) {
-				Piece p1 = b.getPiece(x1, y1);
-				Piece p2 = b.getPiece(x2, y2);
+				Piece p1 = b.getPieces()[x1][y1];
+				Piece p2 = b.getPieces()[x2][y2];
+				if (p2 == null) {
+					b.movePiece(x1, y1, x2, y2);
+				}
+				if (p1.getPlayer() == p2.getPlayer()) {
+					throw new InvalidMovement(p1.getPieceName(), x1, y1, x2, y2, "position is occupied by your own piece");
+				}
+				
+				if (!b.isValidMoveDirection(x1, y1, x2, y2)) {
+					throw new InvalidMovement(p1.getPieceName(), x1, y1, x2, y2, "it is too far for that piece to move");
+				}
+				
 				if (Piece.getWinner(p1.getValue(), p2.getValue()) == p1.getValue()) {
 					b.removePiece(x2, y2);
 					b.movePiece(x1, y1, x2, y2);
@@ -81,7 +92,7 @@ public class Game {
 			return true;
 		} catch (Exception e) {
 			if (e instanceof InvalidMovement) {
-				throw new InvalidPiece(x1, y1);
+				throw e;
 			}
 			return false;
 		}

@@ -22,13 +22,13 @@ public class MoveIntoRiver{
 	    Piece[][] pieces = new Piece[10][10];
 	    b = new Board(pieces);
 	    g = new Game(b);
+	    b.setBeginning(false);
 	}
 	
 	@Given("^I have a piece next to a river$")
 	public void i_have_a_piece_next_to_a_river() {
 	    // Write code here that turns the phrase above into concrete actions
-		Piece p = new Piece(3, 1);
-		System.out.println(p);
+		Piece p = new Piece(3, 2);
 	    b.placePiece(2, 3, p);
 	}
 	
@@ -39,7 +39,7 @@ public class MoveIntoRiver{
 		try {
 			b.movePiece(2, 3, 2, 4);
 			Assert.fail("Movement into the river is not allowed");
-		}catch (InvalidMovement e){
+		}catch (Exception e){
 			
 		}
 	    

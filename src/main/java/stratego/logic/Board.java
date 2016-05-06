@@ -56,7 +56,7 @@ public class Board {
 	}
 
 	/**
-	 * Return if a piece and be put on the position on the board
+	 * Return if a piece can be put on the position on the board
 	 * 
 	 * @return
 	 */
@@ -135,6 +135,8 @@ public class Board {
 			throw new InvalidPlacement(p, this, x, y, "Attempt to place piece outside of the board");
 		} else if (isOccupied(x, y)) {
 			throw new InvalidPlacement(p, this, x, y, "Attempt to place piece in an already occupied location");
+		} else if (!isValidToPlacePiece(x, y, p.getPlayer())) {
+			throw new InvalidPlacement(p, this, x, y, "Invalid placement");
 		}
 		this.pieces[x][y] = p;
 	}

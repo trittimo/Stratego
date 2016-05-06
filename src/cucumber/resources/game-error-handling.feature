@@ -1,6 +1,6 @@
 Feature: GameErrorHandling
 	As a User,
-	When I do perform an invalid action
+	When I perform an invalid action
 	I should receive a helpful error message
 
 @GameErrorHandling
@@ -38,7 +38,7 @@ Scenario: Move Piece On Another Piece
 	And we move a piece from (1, 2) to (1, 3)
 	Then piece 0 should be at (1, 2)
 	And piece 1 should be at (1, 3)
-	And we should receive an error message that says "You cannot move a piece from (1, 2) to (1, 3) since it is already occupied"
+	And we should receive an error message that says "Cannot move Marshal from (1, 2) to (1, 3): position is occupied by your own piece"
 
 Scenario: Move Piece Too Far
 	Given we have an empty board
@@ -47,4 +47,4 @@ Scenario: Move Piece Too Far
 	And we place a player 1 piece 1 called 0 at (1, 3)
 	And we move a piece from (1, 3) to (1, 5)
 	Then piece 0 should be at (1, 3)
-	And we should receive an error message that says "You cannot move a piece from (1, 3) to (1, 5) since it is too far for that piece to move"
+	And we should receive an error message that says "Cannot move Marshal from (1, 3) to (1, 5)"
