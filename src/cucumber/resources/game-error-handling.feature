@@ -9,7 +9,7 @@ Scenario: Place Piece Outside Valid Range At Beginning Player 1
 	And it is the beginning of the game
 	And it is player 1 turn
 	And we place a player 1 piece 1 called 0 at (1, 6)
-	Then we should receive an error message that says "You cannot place a piece at (1, 6) - it is the beginning of the game"
+	Then we should receive an error message that says "Cannot place piece at position (1, 6): Invalid placement"
 	And there should be no piece at (1, 6)
 
 Scenario: Place Piece On Another Piece
@@ -19,14 +19,14 @@ Scenario: Place Piece On Another Piece
 	And we place a player 1 piece 1 called 0 at (1, 3)
 	And we place a player 1 piece 1 called 1 at (1, 3)
 	Then piece 0 should be at (1, 3)
-	And we should receive an error message that says "You cannot place a piece at (1, 3) - this location is already occupied"
+	And we should receive an error message that says "Cannot place piece at position (1, 3): Attempt to place piece in an already occupied location"
 
 Scenario: Place Piece Outside Valid Range At Beginning Player 2
 	Given we have an empty board
 	And it is the beginning of the game
 	And it is player 2 turn
 	And we place a player 2 piece 1 called 0 at (1, 3)
-	Then we should receive an error message that says "You cannot place a piece at (1, 3) - it is the beginning of the game"
+	Then we should receive an error message that says "Cannot place piece at position (1, 3): Invalid placement"
 	And there should be no piece at (1, 3)
 
 Scenario: Move Piece On Another Piece
