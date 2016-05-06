@@ -316,7 +316,9 @@ public class TestBoard {
 		Piece[][] pieces = new Piece[3][3];
 		Board b = new Board(pieces);
 		Piece fakePiece = EasyMock.niceMock(Piece.class);
-
+			
+		EasyMock.expect(fakePiece.getPlayer()).andReturn(1);
+		
 		EasyMock.replay(fakePiece);
 		b.placePiece(0, 0, fakePiece);
 		assertEquals(b.getPieces()[0][0].getValue(), fakePiece.getValue());
@@ -337,6 +339,7 @@ public class TestBoard {
 		EasyMock.expect(fakePiece.getValue()).andReturn(9);
 		EasyMock.expect(fakePiece.getValue()).andReturn(9);
 		EasyMock.expect(fakePiece.getValue()).andReturn(9);
+		EasyMock.expect(fakePiece.getPlayer()).andReturn(1);
 
 		EasyMock.replay(fakePiece);
 
