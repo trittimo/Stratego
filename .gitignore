@@ -97,3 +97,6 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+# CodeCover
+codecover/*

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.easymock.EasyMock;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -51,11 +52,21 @@ public class TestBoard {
 		Board b = new Board(pieces); 
 		b.setBeginning(false); 
 		
-		
 		assertTrue(b.isValidToPlacePiece(1, 1, 1)); 
-		
-		
-		
+	}
+	
+	@Test
+	public void testNotValidToPlacePieceMovement() {
+		Piece[][] pieces = new Piece[10][10];
+		Board b = new Board(pieces);
+		Piece p = new Piece(1, 1);
+		b.placePiece(1, 3, p);
+		try {
+			b.movePiece(1, 3, 1, 4);
+			Assert.fail("Should through an InvalidMovement exception");
+		} catch (Exception e) {
+			Assert.assertTrue(true); // Test passes
+		}
 	}
 	
 	@Test
