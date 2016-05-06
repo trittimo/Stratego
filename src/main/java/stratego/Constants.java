@@ -6,6 +6,7 @@ public class Constants {
 	public static final File IMAGES = new File("images");
 	public static final File MAP_FILE = new File(IMAGES, "map.png");
 	public static final File INVISIBLE_FILE = new File(IMAGES, "invisible.png");
+	public static final File STEFAN_S_FACE_FILE = new File(IMAGES, "stefan's face.png");
 
 	public static class Dimensions {
 		public static final int WINDOW_WIDTH = 900;

@@ -2,6 +2,7 @@ package stratego.gui;
 
 import static stratego.Constants.IMAGES;
 import static stratego.Constants.INVISIBLE_FILE;
+import static stratego.Constants.STEFAN_S_FACE_FILE;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -22,10 +23,8 @@ public class GUIPiece extends JComponent {
 	private Game game;
 	private Piece piece;
 	private PieceType type;
-	private boolean onBoard = false;
-	private boolean isVisible = true;
-	private boolean selected;
-	private static BufferedImage invisibleImage;
+	private boolean onBoard = false, isVisible = true, selected, placed = false;
+	private static BufferedImage invisibleImage, stefansFace;
 
 	public GUIPiece(Game game, Piece piece, PieceType type) {
 		this.game = game;
@@ -33,6 +32,7 @@ public class GUIPiece extends JComponent {
 		this.type = type;
 	}
 
+	
 	public void setPieceVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
@@ -44,8 +44,8 @@ public class GUIPiece extends JComponent {
 	public void setOnBoard(boolean onBoard) {
 		this.onBoard = onBoard;
 	}
-	
-	public int getPieceValue(){
+
+	public int getPieceValue() {
 		return this.piece.getValue();
 	}
 
@@ -58,11 +58,17 @@ public class GUIPiece extends JComponent {
 	}
 
 	public BufferedImage getImage() {
-		if (this.isVisible) {
-			return this.type.image;
-		} else {
+		if(this.isVisible){
+			if (game.whoseTurn()==piece.getPlayer()) {
+				return this.type.image;
+			}else {
+				return stefansFace;
+			}
+		}else{
 			return invisibleImage;
 		}
+		
+		
 	}
 
 	public Piece getPiece() {
@@ -84,6 +90,7 @@ public class GUIPiece extends JComponent {
 			g2.setStroke(new BasicStroke(3));
 			g2.drawRect(0, 0, this.getPieceSize() - 3, this.getPieceSize());
 		}
+		
 	}
 
 	public static void loadPieceImages() throws IOException {
@@ -91,6 +98,8 @@ public class GUIPiece extends JComponent {
 			piece.loadImage();
 		}
 		invisibleImage = ImageIO.read(INVISIBLE_FILE);
+		stefansFace = ImageIO.read(STEFAN_S_FACE_FILE);
+		
 	}
 
 	public enum PieceType {
@@ -100,6 +109,7 @@ public class GUIPiece extends JComponent {
 		public final int initialCount;
 		public final int value;
 		public BufferedImage image;
+		public boolean placed;
 
 		PieceType(int initialCount, int value) {
 			this.initialCount = initialCount;
@@ -108,6 +118,7 @@ public class GUIPiece extends JComponent {
 
 		public void loadImage() throws IOException {
 			File path = new File(IMAGES, this.toString() + ".png");
+				
 			try {
 				this.image = ImageIO.read(path);
 			} catch (IOException e) {

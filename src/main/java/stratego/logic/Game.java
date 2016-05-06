@@ -12,7 +12,7 @@ public class Game {
 	private Board gameBoard;
 	private int whoseTurn;
 	private boolean isBeginning;
-	public final static int totalPiecesPerPlayer = 5;
+	public final static int totalPiecesPerPlayer = 40;
 
 	public Game(Board b) {
 		this.gameBoard = b;
@@ -20,6 +20,11 @@ public class Game {
 		this.isBeginning = true;
 	}
 
+	
+	/**
+	 * Beginning indicates when players first put pieces on board, return true if it's that time
+	 * @return
+	 */
 	public boolean isBeginning(){
 		return this.isBeginning;
 	}
