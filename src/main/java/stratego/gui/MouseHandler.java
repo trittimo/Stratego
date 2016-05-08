@@ -133,6 +133,7 @@ public class MouseHandler implements MouseListener {
 					System.out.println("switching turns");
 					game.switchTurns();
 					selector.switchTurns();
+					map.switchTurns();
 					mapSelectedPiece = null;
 				}
 			} else if (mapSelectedPiece != null) {

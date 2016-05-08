@@ -98,4 +98,12 @@ public class GUIMap extends JPanel {
 		super.paintComponent(g);
 		g.drawImage(map, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
+
+	public void switchTurns() {
+		for (JPanel[] row : grid) {
+			for (JPanel piece : row) {
+				piece.repaint();
+			}
+		}
+	}
 }
