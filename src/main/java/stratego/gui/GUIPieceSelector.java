@@ -64,7 +64,7 @@ public class GUIPieceSelector extends JPanel {
 			for (int i = 0; i < piece.initialCount; i++) {
 				GUIPiece p1 = new GUIPiece(this.game, new Piece(piece.value, 1), piece);
 				p1.addMouseListener(mouseHandler);
-				GUIPiece p2 = new GUIPiece(this.game, new Piece(piece.value, 1), piece);
+				GUIPiece p2 = new GUIPiece(this.game, new Piece(piece.value, 2), piece);
 				p2.addMouseListener(mouseHandler);
 
 				piecesInSelectorP1.add(p1);
