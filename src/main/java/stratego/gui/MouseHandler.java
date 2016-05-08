@@ -28,7 +28,6 @@ public class MouseHandler implements MouseListener {
 		this.map.addMouseListener(this);
 	}
 
-	@SuppressWarnings("unqualified-field-access")
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
@@ -129,7 +128,7 @@ public class MouseHandler implements MouseListener {
 				selectedPiece = null;
 				
 				//if 40 or 80 pieces have been placed and the game is in the beginning setup phase switch selectors
-				if(game.getBoard().pieceCount() != 0 && game.getBoard().pieceCount() % game.totalPiecesPerPlayer == 0 && game.isBeginning()){
+				if(game.getBoard().pieceCount() != 0 && game.getBoard().pieceCount() % Game.totalPiecesPerPlayer == 0 && game.isBeginning()){
 					System.out.println("switching turns");
 					game.switchTurns();
 					selector.switchTurns();
